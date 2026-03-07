@@ -8,15 +8,23 @@
       zip
       unzip
       bat 
-      git
       android-tools
       noto-fonts-cjk-sans 
-      gh
 
       # GUI
       spotify
       discord
     ]; 
+  };
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper = {
+      enable = true;
+    };
+  };
+  programs.git = {
+    enable = true;
+    settings.user.email = "kinestt@proton.me";
   };
   imports = [
   ];
