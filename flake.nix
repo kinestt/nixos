@@ -7,7 +7,7 @@
 	    inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim.url = "github:nix-community/nixvim";
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=offline-install-onactivation-1";
   };
   outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak }: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
@@ -18,13 +18,13 @@
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       modules = [
         ./server/configuration.nix
+        nix-flatpak.nixosModules.nix-flatpak
       ];
     };
     homeConfigurations.kin = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
         ./laptop/home-manager/home.nix
-        nix-flatpak.homeManagerModules.nix-flatpak
       ];
     };
   };
