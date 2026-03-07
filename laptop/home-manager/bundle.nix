@@ -1,3 +1,3 @@
 imports = [
-  stylix.nix
+  ./stylix.nix
 ];

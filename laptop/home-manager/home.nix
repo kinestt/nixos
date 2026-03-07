@@ -18,4 +18,7 @@
       discord
     ]; 
   };
+  imports = [
+  ];
+  nixpkgs.config.allowUnfree = true;
 }

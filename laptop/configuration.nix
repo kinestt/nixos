@@ -45,6 +45,7 @@
     kdePackages.sddm-kcm
     wayland-utils
     wl-clipboard
+    home-manager
   ];
   environment.plasma6.excludePackages = with pkgs; [
     kdePackages.elisa 
@@ -56,7 +57,6 @@
     kdePackages.ksudoku
     kdePackages.ktorrent
   ];
-  nixpkgs.config.allowUnfree = true;   
   programs.firefox.enable = true;
   services.openssh.enable = true;
   networking.firewall.enable = false;
