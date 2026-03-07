@@ -11,6 +11,7 @@
       git
       android-tools
       noto-fonts-cjk-sans 
+      gh
 
       # GUI
       spotify
