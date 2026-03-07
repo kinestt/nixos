@@ -34,6 +34,23 @@
 
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-photos
+    gnome-tour
+    cheese
+    gnome-music
+    gedit 
+    epiphany 
+    geary
+    gnome-characters
+    tali
+    iagno
+    hitori
+    atomix
+    yelp
+    gnome-contacts
+    gnome-initial-setup
+  ];
   environment.systemPackages = with pkgs; [
     vim
     wayland-utils
