@@ -15,7 +15,12 @@
     home =  "/home/kin";
   };
   boot.loader.grub.device = "/dev/nvme0n1p1";
-  environment.systemPackages = with pkgs; [ vim ];
+  environment.systemPackages = with pkgs; [ 
+    vim
+    git
+    bat
+    htop 
+  ];
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Kolkata";
   services.openssh.enable = true;
