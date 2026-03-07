@@ -7,8 +7,9 @@
 	    inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim.url = "github:nix-community/nixvim";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
-  outputs = { self, nixpkgs, home-manager, nixvim }: {
+  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak }: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
 	./laptop/configuration.nix
@@ -23,6 +24,7 @@
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
         ./laptop/home-manager/home.nix
+        nix-flatpak.homeManagerModules.nix-flatpak
       ];
     };
   };

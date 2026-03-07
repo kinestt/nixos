@@ -58,10 +58,14 @@
     wl-clipboard
     home-manager
     gnome-tweaks
+    easyeffects
   ];
 
   programs.firefox.enable = true;
-  services.openssh.enable = true;
+  services = {
+    openssh.enable = true;
+    flatpak.enable = true;
+  };
   networking.firewall.enable = false;
   system.stateVersion = "25.11"; # Did you read the comment?
 }

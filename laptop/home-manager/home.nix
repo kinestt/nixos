@@ -15,6 +15,7 @@
       # GUI
       spotify
       discord
+      equibop
       bitwarden-desktop
     ]; 
   };
