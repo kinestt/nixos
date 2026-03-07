@@ -23,7 +23,7 @@
     efi.canTouchEfiVariables = true;
   };
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  networking.hostName = "laptop"; # Define your hostname.
+  networking.hostName = "laptop";
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Kolkata";
   services.pipewire = {

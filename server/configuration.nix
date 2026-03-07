@@ -22,6 +22,7 @@
     bat
     htop 
   ];
+  networking.hostName = "server";
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Kolkata";
   services.openssh.enable = true;
