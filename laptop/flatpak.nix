@@ -1,16 +1,12 @@
 {
   services.flatpak = {
     enable = true;
-    #remotes = [{
-    #  name = "flathub"; location = "https://flathub.org/repo/flathub.flatpakrepo";
-    #}];
-    update.onActivation = false;
-    update.auto = {
-      enable = false;
-      onCalendar = "daily";
-    };
+    remotes = [{
+      name = "flathub-beta"; 
+      location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
+    }];
     packages = [ 
-      { appId = "org.vinegarhq.Sober"; origin = "flathub-beta"; }
+     { appId = "org.vinegarhq.Sober"; origin = "flathub-beta"; }
     ];
   };
 }

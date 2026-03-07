@@ -62,6 +62,11 @@
     easyeffects
   ];
 
+  swapDevices = [ {
+    device = "/.swapfile";
+    size = 16 * 1024; # Size in Megabytes
+  } ];
+
   programs.firefox.enable = true;
   services = {
     openssh.enable = true;

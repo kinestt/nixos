@@ -13,12 +13,12 @@
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
 	./laptop/configuration.nix
+        nix-flatpak.nixosModules.nix-flatpak
       ];
     };
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       modules = [
         ./server/configuration.nix
-        nix-flatpak.nixosModules.nix-flatpak
       ];
     };
     homeConfigurations.kin = home-manager.lib.homeManagerConfiguration {
