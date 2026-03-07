@@ -51,11 +51,13 @@
     gnome-contacts
     gnome-initial-setup
   ];
+  programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
     vim
     wayland-utils
     wl-clipboard
     home-manager
+    gnome-tweaks
   ];
 
   programs.firefox.enable = true;

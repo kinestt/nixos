@@ -13,7 +13,6 @@
       fastfetch 
 
       # GUI
-      gnome-tweaks
       spotify
       discord
       bitwarden-desktop
