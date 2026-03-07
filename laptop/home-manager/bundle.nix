@@ -1,3 +1,5 @@
-imports = [
-  ./stylix.nix
-];
+{
+  imports = [
+    ./bash.nix
+  ];
+}

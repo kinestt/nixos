@@ -9,11 +9,13 @@
       unzip
       bat 
       android-tools
-      noto-fonts-cjk-sans 
+      noto-fonts-cjk-sans
+      fastfetch 
 
       # GUI
       spotify
       discord
+      bitwarden-desktop
     ]; 
   };
   programs.gh = {
@@ -27,6 +29,7 @@
     settings.user.email = "kinestt@proton.me";
   };
   imports = [
+    ./bundle.nix
   ];
   nixpkgs.config.allowUnfree = true;
 }

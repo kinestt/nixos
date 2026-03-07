@@ -26,37 +26,21 @@
   networking.hostName = "laptop";
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Kolkata";
+
   services.pipewire = {
     enable = true;
     pulse.enable = true;
   };
-  # KDE
-  services = {
-    desktopManager.plasma6.enable = true;
-    displayManager = {
-      sddm.enable = true;
-      sddm.wayland.enable = true;
-    }; 
-  };
+
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
   environment.systemPackages = with pkgs; [
     vim
-    kdePackages.kclock
-    kdePackages.ksystemlog 
-    kdePackages.sddm-kcm
     wayland-utils
     wl-clipboard
     home-manager
   ];
-  environment.plasma6.excludePackages = with pkgs; [
-    kdePackages.elisa 
-    kdePackages.kdepim-runtime 
-    kdePackages.kmahjongg
-    kdePackages.kmines
-    kdePackages.konversation
-    kdePackages.kpat
-    kdePackages.ksudoku
-    kdePackages.ktorrent
-  ];
+
   programs.firefox.enable = true;
   services.openssh.enable = true;
   networking.firewall.enable = false;
