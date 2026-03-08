@@ -17,6 +17,7 @@
       discord
       equibop
       bitwarden-desktop
+      qbittorrent      
 
       # GNOME
     ]; 

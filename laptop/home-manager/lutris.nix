@@ -6,7 +6,7 @@
       mangohud
       winetricks
       gamescope
-      umulauncher
+      umu-launcher
     ];
     protonPackages = [
       pkgs.proton-ge-bin
