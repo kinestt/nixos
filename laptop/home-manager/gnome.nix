@@ -1,24 +1,38 @@
-{ pkgs, ... } : { 
+{ lib, config, pkgs, ... } : { 
   home.packages = with pkgs.gnomeExtensions; [
     blur-my-shell
     dash-to-dock
     zen
     appindicator
   ];
-
+  home.file."Pictures/wallpaper.jpg".source = ./eoe_output8.png;
   dconf = {
-    settings = {
+    settings = let
+      wallpaper = "file://${config.home.homeDirectory}/Picture/wallpaper.jpg";
+    in 
+    {
       "org/gnome/mutter" = {
-         experimental-features = [ "scale-monitor-framebuffer" ];
+        experimental-features = [ "scale-monitor-framebuffer" ];
       };
       "org/gnome/shell" = {
-         disable-user-extensions = false;
-         enabled-extensions = with pkgs.gnomeExtensions; [
-           blur-my-shell.extensionUuid
-           zen.extensionUuid
-           appindicator.extensionUuid
-         ];
-       };
+        disable-user-extensions = false;
+        enabled-extensions = with pkgs.gnomeExtensions; [
+          blur-my-shell.extensionUuid
+          zen.extensionUuid
+          appindicator.extensionUuid
+        ];
+      };
+      "org/gnome/desktop/background" = {
+        picture-uri = wallpaper;
+        picture-uri-dark = wallpaper;
+        picture-options = "zoom";
+      };
     };
   };
+  home.activation.setWallpaper = let
+    wallpaper = "file://${config.home.homeDirectory}/Pictures/wallpaper.jpg";
+  in lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ${pkgs.glib}/bin/gsettings set org.gnome.desktop.background picture-uri "${wallpaper}"
+    ${pkgs.glib}/bin/gsettings set org.gnome.desktop.background picture-uri-dark "${wallpaper}"
+  '';
 }
