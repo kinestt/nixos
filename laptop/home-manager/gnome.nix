@@ -17,10 +17,12 @@
       "org/gnome/shell" = {
         disable-user-extensions = false;
         enabled-extensions = with pkgs.gnomeExtensions; [
-          blur-my-shell.extensionUuid
           zen.extensionUuid
           appindicator.extensionUuid
         ];
+      };
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-light";
       };
       "org/gnome/desktop/background" = {
         picture-uri = wallpaper;
