@@ -40,10 +40,28 @@
           version = "2026.2.0";
         })
         (createChromiumExtension {
-          # bitwarden 
+          # equicord-web 
           id = "mcambpfmpjnncfoodejdmehedbkjepmi";
           sha256 = "sha256-e/AfoyNs0q/KvtANs4TGka1Ea2o6Xj/L2Bjrc3VyF5o=";
           version = "1.14.4.1";
+        })
+        (createChromiumExtension {
+          # violentmonkey
+          id = "jinjaccalgkegednnccohejagnlnfdag";
+          sha256 = "sha256-1CYC+DQm0Glg33AnkuICDyJKvLoCJUKyPPkb7VwCeqs=";
+          version = "2.35.0";
+        })
+        (createChromiumExtension {
+          # Youtube-Enhancer by VampireChicken
+          id = "dejhhgdpambaambdifcfbmpliolehfaj";
+          sha256 = "sha256-hyPIRBEjk45z6m8cEQyYxful4/o/VjORzlvkgzZEvdM=";
+          version = "1.32.0";
+        })
+        (createChromiumExtension {
+          # Sponsorblock
+          id = "mnjggcdmjocbbbhaepdhchncahnbgone";
+          sha256 = "sha256-Nnud/gWl8DVIUa4g4oDYklDZclQRklHl5Uxvh/aEPYQ=";
+          version = "6.1.2";
         })
       ];
   };
