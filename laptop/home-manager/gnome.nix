@@ -24,6 +24,9 @@
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-light";
       };
+      "org/gnome/desktop/wm/preferences" = {
+        button-layout = "appmenu:minimize,maximize,close";
+      };
       "org/gnome/desktop/background" = {
         picture-uri = wallpaper;
         picture-uri-dark = wallpaper;
