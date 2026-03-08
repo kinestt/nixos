@@ -78,7 +78,10 @@
     device = "/.swapfile";
     size = 16 * 1024; # Size in Megabytes
   } ];
-  security.pam.services.bitwarden.enableGnomeKeyring = true;
+
+  nixpkgs.config.allowUnfree = true;
+  programs.gamemode.enable = true;
+  programs.steam.enable = true;
   programs.firefox.enable = true;
   services = {
     openssh.enable = true;

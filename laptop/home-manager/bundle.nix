@@ -3,5 +3,6 @@
     ./bash.nix
     ./gnome.nix
     ./chromium.nix
+    ./lutris.nix
   ];
 }
