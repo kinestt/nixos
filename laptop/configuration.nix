@@ -33,7 +33,9 @@
     pulse.enable = true;
   };
 
-  services.displayManager.gdm.enable = true;
+  services.displayManager.gdm = {
+    enable = true;
+  };
   services.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = with pkgs; [
     gnome-photos
@@ -61,12 +63,22 @@
     gnome-tweaks
     easyeffects
   ];
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-vaapi-driver
+      libva
+      libva-utils
+    ];
+  };
+
 
   swapDevices = [ {
     device = "/.swapfile";
     size = 16 * 1024; # Size in Megabytes
   } ];
-
+  security.pam.services.bitwarden.enableGnomeKeyring = true;
   programs.firefox.enable = true;
   services = {
     openssh.enable = true;
