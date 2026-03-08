@@ -17,6 +17,8 @@
       discord
       equibop
       bitwarden-desktop
+
+      # GNOME
     ]; 
   };
   programs.gh = {
