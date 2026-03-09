@@ -9,7 +9,7 @@
     package = pkgs.ungoogled-chromium;
     commandLineArgs = 
       [ 
-        "--ozone-platform=x11"
+       # "--ozone-platform=x11"
       ];
 
     extensions =

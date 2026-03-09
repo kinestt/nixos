@@ -23,6 +23,7 @@
       };
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
+        text-scaling-factor = 1.25;
       };
       "org/gnome/desktop/wm/preferences" = {
         button-layout = "appmenu:minimize,maximize,close";
@@ -40,4 +41,17 @@
     ${pkgs.glib}/bin/gsettings set org.gnome.desktop.background picture-uri "${wallpaper}"
     ${pkgs.glib}/bin/gsettings set org.gnome.desktop.background picture-uri-dark "${wallpaper}"
   '';
+
+  qt = {
+    enable = true;
+    platformTheme = {
+      name = "adwaita";
+      package = pkgs.adwaita-qt6;
+    };
+    style = { 
+      name = "adwaita-dark";
+      package = pkgs.adwaita-qt6;
+    };
+  };
+
 }
