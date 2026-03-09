@@ -10,7 +10,8 @@
       bat 
       android-tools
       noto-fonts-cjk-sans
-      fastfetch 
+      fastfetch
+      p7zip 
 
       # GUI
       spotify
