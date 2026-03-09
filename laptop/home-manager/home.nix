@@ -34,7 +34,7 @@
     settings.user.email = "kinestt@proton.me";
   };
   imports = [
-    ./bundle.nix
+    ./modules/bundle.nix
   ];
   nixpkgs.config.allowUnfree = true;
 }
