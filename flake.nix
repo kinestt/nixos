@@ -8,8 +8,9 @@
     };
     nixvim.url = "github:nix-community/nixvim";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=offline-install-onactivation-1";
+    nixcord.url = "github:FlameFlag/nixcord";
   };
-  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak }: {
+  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, nixcord }: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
 	./laptop/configuration.nix
@@ -24,6 +25,7 @@
     homeConfigurations.kin = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
+        nixcord.homeModules.nixcord
         ./laptop/home-manager/home.nix
       ];
     };
