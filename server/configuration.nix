@@ -3,6 +3,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      ./modules/bundle.nix
     ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
