@@ -4,5 +4,6 @@
     ./gnome.nix
     ./chromium.nix
     ./lutris.nix
+    ./nixcord.nix
   ];
 }

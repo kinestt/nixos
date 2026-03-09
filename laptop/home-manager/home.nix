@@ -15,7 +15,6 @@
 
       # GUI
       spotify
-      discord
       equibop
       bitwarden-desktop
       qbittorrent      
