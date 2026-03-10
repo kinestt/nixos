@@ -28,4 +28,6 @@
     defaults.email = "tiredhames@gmail.com";
     acceptTerms = true; 
   };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }
