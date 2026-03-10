@@ -3,7 +3,11 @@
     radarr = {
       enable = true;
       settings = {
-        server.port = 7878;
+        server = {
+          urlbase = "localhost";
+          bindaddress = "*";
+          port = 7878;
+        };
       };
       dataDir = "/home/kin/nixos/server/modules/data/radarr"; 
     };
