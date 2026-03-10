@@ -2,15 +2,12 @@
   services = {
     radarr = {
       enable = true;
-      user = "kin";
-      group = "users";
       settings = {
         server = {
           bindaddress = "*";
           port = 7878;
         };
       };
-      dataDir = "/home/kin/nixos/server/modules/data/radarr"; 
     };
     sonarr = {
       enable = true;
