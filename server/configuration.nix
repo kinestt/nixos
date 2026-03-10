@@ -23,8 +23,13 @@
     bat
     htop 
   ];
-  networking.hostName = "server";
-  networking.networkmanager.enable = true;
+
+  networking = {
+    hostName = "server";
+    networkmanager.enable = true;
+    firewall.enable = false;
+  };
+
   time.timeZone = "Asia/Kolkata";
   services.openssh.enable = true;
   system.stateVersion = "25.11"; # Did you read the comment?
