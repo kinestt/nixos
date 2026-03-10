@@ -4,7 +4,6 @@
       enable = true;
       settings = {
         server = {
-          urlbase = "localhost";
           bindaddress = "*";
           port = 7878;
         };
