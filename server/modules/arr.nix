@@ -5,7 +5,7 @@
       settings = {
         server.port = 7878;
       };
-      dataDir = ./data/radarr; 
+      dataDir = "~/nixos/server/modules/data/radarr"; 
     };
     sonarr = {
       enable = true;
