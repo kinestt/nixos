@@ -17,6 +17,7 @@
           bindaddress = "*";
           port = 8989;
           urlbase = "sonarr";
+        };
       };
     };
     qbittorrent = {
