@@ -6,7 +6,6 @@
         server = {
           bindaddress = "*";
           port = 7878;
-          urlbase = "radarr";
         };
       };
     };
@@ -16,7 +15,6 @@
         server = {
           bindaddress = "*";
           port = 8989;
-          urlbase = "sonarr";
         };
       };
     };
