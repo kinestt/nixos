@@ -11,7 +11,8 @@
         silentTyping.enable = true;
         quickMention.enable = true;
         quickReply.enable = true;
-        messageLogger.enable = true; 
+        messageLogger.enable = true;
+        showHiddenChannels.enable = true; 
         #NoRPC.enable = true;
         validUser.enable = true;
         validReply.enable = true;
