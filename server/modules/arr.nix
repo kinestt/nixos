@@ -12,7 +12,7 @@
         [
           "--confirm-legal-notice"
         ];
-      torrentingPort = "5555";
+      torrentingPort = 5555;
     };    
   };
 }
