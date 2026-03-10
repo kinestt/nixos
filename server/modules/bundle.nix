@@ -1,5 +1,6 @@
 {
   imports = [
-    ./arr.nix 
+    ./arr.nix
+    ./nginx.nix 
   ];
 }
