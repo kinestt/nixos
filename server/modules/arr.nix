@@ -6,13 +6,17 @@
         server = {
           bindaddress = "*";
           port = 7878;
+          urlbase = "radarr";
         };
       };
     };
     sonarr = {
       enable = true;
       settings = {
-        server.port = 8989;
+        server = {
+          bindaddress = "*";
+          port = 8989;
+          urlbase = "sonarr";
       };
     };
     qbittorrent = {
