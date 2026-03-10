@@ -4,7 +4,8 @@
       enable = true;
       settings = {
         server.port = 7878;
-      }; 
+      };
+      dataDir = ./data/radarr; 
     };
     sonarr = {
       enable = true;
