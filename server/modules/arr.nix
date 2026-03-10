@@ -2,8 +2,8 @@
   services = {
     radarr = {
       enable = true;
-      user = kin;
-      group = users;
+      user = "kin";
+      group = "users";
       settings = {
         server = {
           bindaddress = "*";
