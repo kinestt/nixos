@@ -10,7 +10,6 @@
     virtualHosts = {
       "radarr.ricepaddle.site" = {
         enableACME = true; 
-        forceSSL = true; 
         locations."/" = {
           proxyPass = "http://192.168.0.122:7878";
           proxyWebsockets = true;
@@ -20,8 +19,6 @@
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
-            
-            proxy_http_version 1.1;
          ";
         };
       };
