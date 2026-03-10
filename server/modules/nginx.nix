@@ -13,7 +13,7 @@
     };
   };
   security.acme = {
-    default.email = "tiredhames@gmail.com";
+    defaults.email = "tiredhames@gmail.com";
     acceptTerms = true; 
   };
 }
