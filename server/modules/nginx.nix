@@ -55,7 +55,6 @@
   security.acme = {
     defaults.email = "clovertight@gmail.com";
     acceptTerms = true;
-    defaults.server = "https://acme-staging-v02.api.letsencrypt.org/directory"; 
   };
 
   systemd.services.nginx.serviceConfig.ProtectHome = false;
