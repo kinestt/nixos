@@ -18,6 +18,15 @@
         };
       };
     };
+    prowlarr = { 
+      enable = true; 
+      settings = { 
+        server = { 
+          bindaddress = "*";
+          port = 9696;
+        };
+      };
+    };
     qbittorrent = {
       enable = true;
       webuiPort = 8888;
