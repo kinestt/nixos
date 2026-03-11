@@ -12,7 +12,8 @@
       noto-fonts-cjk-sans
       fastfetch
       p7zip 
-
+      dig
+ 
       # GUI
       spotify
       equibop
