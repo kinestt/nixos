@@ -16,6 +16,24 @@
           proxyWebsockets = true;
         };
       };
+      
+      "sonarr.ricepaddle.site" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "https://127.0.0.1:8989";
+          proxyWebsockets = true;
+        };
+      };
+
+      "qb.ricepaddle.site" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "https://127.0.0.1:8888";
+          proxyWebsockets = true;
+        };
+      };
     };
   };
   security.acme = {
