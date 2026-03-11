@@ -12,21 +12,14 @@
         enableACME = true; 
         forceSSL = true;
         locations."/" = {
-          proxyPass = "http://192.168.0.122:7878";
+          proxyPass = "http://127.0.0.1:7878";
           proxyWebsockets = true;
-
-          #extraConfig = "
-          #  proxy_set_header Host $host;
-          #  proxy_set_header X-Real-IP $remote_addr;
-          #  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          #  proxy_set_header X-Forwarded-Proto $scheme;
-          #";
         };
       };
     };
   };
   security.acme = {
-    defaults.email = "tiredhames@gmail.com";
+    defaults.email = "clovertight@gmail.com";
     acceptTerms = true; 
   };
 
