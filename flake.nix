@@ -10,7 +10,6 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=offline-install-onactivation-1";
     nixcord = {
       url = "github:FlameFlag/nixcord";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, nixcord }: {
