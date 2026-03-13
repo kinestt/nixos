@@ -66,12 +66,15 @@
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
+      vpl-gpu-rt
+      libvdpau-va-gl
       intel-media-driver
-      intel-vaapi-driver
-      libva
-      libva-utils
     ];
   };
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+  };
+  services.xserver.videoDrivers = [ "modesetting" ];
 
 
   swapDevices = [ {
