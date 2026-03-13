@@ -11,8 +11,12 @@
     nixcord = {
       url = "github:FlameFlag/nixcord";
     };
+    nixcraft = {
+      url = "github:loystonpais/nixcraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, nixcord }: {
+  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, nixcord, nixcraft }: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
 	./laptop/configuration.nix
@@ -29,6 +33,13 @@
       modules = [
         nixcord.homeModules.nixcord
         ./laptop/home-manager/home.nix
+      ];
+    };
+    homeConfigurations.kin = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [
+        ./server/home-manager/home.nix
+        nixcraft.homeModules.default
       ];
     };
   };

@@ -3,8 +3,8 @@
     enable = true;
     discord = {
       enable = true;
-      vencord.enable = false;
-      equicord.enable = true;
+      vencord.enable = true;
+      equicord.enable = false;
     };
     config = {
       plugins = {
@@ -14,7 +14,7 @@
         quickReply.enable = true;
         messageLogger.enable = true;
         showHiddenChannels.enable = true; 
-        NoRPC.enable = true;
+        #NoRPC.enable = true;
         validUser.enable = true;
         validReply.enable = true;
       };
