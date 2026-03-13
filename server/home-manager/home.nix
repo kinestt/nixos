@@ -8,4 +8,4 @@
       ./modules/bundle.nix
     ];
   };
-};
+}
