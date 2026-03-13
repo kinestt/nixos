@@ -3,9 +3,8 @@
     username = "kin";
     homeDirectory = "/home/kin";
     stateVersion = "25.11";
-
-    imports = [
-      ./modules/bundle.nix
-    ];
   };
+  imports = [
+    ./modules/bundle.nix
+  ];
 }
