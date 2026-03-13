@@ -21,7 +21,8 @@
     vim
     git
     bat
-    htop 
+    htop
+    home-manager 
   ];
 
   networking = {
