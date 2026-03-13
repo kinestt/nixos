@@ -18,7 +18,7 @@ let
 
   floodgate = pkgs.fetchurl {
     url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
-    hash = "sha256-DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD=";
+    hash = "sha256-LPTRZ+S+sU0xuyxewDZfgnd0dRLrC6f2vDHbyj2FCk4=";
   };
 
 in {
