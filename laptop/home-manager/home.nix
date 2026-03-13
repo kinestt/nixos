@@ -19,7 +19,7 @@
       equibop
       bitwarden-desktop
       qbittorrent      
-
+      prismlauncher
       # GNOME
     ]; 
   };
