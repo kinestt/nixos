@@ -8,7 +8,7 @@ let
 
   viabackwards = pkgs.fetchurl {
     url = "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.7.2/PAPER/ViaBackwards-5.7.2.jar";
-    hash = "sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=";
+    hash = "sha256-8Vg8L1NP9UA6NGabxsUoSwToJtHb3WrT8glvWTxZvZw=";
   };
 
   geyser = pkgs.fetchurl {
