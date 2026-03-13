@@ -25,7 +25,7 @@ in {
 
   nixcraft = {
     enable = true;
-
+    client.enable = false;
     server = {
       shared = {
         agreeToEula = true;
