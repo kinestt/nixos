@@ -23,10 +23,6 @@ let
 
 in {
 
-  imports = [
-    inputs.nixcraft.homeModules.default
-  ];
-
   nixcraft = {
     enable = true;
 
