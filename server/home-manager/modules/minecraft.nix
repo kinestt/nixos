@@ -3,7 +3,7 @@
 let
   viaversion = pkgs.fetchurl {
     url = "https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.7.2/PAPER/ViaVersion-5.7.2.jar";
-    hash = "sha256-LPTRZ+S+sU0xuyxewDZfgnd0dRLrC6f2vDHbyj2FCk4=";
+    hash = "sha256-OI/MoCsKWJNtCSqd348reDi7XXzuV+IauzDgjb/r8mw=";
   };
 
   viabackwards = pkgs.fetchurl {
