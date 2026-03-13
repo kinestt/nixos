@@ -28,14 +28,14 @@
         ./server/configuration.nix
       ];
     };
-    homeConfigurations.kin = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.kin-laptop = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
         nixcord.homeModules.nixcord
         ./laptop/home-manager/home.nix
       ];
     };
-    homeConfigurations.kin = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations.kin-server = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
         ./server/home-manager/home.nix
