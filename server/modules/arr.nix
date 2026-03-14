@@ -30,7 +30,7 @@
     recyclarr = {
       enable = true;
       configuration = {
-        radarr [
+        radarr = [
           {
             api_key = {
               _secret = "/run/credentials/recyclarr.service/radarr-api-key";
