@@ -6,5 +6,6 @@
     ./lutris.nix
     ./nixcord.nix
     ./kitty.nix
+    ./vim.nix
   ];
 }
