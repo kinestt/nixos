@@ -5,5 +5,6 @@
     ./chromium.nix
     ./lutris.nix
     ./nixcord.nix
+    ./kitty.nix
   ];
 }
