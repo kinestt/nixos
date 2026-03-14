@@ -27,44 +27,6 @@
         };
       };
     };
-    recyclarr = {
-      enable = true;
-      configuration = {
-        radarr = {
-          main = {
-            api_key = "!env_var RADARR_API_KEY";
-            base_url = "http://localhost:7878";
-            quality_definition = {
-              type = "movie";
-            };
-            quality_profiles = [
-              {
-                trash_id = "d1d67249d3890e49bc12e275d989a7e9"; # HD Bluray + WEB
-                reset_unmatched_scores = {
-                  enabled = true;
-                };
-              }
-            ];
-            custom_format_groups = [
-              {
-                trash_id = [
-                  "dc98083864ea246d05a42df0d05f81cc" # x265 (HD)
-                ];
-                assign_scores_to = [
-                  { name = "HD Bluray + WEB"; }
-                ];
-              }
-            ];
-          };
-        };
-        sonarr = {
-          main = {
-            api_key = "!env_var SONARR_API_KEY";
-            base_url = "http://localhost:8989";
-          };
-        };
-      };
-    };
     qbittorrent = {
       enable = true;
       webuiPort = 8888;
@@ -88,18 +50,6 @@
       serviceConfig = {
         LoadCredential = [
           "sonarr_api_key:/etc/secrets/sonarr-api-key"
-        ];
-      };
-    };
-    recyclarr = {
-      serviceConfig = {
-        LoadCredential = [
-          "sonarr_api_key:/etc/secrets/sonarr-api-key"
-          "radarr_api_key:/etc/secrets/radarr-api-key"
-        ];
-        Environment = [
-          "RADARR_API_KEY=sonarr_api_key"
-          "SONARR_APY_KEY=radarr_api_key"
         ];
       };
     };
