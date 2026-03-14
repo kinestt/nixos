@@ -2,6 +2,7 @@
   imports = [
     ./arr.nix
     ./nginx.nix
-    ./jellyfin.nix 
+    ./jellyfin.nix
+    ./recyclarr.nix 
   ];
 }
