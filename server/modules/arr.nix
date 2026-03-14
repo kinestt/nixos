@@ -69,7 +69,7 @@
               _secret = "/run/credentials/recyclarr.service/sonarr-api-key";
             };
             base_url = "http://localhost:8989";
-            instance_name = "anime"
+            instance_name = "anime";
           };
         ];
       };
