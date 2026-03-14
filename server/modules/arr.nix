@@ -32,9 +32,7 @@
       configuration = {
         radarr = [
           {
-            api_key = {
-              _secret = "/run/credentials/recyclarr.service/radarr_api_key";
-            };
+            api_key = "!env_var RADARR_API_KEY"
             base_url = "http://localhost:7878";
             instance_name = "main";
             quality_definition = {
@@ -65,9 +63,7 @@
         ];
         sonarr = [
           {
-            api_key = {
-              _secret = "/run/credentials/recyclarr.service/sonarr_api_key";
-            };
+            api_key = "!env_var SONARR_API_KEY";
             base_url = "http://localhost:8989";
             instance_name = "anime";
           }
@@ -105,6 +101,10 @@
         LoadCredential = [
           "sonarr_api_key:/etc/secrets/sonarr-api-key"
           "radarr_api_key:/etc/secrets/radarr-api-key"
+        ];
+        Environment = [
+          "RADARR_API_KEY=sonarr_api_key"
+          "SONARR_APY_KEY=radarr_api_key"
         ];
       };
     };
