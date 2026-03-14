@@ -33,7 +33,7 @@
         radarr = [
           {
             api_key = {
-              _secret = "/run/credentials/recyclarr.service/radarr-api-key";
+              _secret = "/run/credentials/recyclarr.service/radarr_api_key";
             };
             base_url = "http://localhost:7878";
             instance_name = "main";
@@ -66,7 +66,7 @@
         sonarr = [
           {
             api_key = {
-              _secret = "/run/credentials/recyclarr.service/sonarr-api-key";
+              _secret = "/run/credentials/recyclarr.service/sonarr_api_key";
             };
             base_url = "http://localhost:8989";
             instance_name = "anime";
