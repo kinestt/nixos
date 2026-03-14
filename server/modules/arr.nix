@@ -38,11 +38,20 @@
     };    
   };
 
-  systemd.services.radarr = {
-    serviceConfig = {
-      LoadCredential = [
-        "radarr_api_key:/etc/secrets/radarr-api-key"
-      ];
+  systemd.services = {
+    radarr = {
+      serviceConfig = {
+        LoadCredential = [
+          "radarr_api_key:/etc/secrets/radarr-api-key"
+        ];
+      };
+    };
+    sonarr = {
+      serviceConfig = {
+        LoadCredential = [
+          "sonarr_api_key:/etc/secrets/sonarr-api-key"
+        ];
+      };
     };
   };
 }
