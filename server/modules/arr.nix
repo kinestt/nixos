@@ -45,7 +45,7 @@
                 };
               }
             ];
-            custom_format = [
+            custom_format_groups = [
               {
                 trash_id = [
                   "dc98083864ea246d05a42df0d05f81cc" # x265 (HD)
