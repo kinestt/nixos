@@ -45,19 +45,16 @@
                 };
               }
             ];
-            custom_format_groups = {
-              add = [
-                {
-                  trash_id = "f8bf8eab4617f12dfdbd16303d8da245"; # Golden Rule HD
-                  select = [
-                    "dc98083864ea246d05a42df0d05f81cc" # x265 (HD)
-                  ];
-                }
-              ];
-              skip = [
-                # "d9cc9a504e5ede6294c8b973aad4f028" # Streaming Services General (disabled if uncommented)
-              ];
-            };
+            custom_format = [
+              {
+                trash_id = [
+                  "dc98083864ea246d05a42df0d05f81cc" # x265 (HD)
+                ];
+                assign_scores_to = [
+                  { name = "HD Bluray + WEB"; }
+                ];
+              }
+            ];
           };
         };
         sonarr = {
