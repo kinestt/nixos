@@ -32,7 +32,7 @@
       configuration = {
         radarr = [
           {
-            api_key = "!env_var RADARR_API_KEY"
+            api_key = "!env_var RADARR_API_KEY";
             base_url = "http://localhost:7878";
             instance_name = "main";
             quality_definition = {
