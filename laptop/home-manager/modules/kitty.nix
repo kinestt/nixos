@@ -15,6 +15,7 @@
       tab_bar_style = "powerline";
       tab_bar_align = "left";
       tab_bar_edge = "top";
+      font_size = 14.00;
     };
 
     extraConfig = "

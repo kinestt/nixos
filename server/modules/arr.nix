@@ -37,4 +37,12 @@
       torrentingPort = 5555;
     };    
   };
+
+  systemd.services.radarr = {
+    serviceConfig = {
+      LoadCredential = [
+        "radarr_api_key:/etc/secrets/radarr-api-key"
+      ];
+    };
+  };
 }

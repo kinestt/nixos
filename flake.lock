@@ -81,11 +81,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773367248,
-        "narHash": "sha256-FFMc1uAwy2GYasd0rdNDVxKyAgzuoJH2M+GglBQbqf0=",
+        "lastModified": 1773422513,
+        "narHash": "sha256-MPjR48roW7CUMU6lu0+qQGqj92Kuh3paIulMWFZy+NQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "be0c641a6a5564caa33982faa1fe2c60d92131c7",
+        "rev": "ef12a9a2b0f77c8fa3dda1e7e494fca668909056",
         "type": "github"
       },
       "original": {
@@ -118,11 +118,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1773418731,
-        "narHash": "sha256-pCQ6nys8q1FVk1hTPWkJHhzyI24bHCNnlg/KaCs5I1E=",
+        "lastModified": 1773449015,
+        "narHash": "sha256-7Q4MsuktyGzRC5B+RuTITnZaDT5JqUq19P7wNFL+7ac=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "6cea57cacfa299d131f88de5a560a073a99bf33d",
+        "rev": "3e0fc6c4baba8d1a63e11a6d8977a0f92c859801",
         "type": "github"
       },
       "original": {
@@ -139,11 +139,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773191753,
-        "narHash": "sha256-6XmPU8rjYb1YXpDFlMgYwCKNY097ci1qDS+EKe7KjvY=",
+        "lastModified": 1773451018,
+        "narHash": "sha256-vAkpDQnlgTV7fCXHvmAT3O0lH/PSCOd7BVtBmS5H3fk=",
         "owner": "loystonpais",
         "repo": "nixcraft",
-        "rev": "ed0797d9604eb848ab59cc3fff7d6b05b52cbbf8",
+        "rev": "fe34c1631f5e951e8499c683f6740bc26b522b34",
         "type": "github"
       },
       "original": {
