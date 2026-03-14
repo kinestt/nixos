@@ -30,11 +30,10 @@
     recyclarr = {
       enable = true;
       configuration = {
-        radarr = [
-          {
+        radarr = {
+          main = {
             api_key = "!env_var RADARR_API_KEY";
             base_url = "http://localhost:7878";
-            instance_name = "main";
             quality_definition = {
               type = "movie";
             };
@@ -59,15 +58,14 @@
                 # "d9cc9a504e5ede6294c8b973aad4f028" # Streaming Services General (disabled if uncommented)
               ];
             };
-          }
-        ];
-        sonarr = [
-          {
+          };
+        };
+        sonarr = {
+          main = {
             api_key = "!env_var SONARR_API_KEY";
             base_url = "http://localhost:8989";
-            instance_name = "anime";
-          }
-        ];
+          };
+        };
       };
     };
     qbittorrent = {
