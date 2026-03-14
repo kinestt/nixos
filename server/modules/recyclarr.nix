@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   services.recyclarr = {
     enable = true;
-    configuration = yaml.import ./data/recyclarr.yml;
+    environment.etc."recyclarr/config.yml".source = ./data/recyclarr.yml;
   };
 }
