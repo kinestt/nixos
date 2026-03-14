@@ -1,6 +1,6 @@
 {
   services.recyclarr = {
     enable = true;
-    configuration = builtins.fromJSON (builtins.readFile /home/kin/recyclarr.json);
+    configuration = yaml.import /home/kin/recyclarr.yml);
   };
 }
