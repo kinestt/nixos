@@ -20,6 +20,7 @@
       bitwarden-desktop
       qbittorrent      
       prismlauncher
+      jellyfin-media-player
       # GNOME
     ]; 
   };
