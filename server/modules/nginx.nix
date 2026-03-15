@@ -6,7 +6,14 @@
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
-    
+
+    streamConfig = ''
+      server {
+        listen 25565;
+        proxy_pass 127.0.0.1:25565;
+      }
+    '';
+
     virtualHosts = {
       "radarr.ricepaddle.site" = {
         enableACME = true; 
