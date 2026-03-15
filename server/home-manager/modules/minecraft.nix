@@ -52,8 +52,8 @@ in {
           };
           serverProperties = {
             enable-rcon = true;
-            rcon.port = 25575;
-            rcon.password = "rconpassword";
+            "rcon.port" = 25575;
+            "rcon.password" = "rconpassword";
           };
         };
       };
