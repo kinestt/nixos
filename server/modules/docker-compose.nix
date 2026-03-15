@@ -24,6 +24,8 @@
     image = "foxxmd/multi-scrobbler:latest";
     environment = {
       "BASE_URL" = "http://192.168.0.100:9078";
+      "PGID" = "100";
+      "PUID" = "1000";
       "TZ" = "Asia/Kolkata";
     };
     volumes = [
@@ -58,10 +60,12 @@
   virtualisation.oci-containers.containers."recyclarr" = {
     image = "ghcr.io/recyclarr/recyclarr:8";
     environment = {
+      "PGID" = "100";
+      "PUID" = "1000";
       "TZ" = "Asia/Kolkata";
     };
     volumes = [
-      "/home/kin/data/recyclarr/config:/config:rw"
+      "/home/kin/data/recyclarr:/config:rw"
     ];
     log-driver = "journald";
     extraOptions = [
