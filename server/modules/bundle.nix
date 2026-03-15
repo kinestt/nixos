@@ -3,5 +3,6 @@
     ./arr.nix
     ./nginx.nix
     ./jellyfin.nix
+    ./docker-compose.nix
   ];
 }
