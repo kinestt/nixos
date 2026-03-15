@@ -32,7 +32,6 @@
     ports = [
       "9078:9078/tcp"
     ];
-    user = "1000:1000";
     log-driver = "journald";
     extraOptions = [
       "--network-alias=multi-scrobbler"
@@ -64,7 +63,6 @@
     volumes = [
       "/home/kin/data/recyclarr/config:/config:rw"
     ];
-    user = "1000:1000";
     log-driver = "journald";
     extraOptions = [
       "--network-alias=recyclarr"
