@@ -29,6 +29,7 @@
     hostName = "server";
     useDHCP = true;
     firewall = {
+      enable = true;
       allowedTCPPorts = [ 25575 25565 80 443 ];
       allowedUDPPorts = [ 19132 ];
     };
