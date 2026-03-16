@@ -63,6 +63,8 @@
     home-manager
     gnome-tweaks
     easyeffects
+    unrar
+    bchunk
     prismlauncher-9
   ];
   hardware.graphics = {
