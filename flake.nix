@@ -16,10 +16,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, nixcord, nixcraft }: {
+  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, nixcord, nixcraft }:
+  let 
+    system = "x86_64-linux";
+    overlays = [
+      (import ./overlays/prism94.nix)
+    ];
+  in {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
-	./laptop/configuration.nix
+        ./laptop/configuration.nix
         nix-flatpak.nixosModules.nix-flatpak
       ];
     };
