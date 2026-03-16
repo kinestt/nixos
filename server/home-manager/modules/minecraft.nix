@@ -33,7 +33,7 @@ in {
         binEntry.enable = true;
       };
       instances = {
-        survival = {
+        vanilla = {
           enable = true;
           version = "1.21.11";
           paper.enable = true;
