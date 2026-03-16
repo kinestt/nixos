@@ -52,7 +52,7 @@ in {
           };
           serverProperties = {
             level-seed = "-7723232821704547830";
-            enable-rcon = true;
+            enable-rcon = false;
             "rcon.port" = 25575;
             "rcon.password" = "rconpassword";
             "pause-when-empty-seconds"=-1;

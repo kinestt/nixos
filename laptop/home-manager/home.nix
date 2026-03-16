@@ -13,7 +13,8 @@
       fastfetch
       p7zip 
       dig
- 
+      mcrcon
+
       # GUI
       spotify
       equibop

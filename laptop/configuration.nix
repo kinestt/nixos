@@ -66,7 +66,7 @@
           system = prev.system;
         };
       in {
-        prismlauncher = pkgs94.prismlauncher;
+        prismlauncher-9 = pkgs94.prismlauncher;
       })
   ];
   environment.systemPackages = with pkgs; [ 
@@ -76,7 +76,7 @@
     home-manager
     gnome-tweaks
     easyeffects
-    prismlauncher
+    prismlauncher-9
   ];
   hardware.graphics = {
     enable = true;
