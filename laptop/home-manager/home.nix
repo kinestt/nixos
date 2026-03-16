@@ -19,7 +19,6 @@
       equibop
       qbittorrent      
       jellyfin-media-player
-      # GNOME
     ]; 
   };
   programs.gh = {
@@ -36,4 +35,5 @@
     ./modules/bundle.nix
   ];
   nixpkgs.config.allowUnfree = true;
+  
 }
