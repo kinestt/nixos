@@ -17,7 +17,6 @@
       # GUI
       spotify
       equibop
-      bitwarden-desktop
       qbittorrent      
       jellyfin-media-player
       # GNOME
