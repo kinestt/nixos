@@ -35,7 +35,7 @@ in {
       instances = {
         survival = {
           enable = true;
-          version = "1.21.1";
+          version = "1.21.11";
           paper.enable = true;
           java.memory = 4096;
           service = {
@@ -51,6 +51,7 @@ in {
             "plugins/Floodgate-Spigot.jar".source = floodgate;
           };
           serverProperties = {
+            level-seed = "-7723232821704547830";
             enable-rcon = true;
             "rcon.port" = 25575;
             "rcon.password" = "rconpassword";
