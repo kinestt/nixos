@@ -12,6 +12,6 @@
         prismlauncher-9 = pkgs94.prismlauncher;
       })
     ];
-};
+}
 
 
