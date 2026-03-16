@@ -55,6 +55,7 @@ in {
             enable-rcon = true;
             "rcon.port" = 25575;
             "rcon.password" = "rconpassword";
+            "pause-when-empty-seconds"=-1;
           };
         };
       };
