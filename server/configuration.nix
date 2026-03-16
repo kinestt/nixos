@@ -29,7 +29,6 @@
     hostName = "server";
     networkmanager.enable = true;
     firewall = {
-      enable = false;
       allowedUDPPorts = [ 19132 ];
     };
   };
