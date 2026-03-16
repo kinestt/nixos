@@ -30,7 +30,7 @@
     useDHCP = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 25575 25565 80 443 ];
+      allowedTCPPorts = [ 25575 25565 80 443 7878 8989 9696 ];
       allowedUDPPorts = [ 19132 ];
     };
   };
