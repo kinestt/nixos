@@ -59,7 +59,4 @@ in {
       };
     };
   };
-  networking.firewall = {
-    allowedUDPPorts = [ 19132 ];
-  };
 }

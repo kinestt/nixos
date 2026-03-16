@@ -28,7 +28,10 @@
   networking = {
     hostName = "server";
     networkmanager.enable = true;
-    firewall.enable = false;
+    firewall = {
+      enable = false;
+      allowedUDPPorts = [ 19132 ];
+    };
   };
 
   time.timeZone = "Asia/Kolkata";
