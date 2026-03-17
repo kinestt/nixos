@@ -103,7 +103,6 @@
   https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.7.2/PAPER/ViaBackwards-5.7.2.jar
   https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.7.2/PAPER/ViaVersion-5.7.2.jar";
       "ONLINE_MODE" = "false";
-      "PAPER_BUILD" = "1.21.5-114";
       "SEED" = "-7723232821704547830";
       "SIMULATION_DISTANCE" = "12";
       "TYPE" = "PAPER";
