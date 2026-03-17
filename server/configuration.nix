@@ -33,6 +33,11 @@
       allowedTCPPorts = [ 25575 25565 80 443 7878 8989 9696 ];
       allowedUDPPorts = [ 19132 5544 25565 ];
     };
+    interfaces = {
+      enp6s0f4u2 = {
+        mtu = 1400;
+      };
+    };
   };
 
   time.timeZone = "Asia/Kolkata";
