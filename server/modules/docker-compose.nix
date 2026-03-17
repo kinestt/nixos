@@ -90,7 +90,7 @@
       "podman-compose-services-root.target"
     ];
   };
-  virtualisation.oci-containers.containers."services-mc" = {
+  virtualisation.oci-containers.containers."vanilla-mc" = {
     image = "itzg/minecraft-server:latest";
     environment = {
       "DIFFICULTY" = "2";
