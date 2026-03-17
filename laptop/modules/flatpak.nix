@@ -13,6 +13,7 @@
     ];
     packages = [ 
       { appId = "org.vinegarhq.Sober"; origin = "flathub-beta"; }
+      { appId = "io.mrarm.mcpelauncher"; origin = "flathub"; }
     ];
     
   };
