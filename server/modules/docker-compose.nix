@@ -90,18 +90,17 @@
       "podman-compose-services-root.target"
     ];
   };
-  virtualisation.oci-containers.containers."vanilla-mc" = {
+  virtualisation.oci-containers.containers."services-mc" = {
     image = "itzg/minecraft-server:latest";
     environment = {
       "DIFFICULTY" = "2";
+      "ENABLE_AUTOPAUSE" = "false";
       "EULA" = "TRUE";
       "MEMORY" = "4096M";
-      "MODS" = "
-        https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
-        https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
-        https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.7.2/PAPER/ViaBackwards-5.7.2.jar
-        https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.7.2/PAPER/ViaVersion-5.7.2.jar 
-      ";
+      "MODS" = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
+  https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+  https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.7.2/PAPER/ViaBackwards-5.7.2.jar
+  https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.7.2/PAPER/ViaVersion-5.7.2.jar";
       "ONLINE_MODE" = "false";
       "SEED" = "-7723232821704547830";
       "SIMULATION_DISTANCE" = "12";
