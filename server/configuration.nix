@@ -27,7 +27,6 @@
 
   networking = {
     hostName = "server";
-    networkmanager.enable = true;
     useDHCP = true;
     firewall = {
       enable = true;
