@@ -11,7 +11,7 @@ let
   };
   geyser = pkgs.fetchurl {
     url = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot";
-    hash = "sha256-PSt+IRhn+SiJrxNSUJ/dQeKsqR4W/iP77zFeyOiMVDk=";
+    hash = "sha256-YeMT+H70kCqA8QrN7Jm7pJmibSWzEsN0f5jnR5OP6CA=";
   };
   floodgate = pkgs.fetchurl {
     url = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
