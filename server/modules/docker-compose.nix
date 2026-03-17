@@ -91,7 +91,7 @@
     ];
   };
   virtualisation.oci-containers.containers."services-mc" = {
-    image = "itzg/minecraft-server:latest";
+    image = "itzg/minecraft-server:java21";
     environment = {
       "DIFFICULTY" = "2";
       "ENABLE_AUTOPAUSE" = "false";
@@ -108,6 +108,7 @@
       "TZ" = "Asia/Kolkata";
       "USE_AIKAR_FLAGS" = "true";
       "USE_MEOWICE_FLAGS" = "true";
+      "VERSION" = "1.21.11";
       "VIEW_DISTANCE" = "12";
     };
     volumes = [
