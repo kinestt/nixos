@@ -32,6 +32,8 @@
       enable = true;
       allowedTCPPorts = [ 25575 25565 80 443 7878 8989 9696 ];
       allowedUDPPorts = [ 19132 5544 25565 ];
+      extraCommands = "  iptables -t mangle -A POSTROUTING -p tcp --tcp-flags SYN,RST SYN \
+      -j TCPMSS --clamp-mss-to-pmtu";
     };
     interfaces = {
       enp6s0f4u2 = {
