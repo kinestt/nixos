@@ -56,6 +56,7 @@ in {
             "rcon.port" = 25575;
             "rcon.password" = "rconpassword";
             "pause-when-empty-seconds"=-1;
+            server-ip = "192.168.0.122";
           };
         };
       };
