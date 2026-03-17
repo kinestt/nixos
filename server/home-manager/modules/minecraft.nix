@@ -44,8 +44,8 @@ in {
           };
           files = {
             # protocol compatibility
-            #"plugins/ViaVersion.jar".source = viaversion;
-            #"plugins/ViaBackwards.jar".source = viabackwards;
+            "plugins/ViaVersion.jar".source = viaversion;
+            "plugins/ViaBackwards.jar".source = viabackwards;
             # bedrock support
             "plugins/Geyser-Spigot.jar".source = geyser;
             "plugins/Floodgate-Spigot.jar".source = floodgate;
