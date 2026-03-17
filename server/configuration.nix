@@ -27,11 +27,12 @@
 
   networking = {
     hostName = "server";
+    networkmanager.enable = true;
     useDHCP = true;
     firewall = {
-      enable = false;
-      #allowedTCPPorts = [ 25575 25565 80 443 7878 8989 9696 ];
-      #allowedUDPPorts = [ 19132 5544 ];
+      enable = true;
+      allowedTCPPorts = [ 25575 25565 80 443 7878 8989 9696 ];
+      allowedUDPPorts = [ 19132 5544 ];
     };
   };
 
