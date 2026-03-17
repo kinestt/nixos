@@ -35,7 +35,7 @@
     };
     interfaces = {
       enp6s0f4u2 = {
-        mtu = 1400;
+        mtu = 1372;
       };
     };
   };
