@@ -115,6 +115,7 @@
     ];
     ports = [
       "25565:25565/tcp"
+      "25565:25565/udp"
       "19132:19132/udp"
     ];
     log-driver = "journald";
