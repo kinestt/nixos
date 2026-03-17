@@ -93,6 +93,8 @@
   virtualisation.oci-containers.containers."services-mc" = {
     image = "itzg/minecraft-server:latest";
     environment = {
+      "PUID" = "1000";
+      "PGID" = "100";
       "DIFFICULTY" = "2";
       "EULA" = "TRUE";
       "MEMORY" = "4096M";
