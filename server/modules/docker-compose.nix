@@ -90,21 +90,19 @@
       "podman-compose-services-root.target"
     ];
   };
-  virtualisation.oci-containers.containers."vanilla-mc" = {
+  virtualisation.oci-containers.containers."services-mc" = {
     image = "itzg/minecraft-server:latest";
     environment = {
-      "PGID" = "100";
-      "PUID" = "1000";
       "DIFFICULTY" = "2";
       "EULA" = "TRUE";
       "MEMORY" = "4096M";
-      "MODS" = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
+      "MODS" = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
+  https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot ";
       "ONLINE_MODE" = "false";
+      "SEED" = "-7723232821704547830";
       "SIMULATION_DISTANCE" = "12";
       "SPIGET_RESOURCES" = "19254
-  27448
-  81297";
-      "SEED" = "-7723232821704547830";
+  27448";
       "TYPE" = "PAPER";
       "TZ" = "Asia/Kolkata";
       "USE_AIKAR_FLAGS" = "true";
