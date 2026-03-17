@@ -90,6 +90,54 @@
       "podman-compose-services-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."services-mc" = {
+    image = "itzg/minecraft-server:latest";
+    environment = {
+      "DIFFICULTY" = "2";
+      "EULA" = "TRUE";
+      "MEMORY" = "4096M";
+      "MODS" = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
+      "ONLINE_MODE" = "false";
+      "SIMULATION_DISTANCE" = "12";
+      "SPIGET_RESOURCES" = "19254
+  27448
+  81297";
+      "TYPE" = "PAPER";
+      "TZ" = "Asia/Kolkata";
+      "USE_AIKAR_FLAGS" = "true";
+      "USE_MEOWICE_FLAGS" = "true";
+      "VIEW_DISTANCE" = "12";
+    };
+    volumes = [
+      "/home/kin/data/minecraft/vanilla:/data:rw"
+    ];
+    ports = [
+      "25565:25565/tcp"
+      "19132:19132/udp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=mc"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-services-mc" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
 
   # Networks
   systemd.services."podman-network-services_default" = {

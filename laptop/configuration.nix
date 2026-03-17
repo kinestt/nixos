@@ -28,7 +28,8 @@
   networking.hostName = "laptop";
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Kolkata";
-
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   services.pipewire = {
     enable = true;
     pulse.enable = true;

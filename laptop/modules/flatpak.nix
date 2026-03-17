@@ -14,6 +14,8 @@
     packages = [ 
       { appId = "org.vinegarhq.Sober"; origin = "flathub-beta"; }
       { appId = "io.mrarm.mcpelauncher"; origin = "flathub"; }
+      { appId = "org.kde.KStyle.Adwaita"; origin = "flathub"; }
+      { appId = "org.kde.PlatformTheme.QGnomePlatform"; origin = "flathub"; }
     ];
     
   };
