@@ -98,6 +98,7 @@
       "MEMORY" = "4096M";
       "MODS" = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot";
       "ONLINE_MODE" = "false";
+      "SEED" = "-7723232821704547830";
       "SIMULATION_DISTANCE" = "12";
       "SPIGET_RESOURCES" = "19254
   27448
