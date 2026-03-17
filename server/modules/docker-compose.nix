@@ -95,6 +95,7 @@
     environment = {
       "DIFFICULTY" = "2";
       "ENABLE_AUTOPAUSE" = "false";
+      "ENFORCE_SECURE_PROFILE" = "false";
       "EULA" = "TRUE";
       "MEMORY" = "4096M";
       "MODS" = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
