@@ -90,6 +90,38 @@
       "podman-compose-services-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."services-maloja" = {
+    image = "localhost/compose2nix/services-maloja";
+    volumes = [
+      "/etc/localtime:/etc/localtime:ro"
+      "/home/kin/data/maloja/data:/data:rw"
+    ];
+    ports = [
+      "42010:42010/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=maloja"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-services-maloja" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."services-mc" = {
     image = "itzg/minecraft-server:latest";
     environment = {
@@ -156,6 +188,19 @@
     '';
     partOf = [ "podman-compose-services-root.target" ];
     wantedBy = [ "podman-compose-services-root.target" ];
+  };
+
+  # Builds
+  systemd.services."podman-build-services-maloja" = {
+    path = [ pkgs.podman pkgs.git ];
+    serviceConfig = {
+      Type = "oneshot";
+      TimeoutSec = 300;
+    };
+    script = ''
+      cd /home/kin/docker
+      podman build -t compose2nix/services-maloja -f /home/kin/data/maloja/repo/Containerfile .
+    '';
   };
 
   # Root service

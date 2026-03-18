@@ -18,7 +18,7 @@
       # GUI
       spotify
       equibop
-      qbittorrent      
+      qbittorrent
       jellyfin-media-player
     ]; 
   };
