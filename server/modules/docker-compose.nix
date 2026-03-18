@@ -91,7 +91,7 @@
     ];
   };
   virtualisation.oci-containers.containers."services-maloja" = {
-    image = "localhost/compose2nix/services-maloja";
+    image = "localhost/maloja:latest";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "/home/kin/data/maloja/data:/data:rw"
@@ -188,19 +188,6 @@
     '';
     partOf = [ "podman-compose-services-root.target" ];
     wantedBy = [ "podman-compose-services-root.target" ];
-  };
-
-  # Builds
-  systemd.services."podman-build-services-maloja" = {
-    path = [ pkgs.podman pkgs.git ];
-    serviceConfig = {
-      Type = "oneshot";
-      TimeoutSec = 300;
-    };
-    script = ''
-      cd /home/kin/docker
-      podman build -t compose2nix/services-maloja -f /home/kin/data/maloja/repo/Containerfile .
-    '';
   };
 
   # Root service
