@@ -91,7 +91,7 @@
     ];
   };
   virtualisation.oci-containers.containers."services-maloja" = {
-    image = "localhost/maloja:latest";
+    image = "maloja:latest";
     volumes = [
       "/etc/localtime:/etc/localtime:ro"
       "/home/kin/data/maloja/data:/data:rw"
