@@ -101,7 +101,8 @@
       "MODS" = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
   https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
   https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.7.2/PAPER/ViaBackwards-5.7.2.jar
-  https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.7.2/PAPER/ViaVersion-5.7.2.jar";
+  https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.7.2/PAPER/ViaVersion-5.7.2.jar
+  https://cdn.modrinth.com/data/YlKdE5VK/versions/YcucYuIK/ViaFabric-0.4.21%2B139-1.14-1.21.jar";
       "ONLINE_MODE" = "false";
       "SEED" = "-7723232821704547830";
       "SIMULATION_DISTANCE" = "12";
