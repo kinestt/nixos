@@ -109,6 +109,7 @@
       "TZ" = "Asia/Kolkata";
       "USE_AIKAR_FLAGS" = "true";
       "USE_MEOWICE_FLAGS" = "true";
+      "USE_SIMD_FLAGS" = "true";
       "VIEW_DISTANCE" = "12";
     };
     volumes = [
