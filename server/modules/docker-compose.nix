@@ -105,7 +105,7 @@
       "ONLINE_MODE" = "false";
       "SEED" = "-7723232821704547830";
       "SIMULATION_DISTANCE" = "12";
-      "TYPE" = "PURPUR";
+      "TYPE" = "FABRIC";
       "TZ" = "Asia/Kolkata";
       "USE_AIKAR_FLAGS" = "true";
       "USE_MEOWICE_FLAGS" = "true";
