@@ -155,7 +155,7 @@
       "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.11.27/";
       "GENERIC_PACKS_SUFFIX" = ".zip";
       "GUI" = "false";
-      "MEMORY" = "8G";
+      "MEMORY" = "6G";
       "OVERRIDE_SERVER_PROPERTIES" = "false";
       "SKIP_GENERIC_PACK_UPDATE_CHECK" = "true";
       "TYPE" = "forge";
