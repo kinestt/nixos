@@ -167,7 +167,7 @@
     };
     volumes = [
       "/home/kin/data/minecraft/TFG/backups:/backups:rw"
-      "/home/kin/minecraft/data/TFG:/data:rw"
+      "/home/kin/minecraft/TFG:/data:rw"
     ];
     ports = [
       "6789:25565/tcp"
