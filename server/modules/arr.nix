@@ -29,6 +29,8 @@
     };
     qbittorrent = {
       enable = true;
+      user = "kin";
+      group = "users";
       webuiPort = 8888;
       extraArgs = 
         [
