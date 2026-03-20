@@ -23,7 +23,7 @@
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
-  fileSystems."/home/kid/mount" = {
+  fileSystems."/home/kin/mount" = {
     device = "/dev/disk/by-uuid/E2AEBCF3AEBCC0F9";
     fsType = "ntfs-3g";
     options = [
