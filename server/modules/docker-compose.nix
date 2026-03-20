@@ -98,8 +98,8 @@
       "ENFORCE_SECURE_PROFILE" = "false";
       "EULA" = "TRUE";
       "MEMORY" = "4096M";
-      "MODS" = "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
-  https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+      "MODS" = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/fabric
+  https://cdn.modrinth.com/data/bWrNNfkb/versions/wzwExuYr/Floodgate-Fabric-2.2.6-b54.jar
   https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.7.2/PAPER/ViaBackwards-5.7.2.jar
   https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.7.2/PAPER/ViaVersion-5.7.2.jar
   https://cdn.modrinth.com/data/YlKdE5VK/versions/YcucYuIK/ViaFabric-0.4.21%2B139-1.14-1.21.jar
@@ -129,6 +129,56 @@
     ];
   };
   systemd.services."podman-services-mc" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."terrafirmagreg-modern" = {
+    image = "itzg/minecraft-server:latest";
+    environment = {
+      "ENABLE_RCON" = "true";
+      "EULA" = "true";
+      "FORGE_VERSION" = "47.4.13";
+      "GENERIC_PACKS" = "TerraFirmaGreg-Modern-0.11.27-serverpack";
+      "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.11.27/";
+      "GENERIC_PACKS_SUFFIX" = ".zip";
+      "GUI" = "false";
+      "MEMORY" = "8G";
+      "ONLINE_MODE" = "false";
+      "OVERRIDE_SERVER_PROPERTIES" = "false";
+      "SKIP_GENERIC_PACK_UPDATE_CHECK" = "true";
+      "TYPE" = "forge";
+      "TZ" = "Asia/Kolkata";
+      "USE_AIKAR_FLAGS" = "true";
+      "USE_MEOWICE_FLAGS" = "true";
+      "VERSION" = "1.20.1";
+    };
+    volumes = [
+      "/home/kin/data/TFG:/data:rw"
+      "/home/kin/data/TFG/backups:/backups:rw"
+    ];
+    ports = [
+      "6789:25565/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=TFG"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-terrafirmagreg-modern" = {
     serviceConfig = {
       Restart = lib.mkOverride 90 "no";
     };
