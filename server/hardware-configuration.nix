@@ -26,7 +26,7 @@
   fileSystems."/home/kin/mount" = {
     device = "/dev/disk/by-uuid/E2AEBCF3AEBCC0F9";
     fsType = "ntfs-3g";
-    options = [ "defaults" "nofail" "uid=1000" "gid=987" "umask=022" ];
+    options = [ "rw" "nofail" "uid=1000" "gid=987" "umask=022" ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
