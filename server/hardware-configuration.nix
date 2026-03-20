@@ -23,8 +23,17 @@
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
-
-  swapDevices = [ ];
+  fileSystems."/home/kid/mount" = {
+    device = "/dev/disk/by-uuid/E2AEBCF3AEBCC0F9";
+    fsType = "ntfs-3g";
+    options = [
+      "defaults"
+      "nofail"
+      "uid=1000"
+      "gid=100"
+      "umask=022"
+    ];
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
