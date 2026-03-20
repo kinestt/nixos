@@ -166,8 +166,8 @@
       "VERSION" = "1.20.1";
     };
     volumes = [
+      "/home/kin/data/minecraft/TFG:/data:rw"
       "/home/kin/data/minecraft/TFG/backups:/backups:rw"
-      "/home/kin/minecraft/TFG:/data:rw"
     ];
     ports = [
       "6789:25565/tcp"
