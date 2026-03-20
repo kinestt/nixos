@@ -38,6 +38,16 @@
     };    
   };
 
+  users = {
+    groups = {
+      media = {};
+    };
+    users = {
+      kin.extraGroups = [ "media" ];
+      qbittorrent.extraGroups = [ "media" ];
+    };
+  };
+    
   systemd.services = {
     radarr = {
       serviceConfig = {
