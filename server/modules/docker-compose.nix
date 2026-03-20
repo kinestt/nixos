@@ -161,8 +161,6 @@
       "SKIP_GENERIC_PACK_UPDATE_CHECK" = "true";
       "TYPE" = "forge";
       "TZ" = "Asia/Kolkata";
-      "USE_AIKAR_FLAGS" = "true";
-      "USE_MEOWICE_FLAGS" = "true";
       "VERSION" = "1.20.1";
     };
     volumes = [
