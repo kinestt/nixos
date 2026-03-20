@@ -156,11 +156,9 @@
       "GENERIC_PACKS_SUFFIX" = ".zip";
       "GUI" = "false";
       "MEMORY" = "8G";
-      "ONLINE_MODE" = "false";
       "OVERRIDE_SERVER_PROPERTIES" = "false";
       "SKIP_GENERIC_PACK_UPDATE_CHECK" = "true";
       "TYPE" = "forge";
-      "TZ" = "Asia/Kolkata";
       "VERSION" = "1.20.1";
     };
     volumes = [
