@@ -8,6 +8,10 @@
     recommendedOptimisation = true;
 
     virtualHosts = {
+      "vault.ricepaddle.site" = {
+        enableACME = true;
+        forceSSL = true;
+      };
       "radarr.ricepaddle.site" = {
         enableACME = true; 
         forceSSL = true;
