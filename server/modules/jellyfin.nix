@@ -2,9 +2,10 @@
   services.jellyfin = { 
     enable = true;
     openFirewall = true;
-    user = "kin";
-    group = "users";
+    user = "jellyfin";
+    group = "media";
   };
+  users.users.jellyfin.extraGroups = [ "media" ];
   environment.systemPackages = [
     pkgs.jellyfin
     pkgs.jellyfin-web
