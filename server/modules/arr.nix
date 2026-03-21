@@ -36,8 +36,8 @@
         ];
       torrentingPort = 5555;
     };
-  users.users.qbittorrent.extraConfig = [ "users" ];    
   };
+  users.users.qbittorrent.extraConfig = [ "users" ];    
   systemd.services = {
     radarr = {
       serviceConfig = {
