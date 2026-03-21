@@ -30,6 +30,7 @@
     qbittorrent = {
       enable = false;
       user = "kin";
+      group = "media";
       webuiPort = 8888;
       extraArgs = 
         [
