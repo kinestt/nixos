@@ -22,7 +22,8 @@
     git
     bat
     htop
-    home-manager 
+    home-manager
+    ntfs-3g 
   ];
 
   networking = {
