@@ -19,7 +19,7 @@
     };
 
     extraConfig = "
-      background_opacity 0.90
+      background_opacity 1
     ";
   };
 }

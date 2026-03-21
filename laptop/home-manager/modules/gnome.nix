@@ -4,6 +4,7 @@
     dash-to-dock
     zen
     appindicator
+    hide-top-bar
   ];
   home.file."Pictures/wallpaper.jpg".source = ./eoe_output8.png;
   dconf = {
@@ -19,6 +20,7 @@
         enabled-extensions = with pkgs.gnomeExtensions; [
           zen.extensionUuid
           appindicator.extensionUuid
+          hide-top-bar.extensionUuid
         ];
       };
       "org/gnome/desktop/interface" = {
@@ -32,6 +34,23 @@
         picture-uri = wallpaper;
         picture-uri-dark = wallpaper;
         picture-options = "zoom";
+      };
+      "org/gnome/desktop/applications/terminal" = {
+        exec = "kitty";
+      };
+      "org/gnome/settings-daemon/plugins/media-keys" = {
+        custom-keybindings = [
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+        ];
+      };
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+        name = "Terminal";
+        command = "kitty";
+        binding = "<Control><Alt>t";
+      };
+      "org/gnome/shell/extensions/hidetopbar" = {
+        enable-active-window = true;
+        enable-intellihide = true;
       };
     };
   };

@@ -87,6 +87,13 @@
     size = 16 * 1024; # Size in Megabytes
   } ];
 
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchDocked = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    IdleAction = "ignore";
+  };
+
   nixpkgs.config.allowUnfree = true;
   programs.gamemode.enable = true;
   programs.steam.enable = true;
