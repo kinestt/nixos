@@ -49,6 +49,7 @@
       qbittorrent = {
         group = "qbittorrent";
         extraGroups = [ "media" ];
+      };
     };
   };
     
