@@ -28,7 +28,7 @@
       };
     };
     qbittorrent = {
-      enable = false;
+      enable = true;
       webuiPort = 8888;
       extraArgs = 
         [

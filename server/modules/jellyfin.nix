@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   services.jellyfin = { 
-    enable = false;
+    enable = true;
     openFirewall = true;
   };
   environment.systemPackages = [
