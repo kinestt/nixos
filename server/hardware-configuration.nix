@@ -26,6 +26,7 @@
   fileSystems."/mnt/hdd" = {
     device = "/dev/disk/by-uuid/E2AEBCF3AEBCC0F9";
     fsType = "ntfs3";
+    options = [ "defaults" "nofail" ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
