@@ -46,9 +46,6 @@
     };
     users = {
       kin.extraGroups = [ "media" ];
-      qbittorrent = {
-        group = "media";
-      };
     };
   };
     
