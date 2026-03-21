@@ -23,10 +23,9 @@
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
-  fileSystems."/mnt/hdd" = {
+  fileSystems."/home/kin/mount" = {
     device = "/dev/disk/by-uuid/E2AEBCF3AEBCC0F9";
     fsType = "ntfs3";
-    options = [ "rw" "nofail" "umask=000" ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
