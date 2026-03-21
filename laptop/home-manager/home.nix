@@ -20,6 +20,7 @@
       equibop
       qbittorrent
       jellyfin-media-player
+      mpv
     ]; 
   };
   programs.gh = {
