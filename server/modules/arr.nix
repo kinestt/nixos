@@ -28,7 +28,7 @@
       };
     };
     qbittorrent = {
-      enable = false;
+      enable = true;
       webuiPort = 8888;
       extraArgs = 
         [
@@ -37,7 +37,7 @@
       torrentingPort = 5555;
     };    
   };
-    
+  users.users.qbittorrent.extraGroups = [ "users" ];  
   systemd.services = {
     radarr = {
       serviceConfig = {
