@@ -28,9 +28,7 @@
       };
     };
     qbittorrent = {
-      enable = true;
-      user = "kin";
-      group = "media";
+      enable = false;
       webuiPort = 8888;
       extraArgs = 
         [
@@ -38,15 +36,6 @@
         ];
       torrentingPort = 5555;
     };    
-  };
-
-  users = {
-    groups = {
-      media = {};
-    };
-    users = {
-      kin.extraGroups = [ "media" ];
-    };
   };
     
   systemd.services = {
