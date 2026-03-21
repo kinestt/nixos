@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   services.jellyfin = { 
-    enable = true;
+    enable = false;
     openFirewall = true;
   };
   users.users.jellyfin.extraGroups = [ "media" ];
