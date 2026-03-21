@@ -35,7 +35,8 @@
           "--confirm-legal-notice"
         ];
       torrentingPort = 5555;
-    };    
+    };
+  users.users.qbittorrent.extraConfig = [ "users" ];    
   };
   systemd.services = {
     radarr = {
