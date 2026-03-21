@@ -23,7 +23,7 @@
     bat
     htop
     home-manager
-    ntfs-3g 
+    ntfs3g 
   ];
 
   networking = {
