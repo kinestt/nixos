@@ -25,7 +25,7 @@
     };
   fileSystems."/home/kin/mount" = {
     device = "/dev/disk/by-uuid/E2AEBCF3AEBCC0F9";
-    fsType = "ntfs-3g";
+    fsType = "ntfs3";
     options = [ "rw" "uid=1000" "gid=987" "umask=022" ];
   };
 
