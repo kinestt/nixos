@@ -28,7 +28,7 @@
       };
     };
     qbittorrent = {
-      enable = false;
+      enable = true;
       user = "kin";
       group = "media";
       webuiPort = 8888;
