@@ -21,6 +21,7 @@
       qbittorrent
       jellyfin-media-player
       mpv
+      freecad
     ]; 
   };
   programs.gh = {
