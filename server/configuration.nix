@@ -37,7 +37,7 @@
       -j TCPMSS --clamp-mss-to-pmtu";
     };
     interfaces = {
-      enp6s0f4u2 = {
+      enp6s0f3u2u3 = {
         mtu = 1300;
       };
     };
