@@ -36,11 +36,11 @@
       extraCommands = "  iptables -t mangle -A POSTROUTING -p tcp --tcp-flags SYN,RST SYN \
       -j TCPMSS --clamp-mss-to-pmtu";
     };
-    interfaces = {
-      enp6s0f3u2u3 = {
-        mtu = 1300;
-      };
-    };
+    #interfaces = {
+    #  enp6s0f3u2u3 = {
+    #    mtu = 1300;
+    #  };
+    #};
   };
 
   swapDevices = [ {
