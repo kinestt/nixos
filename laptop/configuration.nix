@@ -3,7 +3,7 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./modules/flatpak.nix
+      ./modules/bundle.nix
       ./overlays/bundle.nix
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

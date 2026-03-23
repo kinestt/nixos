@@ -20,7 +20,7 @@
         enabled-extensions = with pkgs.gnomeExtensions; [
           zen.extensionUuid
           appindicator.extensionUuid
-          hide-top-bar.extensionUuid
+          #hide-top-bar.extensionUuid
         ];
       };
       "org/gnome/desktop/interface" = {
