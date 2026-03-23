@@ -23,7 +23,7 @@
   virtualisation.oci-containers.containers."multi-scrobbler" = {
     image = "foxxmd/multi-scrobbler:latest";
     environment = {
-      "BASE_URL" = "http://192.168.0.100:9078";
+      "BASE_URL" = "http://192.168.0.122:9078";
       "PGID" = "100";
       "PUID" = "1000";
       "TZ" = "Asia/Kolkata";
