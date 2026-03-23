@@ -7,7 +7,6 @@
       pushgit = ''git -C ${config.home.homeDirectory}/nixos add . && git -C ${config.home.homeDirectory}/nixos commit -m "commit" && git -C ${config.home.homeDirectory}/nixos push'';
     };
     bashrcExtra = ''
-      export SSH_AUTH_SOCK=/home/kin/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock
       [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
     '';
   };
