@@ -149,8 +149,8 @@
       "ENABLE_RCON" = "true";
       "EULA" = "true";
       "FORGE_VERSION" = "47.4.13";
-      "GENERIC_PACKS" = "TerraFirmaGreg-Modern-0.11.27-serverpack";
-      "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.11.27/";
+      "GENERIC_PACKS" = "TerraFirmaGreg-Modern-0.11.28-serverpack";
+      "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.11.28/";
       "GENERIC_PACKS_SUFFIX" = ".zip";
       "GUI" = "false";
       "MEMORY" = "6G";
