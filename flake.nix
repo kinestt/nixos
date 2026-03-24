@@ -32,6 +32,7 @@
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
         nixcord.homeModules.nixcord
+        nixcraft.homeModules.default
         ./laptop/home-manager/home.nix
       ];
     };

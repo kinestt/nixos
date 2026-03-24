@@ -7,5 +7,6 @@
     ./nixcord.nix
     ./kitty.nix
     ./vim.nix
+    ./nixcraft.nix
   ];
 }

@@ -12,8 +12,9 @@
       }
     ];
     packages = [ 
-      { appId = "org.vinegarhq.Sober"; origin = "flathub-beta"; }
+      { appId = "org.vinegarhq.Sober"; origin = "flathub"; }
       { appId = "com.bitwarden.desktop"; origin = "flathub"; } 
+      { appId = "com.spotify.Client"; origin = "flathub"; }
     ];
     
   };

@@ -16,7 +16,7 @@
       mcrcon
 
       # GUI
-      spotify
+      #spotify
       equibop
       qbittorrent
       jellyfin-media-player
