@@ -22,6 +22,7 @@
       jellyfin-media-player
       mpv
       freecad
+      vscodium
     ]; 
   };
   programs.gh = {
