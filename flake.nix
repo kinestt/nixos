@@ -33,6 +33,7 @@
       modules = [
         nixcord.homeModules.nixcord
         nixcraft.homeModules.default
+        nixvim.homeModules.nixvim
         ./laptop/home-manager/home.nix
       ];
     };
