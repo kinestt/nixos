@@ -105,6 +105,7 @@
       "ONLINE_MODE" = "false";
       "SEED" = "-7723232821704547830";
       "SIMULATION_DISTANCE" = "12";
+      "SPIGET_RESOURCES" = "131851";
       "TYPE" = "PAPER";
       "TZ" = "Asia/Kolkata";
       "USE_AIKAR_FLAGS" = "true";
