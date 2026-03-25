@@ -2,21 +2,29 @@
   description = "A very basic flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
     home-manager = {
 	    url = "github:nix-community/home-manager";
 	    inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim.url = "github:nix-community/nixvim";
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=offline-install-onactivation-1";
+
     nixcord = {
       url = "github:FlameFlag/nixcord";
     };
+
     nixcraft = {
       url = "github:loystonpais/nixcraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=offline-install-onactivation-1";
   };
-  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, nixcord, nixcraft }: {
+  outputs = { self, nixpkgs, home-manager, nvf, nix-flatpak, nixcord, nixcraft }: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
         ./laptop/configuration.nix
@@ -33,7 +41,7 @@
       modules = [
         nixcord.homeModules.nixcord
         nixcraft.homeModules.default
-        nixvim.homeModules.nixvim
+        nvf.homeManagerModules.default
         ./laptop/home-manager/home.nix
       ];
     };

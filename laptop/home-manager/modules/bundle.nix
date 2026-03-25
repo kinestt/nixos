@@ -8,5 +8,6 @@
     ./kitty.nix
     ./vim.nix
     ./nixcraft.nix
+    ./nvf.nix
   ];
 }
