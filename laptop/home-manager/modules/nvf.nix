@@ -14,6 +14,11 @@
           shiftwidth = 2;
           termguicolors = true;
         };
+        clipboard ={
+          enable = true;
+          providers.wl-copy.enable = true;
+          registers = "unnamedplus";
+        };
         presence = {
           neocord = {
             enable = true;
