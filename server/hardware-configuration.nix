@@ -26,7 +26,6 @@
   fileSystems."/mnt/external-hdd" = {
     device = "/dev/disk/by-uuid/9a744e65-60fb-46f3-83ff-10736a365a66";
     fsType = "ext4";
-    options = [ "defaults" "nofail" ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
