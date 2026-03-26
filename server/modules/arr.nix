@@ -39,7 +39,12 @@
   };
   users.users.qbittorrent.extraGroups = [ "users" ];
   users.users.radarr.extraGroups = [ "users" ];    
-  users.users.sonarr.extraGroups = [ "users" ];    
+  users.users.sonarr.extraGroups = [ "users" ];   
+  systemd.services.qbittorrent = {
+    serviceConfig = {
+      UMask = "000";
+    };
+  };
   systemd.services = {
     radarr = {
       serviceConfig = {
