@@ -23,10 +23,10 @@
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
-  fileSystems."/home/kin/mount" = {
+  fileSystems."/mnt/external-hdd" = {
     device = "/dev/disk/by-uuid/e6ab5a96-b8f5-4081-ba4a-5d2dca6f3bb5";
     fsType = "ext4";
-    options = [ "defaults" "nofail" "rw" "user" ];
+    options = [ "nofail" ];
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
