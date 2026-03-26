@@ -24,7 +24,7 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
   fileSystems."/mnt/external-hdd" = {
-    device = "/dev/disk/by-uuid/e6ab5a96-b8f5-4081-ba4a-5d2dca6f3bb5";
+    device = "/dev/disk/by-uuid/9a744e65-60fb-46f3-83ff-10736a365a66";
     fsType = "ext4";
     options = [ "defaults" "nofail" ];
   };
