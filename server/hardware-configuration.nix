@@ -25,7 +25,7 @@
     };
   fileSystems."/mnt/external-hdd" = {
     device = "/dev/disk/by-uuid/E2AEBCF3AEBCC0F9";
-    fsType = "ntfs-3g";
+    fsType = "ext4";
     options = [ "defaults" "nofail" ];
   };
 
