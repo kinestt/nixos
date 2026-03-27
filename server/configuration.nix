@@ -25,7 +25,7 @@
     home-manager
     ntfs3g 
   ];
-  programs.light.enable = true;
+  programs.brightnessctl.enable = true;
   networking = {
     hostName = "server";
     useDHCP = true;
