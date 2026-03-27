@@ -23,9 +23,9 @@
     bat
     htop
     home-manager
-    ntfs3g 
+    ntfs3g
+    brightnessctl
   ];
-  programs.brightnessctl.enable = true;
   networking = {
     hostName = "server";
     useDHCP = true;
