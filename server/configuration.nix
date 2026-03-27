@@ -25,6 +25,7 @@
     home-manager
     ntfs3g
     brightnessctl
+    gh
   ];
   networking = {
     hostName = "server";
