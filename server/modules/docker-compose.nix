@@ -57,6 +57,165 @@
       "podman-compose-services-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."piped-backend" = {
+    image = "1337kavin/piped:latest";
+    volumes = [
+      "/home/kin/Piped-Docker/config/config.properties:/app/config.properties:ro"
+    ];
+    ports = [
+      "7071:8080/tcp"
+    ];
+    dependsOn = [
+      "piped-postgres"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=piped"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-piped-backend" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."piped-bg-helper" = {
+    image = "1337kavin/bg-helper-server:latest";
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=bg-helper"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-piped-bg-helper" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."piped-frontend" = {
+    image = "1337kavin/piped-frontend:latest";
+    environment = {
+      "BACKEND_HOSTNAME" = "pipedapi.ricepaddle.site";
+      "HTTP_MODE" = "https";
+      "PGID" = "0";
+      "PUID" = "0";
+    };
+    ports = [
+      "7070:80/tcp"
+    ];
+    dependsOn = [
+      "piped-backend"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--cap-add=NET_BIND_SERVICE"
+      "--network-alias=frontend"
+      "--network=services_default"
+      "--privileged"
+    ];
+  };
+  systemd.services."podman-piped-frontend" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."piped-postgres" = {
+    image = "pgautoupgrade/pgautoupgrade:16-alpine";
+    environment = {
+      "POSTGRES_DB" = "piped";
+      "POSTGRES_PASSWORD" = "changeme";
+      "POSTGRES_USER" = "piped";
+    };
+    volumes = [
+      "/home/kin/Piped-Docker/data/db:/var/lib/postgresql/data:rw"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=postgres"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-piped-postgres" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."piped-proxy" = {
+    image = "1337kavin/piped-proxy:latest";
+    ports = [
+      "7072:8080/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=proxy"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-piped-proxy" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."recyclarr" = {
     image = "ghcr.io/recyclarr/recyclarr:8";
     environment = {
@@ -102,7 +261,8 @@
   https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
   https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.7.2/PAPER/ViaBackwards-5.7.2.jar
   https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.7.2/PAPER/ViaVersion-5.7.2.jar
-  https://cdn.modrinth.com/data/7pdfxYHV/versions/7JPEmS9o/instantrestock_2.6.1.jar";
+  https://cdn.modrinth.com/data/7pdfxYHV/versions/7JPEmS9o/instantrestock_2.6.1.jar
+  https://cdn.modrinth.com/data/1u6JkXh5/versions/JUWRHdru/worldedit-bukkit-7.4.1.jar";
       "ONLINE_MODE" = "false";
       "SEED" = "-7723232821704547830";
       "SIMULATION_DISTANCE" = "12";
@@ -150,8 +310,8 @@
       "ENABLE_RCON" = "true";
       "EULA" = "true";
       "FORGE_VERSION" = "47.4.13";
-      "GENERIC_PACKS" = "TerraFirmaGreg-Modern-0.11.28-serverpack";
-      "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.11.28/";
+      "GENERIC_PACKS" = "TerraFirmaGreg-Modern-0.11.27-serverpack";
+      "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.11.27/";
       "GENERIC_PACKS_SUFFIX" = ".zip";
       "GUI" = "false";
       "MEMORY" = "6G";

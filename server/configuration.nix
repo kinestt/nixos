@@ -26,6 +26,7 @@
     ntfs3g
     brightnessctl
     gh
+    fastfetch
   ];
   networking = {
     hostName = "server";
@@ -39,7 +40,7 @@
     };
     interfaces = {
       eno1 = {
-        mtu = 1300;
+        mtu = 1250;
       };
     };
   };

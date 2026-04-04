@@ -46,6 +46,30 @@
           proxyWebsockets = true;
         };
       };
+      "piped.ricepaddle.site" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:7070";
+          proxyWebsockets = true;
+        };
+      };
+      "pipedapi.ricepaddle.site" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:7071";
+          proxyWebsockets = true;
+        };
+      };
+      "pipedproxy.ricepaddle.site" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:7072";
+          proxyWebsockets = true;
+        };
+      };
       "jellyfin.ricepaddle.site" = {
         enableACME = true;
         forceSSL = true;
