@@ -20,6 +20,48 @@
   virtualisation.oci-containers.backend = "podman";
 
   # Containers
+  virtualisation.oci-containers.containers."kasmcord" = {
+    image = "kasmweb/discord:1.14.0";
+    environment = {
+      "PGID" = "100";
+      "PUID" = "1000";
+      "TZ" = "Asia/Kolkata";
+      "VNC_PW" = "hunter2";
+      "XDG_RUNTIME_DIR" = "/run/user/1000";
+    };
+    volumes = [
+      "/home/kin/data/multi-scrobbler/discord/config:/home/kasm-user/.config:rw"
+      "/home/kin/data/multi-scrobbler/discord/run:/run/user/1000:rw"
+    ];
+    ports = [
+      "6901:6901/tcp"
+    ];
+    user = "0";
+    log-driver = "journald";
+    extraOptions = [
+      "--entrypoint=[\"sh\", \"-c\", \"chmod 700 /run/user/1000 && chown -R kasm-user:kasm-user /run/user/1000 && chown -R kasm-user:kasm-user /home/kasm-user/.config && su kasm-user -c '/dockerstartup/kasm_default_profile.sh /dockerstartup/vnc_startup.sh /dockerstartup/kasm_startup.sh'\"]"
+      "--network-alias=kasmcord"
+      "--network=services_default"
+      "--shm-size=536870912"
+    ];
+  };
+  systemd.services."podman-kasmcord" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."multi-scrobbler" = {
     image = "foxxmd/multi-scrobbler:latest";
     environment = {
@@ -30,6 +72,7 @@
     };
     volumes = [
       "/home/kin/data/multi-scrobbler/config:/config:rw"
+      "/home/kin/data/multi-scrobbler/discord/run:/run:rw"
     ];
     ports = [
       "9078:9078/tcp"

@@ -26,6 +26,15 @@
           port = 9696;
         };
       };
+    }; 
+    lidarr = {
+      enable = true;
+      settings = {
+        server = {
+          bindaddress = "*";
+          port = 8686;
+        };
+      };
     };
     qbittorrent = {
       enable = true;
