@@ -15,7 +15,23 @@
     extraGroups = ["wheel"];
     shell = pkgs.bash;
     home =  "/home/kin";
+    hashedPasswordFile = config.sops.secrets.server_passwd.path;
   };
+
+  sops = {
+    defaultSopsFile = "${config.home.homeDirectory}/nixos/secrets/server.yaml";
+    age = {
+      sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true;
+    };
+    secrets = {
+      server_passwd = {
+        neededForUsers = true;
+      };
+    };
+  };
+
   boot.loader.grub.device = "/dev/nvme0n1p1";
   environment.systemPackages = with pkgs; [ 
     vim
