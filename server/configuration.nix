@@ -15,20 +15,22 @@
     extraGroups = ["wheel"];
     shell = pkgs.bash;
     home =  "/home/kin";
-    hashedPasswordFile = config.sops.secrets.server_passwd.path;
   };
 
   sops = {
-    defaultSopsFile = "${config.home.homeDirectory}/nixos/secrets/server.yaml";
+    defaultSopsFile = ../secrets/server.yaml;
     age = {
-      sshKeyPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
+      sshKeyPaths = ["${config.users.users.kin.home}/.ssh/id_ed25519"];
       keyFile = "/var/lib/sops-nix/key.txt";
       generateKey = true;
     };
     secrets = {
-      server_passwd = {
-        neededForUsers = true;
-      };
+      lidarr_api_key = {};
+      lidarr_api_env = {};
+      radarr_api_key = {};
+      radarr_api_env = {};
+      sonarr_api_key = {};
+      sonarr_api_env = {};
     };
   };
 
@@ -44,6 +46,7 @@
     gh
     fastfetch
     age
+    sops
   ];
   networking = {
     hostName = "server";

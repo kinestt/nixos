@@ -1,4 +1,4 @@
-{
+{ config, ... }: {
   services = {
     radarr = {
       enable = true;
@@ -8,6 +8,9 @@
           port = 7878;
         };
       };
+      environmentFiles = [
+        "${config.sops.secrets.radarr_api_env.path}"
+      ];
     };
     sonarr = {
       enable = true;
@@ -17,6 +20,9 @@
           port = 8989;
         };
       };
+      environmentFiles = [
+        "${config.sops.secrets.sonarr_api_env.path}"
+      ];
     };
     prowlarr = { 
       enable = true; 
@@ -35,6 +41,9 @@
           port = 8686;
         };
       };
+      environmentFiles = [
+        "${config.sops.secrets.lidarr_api_env.path}"
+      ]; 
     };
     qbittorrent = {
       enable = true;
@@ -52,22 +61,6 @@
   systemd.services.qbittorrent = {
     serviceConfig = {
       UMask = "000";
-    };
-  };
-  systemd.services = {
-    radarr = {
-      serviceConfig = {
-        LoadCredential = [
-          "radarr_api_key:/etc/secrets/radarr-api-key"
-        ];
-      };
-    };
-    sonarr = {
-      serviceConfig = {
-        LoadCredential = [
-          "sonarr_api_key:/etc/secrets/sonarr-api-key"
-        ];
-      };
     };
   };
 }

@@ -55,6 +55,7 @@
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
         ./server/home-manager/home.nix
+        sops-nix.homeManagerModules.sops
       ];
     };
   };
