@@ -27,12 +27,13 @@
     brightnessctl
     gh
     fastfetch
+    age
   ];
   networking = {
     hostName = "server";
     useDHCP = true;
     firewall = {
-      enable = true;
+      enable = false;
       allowedTCPPorts = [ 25575 25565 80 443 7878 8989 9696 42010 ];
       allowedUDPPorts = [ 19132 5544 25565 ];
       extraCommands = "  iptables -t mangle -A POSTROUTING -p tcp --tcp-flags SYN,RST SYN \

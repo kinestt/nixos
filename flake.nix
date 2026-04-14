@@ -22,9 +22,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=offline-install-onactivation-1";
   };
-  outputs = { self, nixpkgs, home-manager, nvf, nix-flatpak, nixcord, nixcraft }: {
+  outputs = { self, nixpkgs, home-manager, sops-nix, nvf, nix-flatpak, nixcord, nixcraft }: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
         ./laptop/configuration.nix
@@ -34,6 +39,7 @@
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       modules = [
         ./server/configuration.nix
+        sops-nix.nixosModules.sops
       ];
     };
     homeConfigurations.kin-laptop = home-manager.lib.homeManagerConfiguration {
