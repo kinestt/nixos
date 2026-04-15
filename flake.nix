@@ -32,9 +32,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixflix = {
+      url = "github:kiriwalawren/nixflix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=offline-install-onactivation-1";
   };
-  outputs = { self, nixpkgs, home-manager, nix-secrets, sops-nix, nvf, nix-flatpak, nixcord, nixcraft }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nix-secrets, sops-nix, nvf, nix-flatpak, nixcord, nixflix, nixcraft }@inputs: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
         ./laptop/configuration.nix
@@ -50,6 +55,7 @@
       modules = [
         ./server/configuration.nix
         sops-nix.nixosModules.sops
+        nixflix.nixosModules.default
       ];
     };
     homeConfigurations.kin-laptop = home-manager.lib.homeManagerConfiguration {

@@ -7,6 +7,9 @@
       pushmain = ''git -C ${config.home.homeDirectory}/nixos add . && git -C ${config.home.homeDirectory}/nixos commit -m "commit" && git -C ${config.home.homeDirectory}/nixos push'';
       pushsecret = ''git -C ${config.home.homeDirectory}/nix-secrets add . && git -C ${config.home.homeDirectory}/nix-secrets commit -m "commit" && git -C ${config.home.homeDirectory}/nix-secrets push'';
     };
+    bashrcExtra = "
+      export EDITOR='vim'
+    ";
   };
 }
 

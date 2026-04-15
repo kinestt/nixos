@@ -110,6 +110,22 @@
         "type": "github"
       }
     },
+    "mkdocs-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767028711,
+        "narHash": "sha256-YVIZAtQT2B4Xs2sBaszvyyukm+1klCJdRpsc/BYV1gw=",
+        "owner": "ruslanlap",
+        "repo": "mkdocs-catppuccin",
+        "rev": "fd8ac6106b5b6d32922cd80cbc3d221622a17408",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ruslanlap",
+        "repo": "mkdocs-catppuccin",
+        "type": "github"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1770419553,
@@ -166,10 +182,10 @@
     "nix-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1776229929,
-        "narHash": "sha256-GntTGh8NRbeysTDiO7755NAoV9e6FmGEmCEH7RycGRc=",
+        "lastModified": 1776247555,
+        "narHash": "sha256-p2uUlUOQWX5AZH3Ww72URC0/S9hDk8YWGA27kpqScOY=",
         "ref": "main",
-        "rev": "14e52bc62b8ae72bff78f47a104f849d81c5bcfd",
+        "rev": "4e0182949a249a47b9749591356e3d9f2f6b2f2e",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/kinestt/nix-secrets"
@@ -189,11 +205,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1776214832,
-        "narHash": "sha256-TRyAfkyGmR4Rvw9YE8lmAWsy9ktJWE0l7kUrRsdP0qU=",
+        "lastModified": 1776242979,
+        "narHash": "sha256-fBVQaqymdlXaRzNKsVb/VZewfUufwCOGEA3SIZe2h8I=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "d25de11b496bb6d4377910c42ea377bcf754aad8",
+        "rev": "9664a33cd496cde53363bc330ada36f0e93661f8",
         "type": "github"
       },
       "original": {
@@ -220,6 +236,28 @@
       "original": {
         "owner": "loystonpais",
         "repo": "nixcraft",
+        "type": "github"
+      }
+    },
+    "nixflix": {
+      "inputs": {
+        "mkdocs-catppuccin": "mkdocs-catppuccin",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": "treefmt-nix"
+      },
+      "locked": {
+        "lastModified": 1776100711,
+        "narHash": "sha256-uerMyclfpxtk0tsQNiQiQR7rFQoI2464hhMehZ/qczk=",
+        "owner": "kiriwalawren",
+        "repo": "nixflix",
+        "rev": "92233b53b6bfb982934da6a23f0f1180ed377016",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kiriwalawren",
+        "repo": "nixflix",
         "type": "github"
       }
     },
@@ -298,11 +336,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1775892726,
-        "narHash": "sha256-1TK1pe33cEHNvGW41TP5xAzrbG1Gp7LfyFL6c3+xf+I=",
+        "lastModified": 1776239205,
+        "narHash": "sha256-i0xbPMxicicbp/3aUyjTAS4BHyxxiZaXgbooH7eVkqM=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "5ab359ee7dfd3fa09a5c6f863efaf810bb9a9436",
+        "rev": "b64f4e4436b86223cd415f41a23f3df9b734e43b",
         "type": "github"
       },
       "original": {
@@ -318,6 +356,7 @@
         "nix-secrets": "nix-secrets",
         "nixcord": "nixcord",
         "nixcraft": "nixcraft",
+        "nixflix": "nixflix",
         "nixpkgs": "nixpkgs_2",
         "nvf": "nvf",
         "sops-nix": "sops-nix"
@@ -355,6 +394,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixflix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775125835,
+        "narHash": "sha256-2qYcPgzFhnQWchHo0SlqLHrXpux5i6ay6UHA+v2iH4U=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "75925962939880974e3ab417879daffcba36c4a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
         "type": "github"
       }
     }
