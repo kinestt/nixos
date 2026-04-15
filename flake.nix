@@ -8,6 +8,11 @@
 	    inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-secrets = {
+      url = "git+ssh://git@github.com/kinestt/nix-secrets?ref=main&shallow=1";
+      flake = false;
+    };
+
     nixcord = {
       url = "github:FlameFlag/nixcord";
     };
@@ -29,7 +34,7 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=offline-install-onactivation-1";
   };
-  outputs = { self, nixpkgs, home-manager, sops-nix, nvf, nix-flatpak, nixcord, nixcraft }: {
+  outputs = { self, nixpkgs, home-manager, nix-secrets, sops-nix, nvf, nix-flatpak, nixcord, nixcraft }@inputs: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
         ./laptop/configuration.nix
@@ -37,6 +42,11 @@
       ];
     };
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
+
+      specialArgs = {
+        inherit inputs;
+      };
+
       modules = [
         ./server/configuration.nix
         sops-nix.nixosModules.sops

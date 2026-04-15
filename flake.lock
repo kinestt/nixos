@@ -97,11 +97,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776136611,
-        "narHash": "sha256-b2pu3Pb28W0bJzQVP3OJHZC5+dgOOeqjlli2WVakKEU=",
+        "lastModified": 1776184304,
+        "narHash": "sha256-No6QGBmIv5ChiwKCcbkxjdEQ/RO2ZS1gD7SFy6EZ7rc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8a423e444b17dde406097328604a64fc7429e34e",
+        "rev": "3c7524c68348ef79ce48308e0978611a050089b2",
         "type": "github"
       },
       "original": {
@@ -163,6 +163,24 @@
         "type": "github"
       }
     },
+    "nix-secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776229929,
+        "narHash": "sha256-GntTGh8NRbeysTDiO7755NAoV9e6FmGEmCEH7RycGRc=",
+        "ref": "main",
+        "rev": "14e52bc62b8ae72bff78f47a104f849d81c5bcfd",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/kinestt/nix-secrets"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/kinestt/nix-secrets"
+      }
+    },
     "nixcord": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -171,11 +189,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1776156493,
-        "narHash": "sha256-pKZWGJYX3iIt9g/DEkivx7vDDGtk2L8yEVD3nzk0lqQ=",
+        "lastModified": 1776214832,
+        "narHash": "sha256-TRyAfkyGmR4Rvw9YE8lmAWsy9ktJWE0l7kUrRsdP0qU=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "639293b2c68261321b0d807212aa424a65d9aa07",
+        "rev": "d25de11b496bb6d4377910c42ea377bcf754aad8",
         "type": "github"
       },
       "original": {
@@ -192,11 +210,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775784675,
-        "narHash": "sha256-VjxsEYzZ24FCK9c4ehUE0z9cb8r9/7X7727p+FY9vss=",
+        "lastModified": 1776216649,
+        "narHash": "sha256-DQgh0q/68Aw5sInT1xJXgEjNrGSTzMCYElCSzXtb1g0=",
         "owner": "loystonpais",
         "repo": "nixcraft",
-        "rev": "4ea35abcc02fff4c9136f1f9c10cec8217d0c170",
+        "rev": "78f6c033af8065b3845430ff6e4378fc90a53f99",
         "type": "github"
       },
       "original": {
@@ -297,6 +315,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",
+        "nix-secrets": "nix-secrets",
         "nixcord": "nixcord",
         "nixcraft": "nixcraft",
         "nixpkgs": "nixpkgs_2",

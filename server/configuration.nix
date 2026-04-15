@@ -1,5 +1,7 @@
-{ config, lib, pkgs, ... }:
-{
+{ config, lib, pkgs, inputs, ... }:
+let 
+  secretspath = builtins.toString inputs.nix-secrets;
+in {
   imports =
     [
       ./hardware-configuration.nix
@@ -18,7 +20,7 @@
   };
 
   sops = {
-    defaultSopsFile = ../secrets/server.yaml;
+    defaultSopsFile = "${secretspath}/secrets/server.yaml";
     age = {
       sshKeyPaths = ["${config.users.users.kin.home}/.ssh/id_ed25519"];
       keyFile = "/var/lib/sops-nix/key.txt";
