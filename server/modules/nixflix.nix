@@ -14,6 +14,9 @@
     "lidarr/password" = {};
     "qbittorrent/username" = {};
     "qbittorrent/password" = {};
+    "jellyfin/api_key" = {};
+    "jellyfin/users/kin/password" = {};
+    "jellyfin/users/priyaa/password" = {};
   };
 
   nixflix = {
@@ -96,6 +99,22 @@
         server = {
           port = 8989;
           bindaddress = "*";
+        };
+      };
+    };
+
+    jellyfin = {
+      enable = true;
+      apiKey._secret = config.sops.secrets."jellyfin/api_key".path;
+      users = {
+        kin = {
+          password._secret = config.sops.secrets."jellyfin/users/kin/password".path;
+          policy = {
+            isAdministrator = true;
+          };
+        };
+        priyaa = {
+          password._secret = config.sops.secrets."jellyfin/users/priyaa/password".path;
         };
       };
     };
