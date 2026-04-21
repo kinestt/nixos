@@ -47,11 +47,9 @@
       ];
     };
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
-
       specialArgs = {
         inherit inputs;
       };
-
       modules = [
         ./server/configuration.nix
         sops-nix.nixosModules.sops
@@ -72,6 +70,7 @@
       modules = [
         ./server/home-manager/home.nix
         sops-nix.homeManagerModules.sops
+        nixcraft.homeModules.default
       ];
     };
   };
