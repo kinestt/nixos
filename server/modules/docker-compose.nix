@@ -20,6 +20,52 @@
   virtualisation.oci-containers.backend = "podman";
 
   # Containers
+  virtualisation.oci-containers.containers."TFG" = {
+    image = "itzg/minecraft-server:latest";
+    environment = {
+      "ENABLE_RCON" = "false";
+      "EULA" = "true";
+      "FORGE_VERSION" = "47.4.13";
+      "GENERIC_PACKS" = "TerraFirmaGreg-Modern-0.12.5-serverpack";
+      "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.12.5/";
+      "GENERIC_PACKS_SUFFIX" = ".zip";
+      "GUI" = "false";
+      "MEMORY" = "6G";
+      "OVERRIDE_SERVER_PROPERTIES" = "false";
+      "SKIP_GENERIC_PACK_UPDATE_CHECK" = "true";
+      "TYPE" = "forge";
+      "VERSION" = "1.20.1";
+    };
+    volumes = [
+      "/home/kin/data/minecraft/TFG:/data:rw"
+      "/home/kin/data/minecraft/TFG/backups:/backups:rw"
+    ];
+    ports = [
+      "6789:25565/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=terrafirmagreg-modern"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-TFG" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."multi-scrobbler" = {
     image = "foxxmd/multi-scrobbler:latest";
     environment = {

@@ -13,8 +13,8 @@ in {
         agreeToEula = true;
       };
       instances = {
-        TFG = {
-          enable = true;
+        TFG-new = {
+          enable = false;
           mrpack = {
             enable = true;
             file = TFG;
@@ -22,7 +22,7 @@ in {
           java.memory = 6000;
           service = {
             enable = true;
-            autoStart = false;
+            autoStart = true;
           };
         };
       };
