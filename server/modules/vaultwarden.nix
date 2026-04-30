@@ -1,7 +1,7 @@
 {
   services.vaultwarden = {
     enable = true;
-    domain = "vault.ricepaddle.site";
+    domain = "vault.peanutbutter.quest";
     configureNginx = true;
     environmentFile = "/var/lib/vaultwarden.env";
   };

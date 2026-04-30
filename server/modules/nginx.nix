@@ -8,11 +8,27 @@
     recommendedOptimisation = true;
 
     virtualHosts = {
-      "vault.ricepaddle.site" = {
+      "vault.peanutbutter.quest" = {
         enableACME = true;
         forceSSL = true;
       };
-      "piped.ricepaddle.site" = {
+      "rss.peanutbutter.quest" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:9090";
+          proxyWebsockets = true;
+        };
+      };
+      "scrobble.peanutbutter.quest" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:9078";
+          proxyWebsockets = true;
+        };
+      };
+      "piped.peanutbutter.quest" = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
@@ -20,7 +36,7 @@
           proxyWebsockets = true;
         };
       };
-      "pipedapi.ricepaddle.site" = {
+      "pipedapi.peanutbutter.quest" = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
@@ -28,7 +44,7 @@
           proxyWebsockets = true;
         };
       };
-      "pipedproxy.ricepaddle.site" = {
+      "pipedproxy.peanutbutter.quest" = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
@@ -36,7 +52,7 @@
           proxyWebsockets = true;
         };
       };
-      "jellyfin.ricepaddle.site" = {
+      "jellyfin.peanutbutter.quest" = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {

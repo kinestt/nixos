@@ -6,6 +6,7 @@ in {
     [
       ./hardware-configuration.nix
       ./modules/bundle.nix
+      ./docker/bundle.nix
     ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -48,7 +49,9 @@ in {
     gh
     fastfetch
     age
+    kitty
     sops
+    compose2nix
   ];
   networking = {
     hostName = "server";

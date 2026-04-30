@@ -296,6 +296,61 @@
       "podman-compose-services-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."services-mc" = {
+    image = "itzg/minecraft-server:latest";
+    environment = {
+      "DIFFICULTY" = "2";
+      "ENABLE_AUTOPAUSE" = "false";
+      "ENFORCE_SECURE_PROFILE" = "false";
+      "EULA" = "TRUE";
+      "MEMORY" = "3072M";
+      "MODS" = "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot
+  https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot
+  https://hangarcdn.papermc.io/plugins/ViaVersion/ViaBackwards/versions/5.7.2/PAPER/ViaBackwards-5.7.2.jar
+  https://hangarcdn.papermc.io/plugins/ViaVersion/ViaVersion/versions/5.7.2/PAPER/ViaVersion-5.7.2.jar
+  https://cdn.modrinth.com/data/7pdfxYHV/versions/7JPEmS9o/instantrestock_2.6.1.jar
+  https://cdn.modrinth.com/data/1u6JkXh5/versions/JUWRHdru/worldedit-bukkit-7.4.1.jar";
+      "ONLINE_MODE" = "false";
+      "SEED" = "-7723232821704547830";
+      "SIMULATION_DISTANCE" = "12";
+      "TYPE" = "PAPER";
+      "TZ" = "Asia/Kolkata";
+      "USE_AIKAR_FLAGS" = "true";
+      "USE_MEOWICE_FLAGS" = "true";
+      "USE_SIMD_FLAGS" = "true";
+      "VIEW_DISTANCE" = "12";
+    };
+    volumes = [
+      "/home/kin/data/minecraft/vanilla:/data:rw"
+    ];
+    ports = [
+      "25565:25565/tcp"
+      "25565:25565/udp"
+      "19132:19132/udp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=mc"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-services-mc" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "no";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
 
   # Networks
   systemd.services."podman-network-services_default" = {

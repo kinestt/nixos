@@ -6,5 +6,6 @@
     ./jellyfin.nix
     ./docker-compose.nix
     ./vaultwarden.nix
+    ./miniflux.nix
   ];
 }

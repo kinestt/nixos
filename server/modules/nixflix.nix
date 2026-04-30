@@ -17,6 +17,7 @@
     "jellyfin/api_key" = {};
     "jellyfin/users/kin/password" = {};
     "jellyfin/users/priyaa/password" = {};
+    "jellyfin/users/nattsu/password" = {};
   };
 
   nixflix = {
@@ -115,6 +116,9 @@
         };
         priyaa = {
           password._secret = config.sops.secrets."jellyfin/users/priyaa/password".path;
+        };
+        nattsu = {
+          password._secret = config.sops.secrets."jellyfin/users/nattsu/password".path;
         };
       };
     };
