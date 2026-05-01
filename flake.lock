@@ -182,10 +182,10 @@
     "nix-secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1777537679,
-        "narHash": "sha256-cRslcB1/ihWBHzOS5MG6+wQtSRVS4qNpx6bOQZdXEFg=",
+        "lastModified": 1777616025,
+        "narHash": "sha256-1cAH7TGJ1mO7JpmrrSeLWMtsQmt72SmbmdgVl8+IIgE=",
         "ref": "main",
-        "rev": "e878bdd33ec1f8cb2cb34c17f9dcd2e4517f5531",
+        "rev": "e6c60f0ba938510fe0da8cfb2d246ce783b1a426",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/kinestt/nix-secrets"

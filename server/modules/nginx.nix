@@ -12,6 +12,10 @@
         enableACME = true;
         forceSSL = true;
       };
+      "search.peanutbutter.quest" = {
+        enableACME = true;
+        forceSSL = true;
+      };
       "rss.peanutbutter.quest" = {
         enableACME = true;
         forceSSL = true;
