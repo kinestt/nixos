@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, lib, ... }: {
   sops.secrets = {
     "radarr/api_key" = {};
     "radarr/username" = {};
@@ -18,6 +18,7 @@
     "jellyfin/users/kin/password" = {};
     "jellyfin/users/priyaa/password" = {};
     "jellyfin/users/nattsu/password" = {};
+    "seerr/api_key" = {};
   };
 
   nixflix = {
@@ -84,6 +85,7 @@
       };
     };
 
+
     sonarr = {
       enable = true;
       mediaDirs = [
@@ -119,6 +121,44 @@
         };
         nattsu = {
           password._secret = config.sops.secrets."jellyfin/users/nattsu/password".path;
+        };
+      };
+    };
+
+    prowlarr = {
+      enable = true;
+      config = {
+        apiKey._secret = config.sops.secrets."prowlarr/api_key".path;
+        hostConfig = {
+          username._secret = config.sops.secrets."prowlarr/username".path;
+          password._secret = config.sops.secrets."prowlarr/password".path;
+        };
+      };
+      settings = {
+        server = {
+          port = 9696;
+          bindaddress = "*";
+        };
+      };
+    };
+
+    seerr = {
+      enable = true;
+      apiKey = config.sops.secrets."seerr/api_key".path;
+      jellyfin = {
+        libraryFilter.names = [ "Movies" "Shows" ];
+      };
+      radarr = {
+        Radarr = {
+          activeProfileName = "HD Bluray + WEB";
+          apiKey._secret = config.sops.secrets."radarr/api_key".path;
+        };
+      };
+      sonarr = {
+        Sonarr = {
+          activeDirectory = "/mnt/external-hdd/stream/tv";
+          activeProfileName = "[Anime] Remux-1080p";
+          apiKey._secret = config.sops.secrets."sonarr/api_key".path;
         };
       };
     };

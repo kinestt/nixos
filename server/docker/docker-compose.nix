@@ -26,8 +26,8 @@
       "ENABLE_RCON" = "false";
       "EULA" = "true";
       "FORGE_VERSION" = "47.4.13";
-      "GENERIC_PACKS" = "TerraFirmaGreg-Modern-0.12.5-serverpack";
-      "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.12.5/";
+      "GENERIC_PACKS" = "TerraFirmaGreg-Modern-0.12.6-serverpack";
+      "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.12.6/";
       "GENERIC_PACKS_SUFFIX" = ".zip";
       "GUI" = "false";
       "MEMORY" = "6G";
@@ -59,6 +59,40 @@
     ];
     requires = [
       "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."lavalink" = {
+    image = "ghcr.io/lavalink-devs/lavalink:latest";
+    environment = {
+      "LAVALINK_SERVER_PASSWORD" = "youshallnotpass";
+      "SERVER_PORT" = "2333";
+    };
+    volumes = [
+      "/home/kin/data/vocard-bot/lavalink/application.yml:/opt/Lavalink/application.yml:rw"
+      "/home/kin/data/vocard-bot/lavalink/logs:/opt/Lavalink/logs:rw"
+      "/home/kin/data/vocard-bot/lavalink/plugins:/opt/Lavalink/plugins:rw"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=lavalink"
+      "--network=vocard"
+    ];
+  };
+  systemd.services."podman-lavalink" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-vocard.service"
+    ];
+    requires = [
+      "podman-network-vocard.service"
     ];
     partOf = [
       "podman-compose-services-root.target"
@@ -137,6 +171,38 @@
       "podman-compose-services-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."services-fourget" = {
+    image = "luuul/4get:latest";
+    environment = {
+      "FOURGET_PROTO" = "http";
+      "FOURGET_SERVER_NAME" = "4get.peanutbutter.quest";
+    };
+    ports = [
+      "10030:80/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=fourget"
+      "--network=services_default"
+    ];
+  };
+  systemd.services."podman-services-fourget" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-services_default.service"
+    ];
+    requires = [
+      "podman-network-services_default.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
   virtualisation.oci-containers.containers."services-mc" = {
     image = "itzg/minecraft-server:latest";
     environment = {
@@ -192,6 +258,165 @@
       "podman-compose-services-root.target"
     ];
   };
+  virtualisation.oci-containers.containers."spotify-tokener" = {
+    image = "ghcr.io/topi314/spotify-tokener:master";
+    environment = {
+      "SPOTIFY_TOKENER_ADDR" = "0.0.0.0:49152";
+    };
+    log-driver = "journald";
+    extraOptions = [
+      "--health-cmd=nc -z -v localhost 49152"
+      "--health-interval=10s"
+      "--health-retries=5"
+      "--health-timeout=5s"
+      "--network-alias=spotify-tokener"
+      "--network=vocard"
+    ];
+  };
+  systemd.services."podman-spotify-tokener" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-vocard.service"
+    ];
+    requires = [
+      "podman-network-vocard.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."vocard" = {
+    image = "ghcr.io/chocomeow/vocard:beta";
+    volumes = [
+      "/home/kin/data/vocard-bot/settings.json:/app/settings.json:rw"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=vocard"
+      "--network=vocard"
+    ];
+  };
+  systemd.services."podman-vocard" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-vocard.service"
+    ];
+    requires = [
+      "podman-network-vocard.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."vocard-dashboard" = {
+    image = "ghcr.io/chocomeow/vocard-dashboard:latest";
+    volumes = [
+      "/home/kin/data/vocard-bot/dashboard/settings.json:/app/settings.json:rw"
+    ];
+    ports = [
+      "10050:10050/tcp"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--health-cmd=[\"python\", \"-c\", \"import urllib.request; urllib.request.urlopen('http://localhost:10050/health').read()\"]"
+      "--health-interval=10s"
+      "--health-retries=5"
+      "--health-start-period=10s"
+      "--health-timeout=5s"
+      "--network-alias=vocard-dashboard"
+      "--network=vocard"
+    ];
+  };
+  systemd.services."podman-vocard-dashboard" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-vocard.service"
+    ];
+    requires = [
+      "podman-network-vocard.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."vocard-db" = {
+    image = "mongo:8";
+    environment = {
+      "MONGO_INITDB_ROOT_PASSWORD" = "admin";
+      "MONGO_INITDB_ROOT_USERNAME" = "admin";
+    };
+    volumes = [
+      "/home/kin/data/vocard-bot/mongodb_data:/data/db:rw"
+    ];
+    cmd = [ "mongod" "--oplogSize=1024" "--wiredTigerCacheSizeGB=1" "--auth" "--noscripting" ];
+    log-driver = "journald";
+    extraOptions = [
+      "--health-cmd=echo 'db.runCommand(\"ping\").ok' | mongosh localhost:27017/test --quiet"
+      "--health-interval=10s"
+      "--health-retries=5"
+      "--health-start-period=10s"
+      "--health-timeout=5s"
+      "--network-alias=vocard-db"
+      "--network=vocard"
+    ];
+  };
+  systemd.services."podman-vocard-db" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-vocard.service"
+    ];
+    requires = [
+      "podman-network-vocard.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."yt-cipher" = {
+    image = "ghcr.io/kikkia/yt-cipher:master";
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=yt-cipher"
+      "--network=vocard"
+    ];
+  };
+  systemd.services."podman-yt-cipher" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+    };
+    after = [
+      "podman-network-vocard.service"
+    ];
+    requires = [
+      "podman-network-vocard.service"
+    ];
+    partOf = [
+      "podman-compose-services-root.target"
+    ];
+    wantedBy = [
+      "podman-compose-services-root.target"
+    ];
+  };
 
   # Networks
   systemd.services."podman-network-services_default" = {
@@ -203,6 +428,19 @@
     };
     script = ''
       podman network inspect services_default || podman network create services_default
+    '';
+    partOf = [ "podman-compose-services-root.target" ];
+    wantedBy = [ "podman-compose-services-root.target" ];
+  };
+  systemd.services."podman-network-vocard" = {
+    path = [ pkgs.podman ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStop = "podman network rm -f vocard";
+    };
+    script = ''
+      podman network inspect vocard || podman network create vocard
     '';
     partOf = [ "podman-compose-services-root.target" ];
     wantedBy = [ "podman-compose-services-root.target" ];

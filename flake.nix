@@ -37,9 +37,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+   nixvim = {
+      url = "github:nix-community/nixvim";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=offline-install-onactivation-1";
   };
-  outputs = { self, nixpkgs, home-manager, nix-secrets, sops-nix, nvf, nix-flatpak, nixcord, nixflix, nixcraft }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nix-secrets, sops-nix, nvf, nix-flatpak, nixcord, nixflix, nixcraft, nixvim }@inputs: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       modules = [ 
         ./laptop/configuration.nix
@@ -71,6 +75,7 @@
         ./server/home-manager/home.nix
         sops-nix.homeManagerModules.sops
         nixcraft.homeModules.default
+        nixvim.homeModules.nixvim
       ];
     };
   };

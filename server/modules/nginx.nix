@@ -16,11 +16,35 @@
         enableACME = true;
         forceSSL = true;
       };
+      "4get.peanutbutter.quest" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:10030";
+          proxyWebsockets = true;
+        };
+      };
+      "notes.peanutbutter.quest" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:10040";
+          proxyWebsockets = true;
+        };
+      };
       "rss.peanutbutter.quest" = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
           proxyPass = "http://127.0.0.1:9090";
+          proxyWebsockets = true;
+        };
+      };
+      "seerr.peanutbutter.quest" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:5055";
           proxyWebsockets = true;
         };
       };

@@ -7,5 +7,7 @@
     ./vaultwarden.nix
     ./miniflux.nix
     ./searxng.nix
+    ./redlib.nix
+    ./silverbullet.nix
   ];
 }

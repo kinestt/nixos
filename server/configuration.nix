@@ -52,6 +52,8 @@ in {
     kitty
     sops
     compose2nix
+    unzip 
+    zip
   ];
   networking = {
     hostName = "server";
