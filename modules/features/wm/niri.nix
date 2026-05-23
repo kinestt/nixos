@@ -1,0 +1,119 @@
+{ self, inputs, ... }: {
+   flake.nixosModules.niri = { pkgs, lib, ... }: {
+     programs.niri = {
+       enable = true;
+       package  = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+     };
+   };
+   perSystem = { pkgs, lib, ... }: {
+     packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
+     inherit pkgs;
+       settings = {
+         input.keyboard = { 
+           xkb.layout = "us";
+         };
+         layout = {
+           gaps = 8;
+           center-focused-column = "never";
+           focus-ring = {
+             width = 2;
+           };
+         };
+         outputs = {
+           "eDP-1" = {
+             mode = "1920x1080@165.002";
+             scale = 1;
+           };
+         };
+         window-rules = [
+           {
+             matches = [
+               { app-id = "firefox"; }
+               { app-id = "helium"; }
+               { app-id = "spotify"; }
+             ];
+             open-maximized = true;
+           }   
+         ];
+         binds = {
+           "Mod+Return".spawn-sh = lib.getExe pkgs.alacritty;
+           "Mod+D".spawn-sh = lib.getExe pkgs.fuzzel;
+           "Mod+B".spawn-sh = "helium";
+           "Mod+P".spawn-sh = "spotify";
+
+           "Mod+F".maximize-column = _: {};
+           "Mod+Shift+F".fullscreen-window = _:{};
+
+           "Mod+Space".toggle-overview = _: {};
+           "Mod+Q".close-window = _: {};
+
+	   "Mod+BracketLeft".consume-or-expel-window-left = _: {};
+           "Mod+BracketRight".consume-or-expel-window-right = _: {};
+
+           "Mod+H".focus-column-left  = _: {};
+           "Mod+J".focus-window-down  = _: {};
+           "Mod+K".focus-window-up    = _: {};
+           "Mod+L".focus-column-right = _: {};
+
+           "Mod+Ctrl+H".move-column-left  = _: {};
+           "Mod+Ctrl+J".move-window-down  = _: {};
+           "Mod+Ctrl+K".move-window-up    = _: {};
+           "Mod+Ctrl+L".move-column-right = _: {};
+           
+           "Mod+1".focus-workspace = 1;
+           "Mod+2".focus-workspace = 2;
+           "Mod+3".focus-workspace = 3;
+           "Mod+4".focus-workspace = 4;
+           "Mod+5".focus-workspace = 5;
+           "Mod+6".focus-workspace = 6;
+           "Mod+7".focus-workspace = 7;
+           "Mod+8".focus-workspace = 8;
+           "Mod+9".focus-workspace = 9;
+
+           "Mod+Ctrl+1".move-column-to-workspace = 1;
+           "Mod+Ctrl+2".move-column-to-workspace = 2;
+           "Mod+Ctrl+3".move-column-to-workspace = 3;
+           "Mod+Ctrl+4".move-column-to-workspace = 4;
+           "Mod+Ctrl+5".move-column-to-workspace = 5;
+           "Mod+Ctrl+6".move-column-to-workspace = 6;
+           "Mod+Ctrl+7".move-column-to-workspace = 7;
+           "Mod+Ctrl+8".move-column-to-workspace = 8;
+           "Mod+Ctrl+9".move-column-to-workspace = 9;
+         
+           "Mod+WheelScrollDown".focus-workspace-down = _: {};
+           "Mod+WheelScrollUp".focus-workspace-up = _: {};
+           "Mod+Ctrl+WheelScrollDown".move-column-to-workspace-down = _: {};
+           "Mod+Ctrl+WheelScrollUp".move-column-to-workspace-up = _: {};
+ 
+           "Mod+C".center-column = _: {};
+           "Mod+V".toggle-window-floating = _: {};
+           "Mod+Shift+V".switch-focus-between-floating-and-tiling = _: {};
+           "Mod+W".toggle-column-tabbed-display = _: {};
+           "Print".screenshot = _: {};
+           "Ctrl+Print".screenshot-screen = _: {};
+           "Alt+Print".screenshot-window = _: {};
+
+           "Mod+Shift+E".quit = _: {}; 
+
+           "Mod+Minus".set-column-width = "-10%";
+           "Mod+Equal".set-column-width = "+10%";
+           "Mod+Shift+Minus".set-window-height = "-10%";
+           "Mod+Shift+Equal".set-window-height = "+10%";
+           
+           "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
+           "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+           "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+           "XF86AudioMicMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+           "XF86MonBrightnessUp".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
+           "XF86MonBrightnessDown".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
+         };
+         spawn-sh-at-startup = [
+           "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/dune.jpg"
+         ];
+         extraConfig = "
+           prefer-no-csd
+         ";
+       };
+     };
+   };
+}
