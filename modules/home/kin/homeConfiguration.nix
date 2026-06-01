@@ -11,8 +11,9 @@
       packages = with pkgs; [
         spotify
         swappy
-        xwayland-satellite
         libreoffice
+        equibop
+        fastfetch
       ];
     };
   };

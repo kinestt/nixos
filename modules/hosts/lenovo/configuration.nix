@@ -8,6 +8,7 @@
         self.nixosModules.ly
         self.nixosModules.vim
         self.nixosModules.pipewire
+        self.nixosModules.fonts
       ];
 
     boot.loader.systemd-boot.enable = true;
@@ -20,13 +21,10 @@
       isNormalUser = true;
       extraGroups = [ "wheel" ]; 
       packages = with pkgs; [
+        xwayland-satellite
         tree
-        # spotify
-        helium
         git
         libnotify
-        git
-        equibop
         usbutils
         glib
         android-tools
@@ -48,7 +46,6 @@
       nvidiaBusId = "PCI:01:0:0";
     };
 
-
     programs.firefox.enable = true;
 
     environment.systemPackages = [
@@ -57,21 +54,6 @@
       pkgs.home-manager
       inputs.prismlauncher.packages.${pkgs.system}.prismlauncher 
     ];
-
-    fonts.packages = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-      nerd-fonts.iosevka
-    ];  
-    fonts.fontconfig = { 
-      enable = true;
-      defaultFonts = {
-        serif = [ "Iosevka Nerd Font" ];
-        sansSerif = [ "Iosevka Nerd Font" ];
-        monospace = [ "Iosevka Nerd Font" ]; 
-      };
-    };
 
     hardware.bluetooth = {
       enable = true;

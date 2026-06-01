@@ -32,7 +32,11 @@
          outputs = {
            "eDP-1" = {
              mode = "1920x1080@165.000";
-             scale = 1.25;
+             scale = 1;
+           };
+           "eDP-2" = {
+             mode = "1920x1080@165.000";
+             scale = 1;
            };
          };
          window-rules = [
