@@ -32,11 +32,11 @@
          outputs = {
            "eDP-1" = {
              mode = "1920x1080@165.000";
-             scale = 1;
+             scale = 1.25;
            };
            "eDP-2" = {
              mode = "1920x1080@165.000";
-             scale = 1;
+             scale = 1.25;
            };
          };
          window-rules = [
@@ -45,13 +45,14 @@
                { app-id = "firefox"; }
                { app-id = "helium"; }
                { app-id = "spotify"; }
+               { app-id = "Spotify"; }
                { app-id = "equibop"; }
              ];
              open-maximized = true;
            }   
          ];
          binds = {
-           "Mod+Return".spawn-sh = lib.getExe pkgs.alacritty;
+           "Mod+Return".spawn-sh = "alacritty";
            "Mod+D".spawn-sh = lib.getExe pkgs.fuzzel;
            "Mod+B".spawn-sh = "firefox";
            "Mod+P".spawn-sh = "spotify";
@@ -99,7 +100,9 @@
            "Mod+WheelScrollUp".focus-workspace-up = _: {};
            "Mod+Ctrl+WheelScrollDown".move-column-to-workspace-down = _: {};
            "Mod+Ctrl+WheelScrollUp".move-column-to-workspace-up = _: {};
- 
+           "Mod+Shift+WheelScrollDown".focus-column-left = _: {};
+           "Mod+Shift+WheelScrollUp".focus-column-right = _: {};
+
            "Mod+C".center-column = _: {};
            "Mod+V".toggle-window-floating = _: {};
            "Mod+Shift+V".switch-focus-between-floating-and-tiling = _: {};

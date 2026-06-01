@@ -28,6 +28,7 @@
         usbutils
         glib
         android-tools
+        btop
       ];
     };
 
@@ -53,6 +54,7 @@
       pkgs.neovim
       pkgs.home-manager
       inputs.prismlauncher.packages.${pkgs.system}.prismlauncher 
+      inputs.helium.packages.${pkgs.system}.helium
     ];
 
     hardware.bluetooth = {

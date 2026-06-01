@@ -3,6 +3,7 @@
     imports = [
       self.homeModules.mako
       self.homeModules.alacritty
+      self.homeModules.gtk
     ];
     home = { 
       username = "kin";
@@ -14,6 +15,7 @@
         libreoffice
         equibop
         fastfetch
+        thunar
       ];
     };
   };
