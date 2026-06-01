@@ -7,10 +7,20 @@
    };
    perSystem = { pkgs, lib, ... }: {
      packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
-     inherit pkgs;
+       inherit pkgs;
        settings = {
-         input.keyboard = { 
-           xkb.layout = "us";
+         input = {
+           keyboard = { 
+             xkb.layout = "us";
+           };
+           touchpad = {
+             tap = _: {};
+             natural-scroll = _: {};
+             accel-speed = 0.2;
+           };
+           mouse = {
+             accel-speed = 0;
+           };
          };
          layout = {
            gaps = 8;
@@ -21,8 +31,8 @@
          };
          outputs = {
            "eDP-1" = {
-             mode = "1920x1080@165.002";
-             scale = 1;
+             mode = "1920x1080@165.000";
+             scale = 1.25;
            };
          };
          window-rules = [
@@ -31,6 +41,7 @@
                { app-id = "firefox"; }
                { app-id = "helium"; }
                { app-id = "spotify"; }
+               { app-id = "equibop"; }
              ];
              open-maximized = true;
            }   
@@ -38,7 +49,7 @@
          binds = {
            "Mod+Return".spawn-sh = lib.getExe pkgs.alacritty;
            "Mod+D".spawn-sh = lib.getExe pkgs.fuzzel;
-           "Mod+B".spawn-sh = "helium";
+           "Mod+B".spawn-sh = "firefox";
            "Mod+P".spawn-sh = "spotify";
 
            "Mod+F".maximize-column = _: {};
@@ -103,9 +114,11 @@
            "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
            "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
            "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-           "XF86AudioMicMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+           "Mod+M".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
            "XF86MonBrightnessUp".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
            "XF86MonBrightnessDown".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
+
+           "Mod+T".spawn-sh = ''notify-send "Current Time" "$(date +"%I:%M %p")"'';
          };
          spawn-sh-at-startup = [
            "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/dune.jpg"

@@ -4,7 +4,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
-    
+    prismlauncher.url = "github:PrismLauncher/PrismLauncher?ref=release-9.x";
 
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";

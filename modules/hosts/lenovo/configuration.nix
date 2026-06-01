@@ -7,6 +7,7 @@
         self.nixosModules.niri
         self.nixosModules.ly
         self.nixosModules.vim
+        self.nixosModules.pipewire
       ];
 
     boot.loader.systemd-boot.enable = true;
@@ -21,13 +22,18 @@
       packages = with pkgs; [
         tree
         # spotify
-        discord
         helium
         git
         libnotify
         git
+        equibop
+        usbutils
+        glib
+        android-tools
       ];
     };
+
+    services.gvfs.enable = true;
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -36,28 +42,35 @@
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.open = true;
     hardware.nvidia.modesetting.enable = true;
+    hardware.nvidia.prime = {
+      sync.enable = true;
+      amdgpuBusId = "PCI:06:0:0";
+      nvidiaBusId = "PCI:01:0:0";
+    };
+
 
     programs.firefox.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      wget
-      neovim
-      home-manager
+    environment.systemPackages = [
+      pkgs.wget
+      pkgs.neovim
+      pkgs.home-manager
+      inputs.prismlauncher.packages.${pkgs.system}.prismlauncher 
     ];
 
     fonts.packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
+      nerd-fonts.iosevka
     ];  
-
-    security.rtkit.enable = true;
-    services.pipewire = {
+    fonts.fontconfig = { 
       enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
+      defaultFonts = {
+        serif = [ "Iosevka Nerd Font" ];
+        sansSerif = [ "Iosevka Nerd Font" ];
+        monospace = [ "Iosevka Nerd Font" ]; 
+      };
     };
 
     hardware.bluetooth = {
