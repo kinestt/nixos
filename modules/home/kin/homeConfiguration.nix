@@ -15,7 +15,9 @@
         libreoffice
         equibop
         fastfetch
-        thunar
+        qbittorrent-nox
+        mpv
+        pcmanfm
       ];
     };
   };

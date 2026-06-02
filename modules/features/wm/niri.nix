@@ -14,6 +14,7 @@
              xkb.layout = "us";
            };
            touchpad = {
+             #off = _: {};
              tap = _: {};
              natural-scroll = _: {};
              accel-speed = 0.2;
@@ -26,17 +27,43 @@
            gaps = 8;
            center-focused-column = "never";
            focus-ring = {
+             active-color = "#ebbcba";
+             inactive-color = "#ebbcba";
              width = 2;
            };
          };
          outputs = {
            "eDP-1" = {
-             mode = "1920x1080@165.000";
-             scale = 1.25;
+             # off = _: {};
+             mode = "1920x1080@165.002";
+             scale = 1;
+             position = _: {
+               props = {
+                 x = 0;
+                 y = 1080;
+               };
+             };
            };
            "eDP-2" = {
+             off = _: {};
              mode = "1920x1080@165.000";
-             scale = 1.25;
+             scale = 1;
+             position = _: {
+               props = {
+                 x = 0;
+                 y = 1080;
+               };
+             };
+           };
+           "HDMI-A-1" = {
+             mode = "3840x2160@143.988";
+             scale = 2;
+             position = _: {
+               props = {
+                 x = 0;
+                 y = 0;
+               };
+             };
            };
          };
          window-rules = [
@@ -52,7 +79,7 @@
            }   
          ];
          binds = {
-           "Mod+Return".spawn-sh = "alacritty";
+           "Mod+Return".spawn-sh = "foot";
            "Mod+D".spawn-sh = lib.getExe pkgs.fuzzel;
            "Mod+B".spawn-sh = "firefox";
            "Mod+P".spawn-sh = "spotify";
@@ -96,6 +123,16 @@
            "Mod+Ctrl+8".move-column-to-workspace = 8;
            "Mod+Ctrl+9".move-column-to-workspace = 9;
          
+           "Mod+Shift+H".focus-monitor-left  = _: {};
+           "Mod+Shift+J".focus-monitor-down  = _: {};
+           "Mod+Shift+K".focus-monitor-up    = _: {};
+           "Mod+Shift+L".focus-monitor-right = _: {};
+
+           "Mod+Shift+Ctrl+H".move-column-to-monitor-left  = _: {};
+           "Mod+Shift+Ctrl+J".move-column-to-monitor-down  = _: {};
+           "Mod+Shift+Ctrl+K".move-column-to-monitor-up    = _: {};
+           "Mod+Shift+Ctrl+L".move-column-to-monitor-right = _: {};
+
            "Mod+WheelScrollDown".focus-workspace-down = _: {};
            "Mod+WheelScrollUp".focus-workspace-up = _: {};
            "Mod+Ctrl+WheelScrollDown".move-column-to-workspace-down = _: {};
@@ -128,7 +165,8 @@
            "Mod+T".spawn-sh = ''notify-send "Current Time" "$(date +"%I:%M %p")"'';
          };
          spawn-sh-at-startup = [
-           "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/dune.jpg"
+           # "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/dune.jpg"
+           "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/river-tree.jpg"
          ];
          extraConfig = "
            prefer-no-csd

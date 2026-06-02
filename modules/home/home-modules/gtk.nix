@@ -1,14 +1,14 @@
 { self, inputs, ... }: {
-  flake.homeModules.gtk = { pkgs, ... }: {
+  flake.homeModules.gtk = { pkgs, config, ... }: {
     gtk = {
       enable = true;
       theme = {
-        name = "adw-gtk3-dark";
-        package = pkgs.adw-gtk3;
+        name = "rose-pine";
+        package = pkgs.rose-pine-gtk-theme;
       };
       iconTheme = {
-        name = "Adwaita";
-        package = pkgs.adwaita-icon-theme;
+        name = "rose-pine";
+        package = pkgs.rose-pine-icon-theme;
       };
       gtk4.theme = null;
     };

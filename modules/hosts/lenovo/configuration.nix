@@ -9,6 +9,7 @@
         self.nixosModules.vim
         self.nixosModules.pipewire
         self.nixosModules.fonts
+        self.nixosModules.foot
       ];
 
     boot.loader.systemd-boot.enable = true;
@@ -41,11 +42,11 @@
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia.open = true;
     hardware.nvidia.modesetting.enable = true;
-    hardware.nvidia.prime = {
-      sync.enable = true;
-      amdgpuBusId = "PCI:06:0:0";
-      nvidiaBusId = "PCI:01:0:0";
-    };
+    # hardware.nvidia.prime = {
+    #   sync.enable = true;
+    #   amdgpuBusId = "PCI:06:0:0";
+    #   nvidiaBusId = "PCI:01:0:0";
+    # };
 
     programs.firefox.enable = true;
 
@@ -61,6 +62,10 @@
       enable = true;
       powerOnBoot = true;
     };
+
+    networking.wireless.enable = false;
+    networking.wireless.iwd.enable = true;
+    networking.networkmanager.wifi.backend = "iwd";
 
     system.stateVersion = "25.11"; 
 

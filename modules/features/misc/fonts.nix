@@ -11,13 +11,14 @@
         nerd-fonts.hack
         fira-sans
         ubuntu-sans
+        inter
       ];
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = [ "Ubuntu Sans" ];
-          sansSerif = [ "Ubuntu Sans" ];
-          monospace = [ "Ubuntu Mono Nerd Font" ];
+          serif = [ "Inter" ];
+          sansSerif = [ "Inter" ];
+          monospace = [ "Iosevka Nerd Font" ];
         };
       };
     };
