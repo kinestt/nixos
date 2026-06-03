@@ -10,9 +10,11 @@
       inherit pkgs;
       settings = {
         main = {
-          font="Iosevka Nerd Font:size=12";
+          font="Iosevka Nerd Font:size=14";
         };
         colors-dark = {
+          alpha = "0.7";
+          blur = "yes";
           background = "191724";
           foreground = "e0def4";
 

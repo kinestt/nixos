@@ -76,11 +76,29 @@
                { app-id = "equibop"; }
              ];
              open-maximized = true;
-           }   
+           }
+           {
+             matches = [
+               { app-id = "Alacritty"; }
+             ];
+             background-effect = {
+               blur = true;
+             };
+           }
+         ];
+         layer-rules = [
+           {
+             matches = [
+               { namespace = "^launcher$"; }
+             ];
+             background-effect = {
+               blur = true;
+             };
+           }
          ];
          binds = {
            "Mod+Return".spawn-sh = "foot";
-           "Mod+D".spawn-sh = lib.getExe pkgs.fuzzel;
+           "Mod+D".spawn-sh = "fuzzel";
            "Mod+B".spawn-sh = "firefox";
            "Mod+P".spawn-sh = "spotify";
 
@@ -166,7 +184,7 @@
          };
          spawn-sh-at-startup = [
            # "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/dune.jpg"
-           "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/river-tree.jpg"
+           "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/morning-field.png"
          ];
          extraConfig = "
            prefer-no-csd

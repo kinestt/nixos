@@ -10,6 +10,7 @@
         self.nixosModules.pipewire
         self.nixosModules.fonts
         self.nixosModules.foot
+        self.nixosModules.waybar
       ];
 
     boot.loader.systemd-boot.enable = true;

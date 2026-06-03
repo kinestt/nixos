@@ -13,7 +13,8 @@
           size = 14;
         };
         window = {
-          opacity = 1;
+          opacity = 0.7;
+          blur = true;
         };
         colors = {
           primary = {
