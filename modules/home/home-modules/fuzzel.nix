@@ -9,6 +9,9 @@
     packages.myFuzzel = inputs.wrapper-modules.wrappers.fuzzel.wrap {
       inherit pkgs;
       settings = {
+        main = {
+          font = "JetBrains Mono Nerd Font:size=11";
+        };
         colors = {
           background = "#191724b3";
           text = "#e0def4ff";

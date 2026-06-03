@@ -5,6 +5,7 @@
       self.homeModules.alacritty
       self.homeModules.gtk
       self.homeModules.fuzzel
+      self.homeModules.waybar
     ];
     home = { 
       username = "kin";

@@ -10,7 +10,7 @@
     inherit pkgs;
       settings = {
         font = {
-          size = 14;
+          size = 11;
         };
         window = {
           opacity = 0.7;

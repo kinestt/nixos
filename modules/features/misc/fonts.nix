@@ -18,7 +18,7 @@
         defaultFonts = {
           serif = [ "Inter" ];
           sansSerif = [ "Inter" ];
-          monospace = [ "Iosevka Nerd Font" ];
+          monospace = [ "JetBrains Mono Nerd Font" ];
         };
       };
     };

@@ -10,7 +10,7 @@
       inherit pkgs;
       settings = {
         main = {
-          font="Iosevka Nerd Font:size=14";
+          font="JetBrains Mono Nerd Font:size=11";
         };
         colors-dark = {
           alpha = "0.7";
