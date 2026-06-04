@@ -33,8 +33,9 @@
       };
       style = "
         #waybar {
-          font-family: 'Overpass Nerd Font', sans-serif;
+          font-family: 'Ubuntu Sans', 'Iosevka Nerd Font Propo' ;
           font-size: 16px;
+          font-weight: bold;
           background-color: #191724;
         }
         #cpu {

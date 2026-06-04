@@ -189,7 +189,7 @@
         };
         spawn-sh-at-startup = [
           # "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/dune.jpg"
-          "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/morning-field.png"
+          "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/gruvb99810.png"
           "waybar"
         ];
       };
