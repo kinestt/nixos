@@ -9,6 +9,10 @@
     packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
       inherit pkgs;
       settings = {
+        hotkey-overlay = {
+          skip-at-startup = _: {};
+        };
+        prefer-no-csd = _: {};
         input = {
           keyboard = { 
             xkb.layout = "us";
@@ -27,8 +31,8 @@
           gaps = 2;
           center-focused-column = "never";
           focus-ring = {
-            active-color = "#ebbcba";
-            inactive-color = "#ebbcba";
+            active-color = "#907aa9";
+            inactive-color = "#907aa9";
             width = 2;
           };
         };
@@ -74,6 +78,7 @@
               { app-id = "spotify"; }
               { app-id = "Spotify"; }
               { app-id = "equibop"; }
+              { app-id = "io.github.tdesktop_x64.TDesktop"; }
             ];
             open-maximized = true;
           }
@@ -187,9 +192,6 @@
           "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/morning-field.png"
           "waybar"
         ];
-        extraConfig = "
-          prefer-no-csd
-        ";
       };
     };
   };

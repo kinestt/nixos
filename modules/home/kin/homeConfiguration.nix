@@ -20,6 +20,7 @@
         qbittorrent-nox
         mpv
         pcmanfm
+        _64gram
       ];
     };
   };

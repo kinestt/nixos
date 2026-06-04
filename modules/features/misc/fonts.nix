@@ -9,16 +9,18 @@
         nerd-fonts.ubuntu-mono
         nerd-fonts.iosevka
         nerd-fonts.hack
+        nerd-fonts.overpass
         fira-sans
         ubuntu-sans
         inter
+        maple-mono.NF
       ];
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = [ "Inter" ];
-          sansSerif = [ "Inter" ];
-          monospace = [ "JetBrains Mono Nerd Font" ];
+          serif = [ "Overpass Nerd Font" ];
+          sansSerif = [ "Overpass Nerd Font" ];
+          monospace = [ "Maple Mono NF" ];
         };
       };
     };

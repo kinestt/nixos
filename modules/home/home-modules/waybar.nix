@@ -33,8 +33,8 @@
       };
       style = "
         #waybar {
-          font-family: 'JetBrains Mono Nerd Font', sans-serif;
-          font-size: 14px;
+          font-family: 'Overpass Nerd Font', sans-serif;
+          font-size: 16px;
           background-color: #191724;
         }
         #cpu {
@@ -50,6 +50,7 @@
           color: #f6c177;
         }
         #clock.time {
+          margin-right: 10px;
           color: #eb6f92;
         }
         #window {
