@@ -10,7 +10,7 @@
       inherit pkgs;
       settings = {
         main = {
-          font = "Ubuntu Sans:size=8";
+          font = "IBM Plex Sans:size=10";
         };
         colors = {
           background = "#191724b3";

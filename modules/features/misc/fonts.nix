@@ -14,12 +14,13 @@
         ubuntu-sans
         inter
         maple-mono.NF
+        ibm-plex
       ];
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = [ "Ubuntu Sans" ];
-          sansSerif = [ "Ubuntu Sans" ];
+          serif = [ "IBM Plex Sans" ];
+          sansSerif = [ "IBM Plex Sans" ];
           monospace = [ "Iosevka Nerd Font Mono" ];
         };
       };

@@ -6,7 +6,7 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 10;
+          height = 5;
           spacing = 15;
           modules-center = [ "niri/window" ];
           modules-left = [ "niri/workspaces" ];
@@ -33,9 +33,9 @@
       };
       style = "
         #waybar {
-          font-family: 'Ubuntu Sans', 'Iosevka Nerd Font Propo' ;
-          font-size: 16px;
-          font-weight: bold;
+          font-family: 'IBM Plex Sans', 'Iosevka Nerd Font Propo' ;
+          font-size: 14px;
+          font-weight: normal;
           background-color: #191724;
         }
         #cpu {
