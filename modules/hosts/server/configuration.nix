@@ -6,9 +6,7 @@
     imports =
       [
         self.nixosModules.serverHardware
-
         self.nixosModules.vim
-
         self.nixosModules.searxng
         self.nixosModules.nginx
         self.nixosModules.qbittorrent
@@ -16,6 +14,7 @@
         self.nixosModules.komga
         self.nixosModules.miniflux
         self.nixosModules.nixflix
+        self.nixosModules.docker
 
         inputs.sops-nix.nixosModules.sops
       ];
