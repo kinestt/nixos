@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosModules.qbittorrent = { pkgs, lib, ... }: {
+  flake.nixosModules.qbittorrent = {
     services.qbittorrent = {
       enable = true;
       webuiPort = 8888;

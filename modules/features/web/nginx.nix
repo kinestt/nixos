@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosModules.nginx = { pkgs, config, ... }: {
+  flake.nixosModules.nginx = {
     services.nginx = {
       enable = true;
 

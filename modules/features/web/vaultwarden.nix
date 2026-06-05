@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosModules.vaultwarden = { pkgs, config, ... }: {
+  flake.nixosModules.vaultwarden = {
     services.vaultwarden = {
       enable = true;
       domain = "vault.peanutbutter.quest";

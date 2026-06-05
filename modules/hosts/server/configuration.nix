@@ -10,6 +10,7 @@
         self.nixosModules.nginx
         self.nixosModules.qbittorrent
         self.nixosModules.vaultwarden
+        self.nixosModules.komga
 
 
         inputs.sops-nix.nixosModules.sops
