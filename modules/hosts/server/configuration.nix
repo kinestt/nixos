@@ -6,12 +6,16 @@
     imports =
       [
         self.nixosModules.serverHardware
+
+        self.nixosModules.vim
+
         self.nixosModules.searxng
         self.nixosModules.nginx
         self.nixosModules.qbittorrent
         self.nixosModules.vaultwarden
         self.nixosModules.komga
-
+        self.nixosModules.miniflux
+        self.nixosModules.nixflix
 
         inputs.sops-nix.nixosModules.sops
       ];
@@ -45,7 +49,6 @@
     };
     boot.loader.grub.device = "/dev/nvme0n1p1";
     environment.systemPackages = with pkgs; [ 
-      vim
       git
       bat
       htop
