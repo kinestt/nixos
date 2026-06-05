@@ -115,13 +115,13 @@
         "rev": "b78c11b32a458d42ceb4dd9f673daae893cd6ba7",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/kinestt/nix-secrets"
+        "url": "ssh://git@codeberg.org/kinest/secrets"
       },
       "original": {
         "ref": "main",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/kinestt/nix-secrets"
+        "url": "ssh://git@codeberg.org/kinest/secrets"
       }
     },
     "nixflix": {

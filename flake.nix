@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-secrets = {
-      url = "git+ssh://git@github.com/kinestt/nix-secrets?ref=main&shallow=1";
+      url = "git+ssh://git@codeberg.org/kinest/secrets?ref=main&shallow=1";
       flake = false;
     };
     sops-nix = {
