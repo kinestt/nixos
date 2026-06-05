@@ -9,7 +9,7 @@
     pkgs,
     ...
   }: let
-    secretspath = builtins.toString inputs.nix-secrets;
+    secretspath = builtins.toString inputs.secrets;
   in {
     imports = [
       self.nixosModules.serverHardware
