@@ -1,5 +1,8 @@
 { self, inputs, ... }: {
-  flake.nixosModules.serverConfiguration = { config, lib, pkgs, ... }: {
+  flake.nixosModules.serverConfiguration = { config, lib, pkgs, ... }: 
+  let 
+    secretspath = builtins.toString inputs.nix-secrets;
+  in {
     imports =
       [
         self.nixosModules.serverHardware
@@ -16,7 +19,7 @@
       shell = pkgs.bash;
       home =  "/home/kin";
     };
-    sops = {
+    inputs.sops-nix.sops = {
       defaultSopsFile = "${secretspath}/secrets/server.yaml";
       age = {
         sshKeyPaths = ["${config.users.users.kin.home}/.ssh/id_ed25519"];
