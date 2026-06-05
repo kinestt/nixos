@@ -1,5 +1,9 @@
-{ self, inputs, ... }: {
-  flake.homeModules.kinConfiguration = { pkgs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.homeModules.kinConfiguration = {pkgs, ...}: {
     imports = [
       self.homeModules.mako
       self.homeModules.alacritty
@@ -7,7 +11,7 @@
       self.homeModules.fuzzel
       self.homeModules.waybar
     ];
-    home = { 
+    home = {
       username = "kin";
       homeDirectory = "/home/kin";
       stateVersion = "25.11";

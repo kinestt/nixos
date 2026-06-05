@@ -1,5 +1,13 @@
-{ self, inputs, ... }: {
-  flake.homeModules.waybar = { pkgs, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.homeModules.waybar = {
+    pkgs,
+    inputs,
+    ...
+  }: {
     programs.waybar = {
       enable = true;
       settings = {
@@ -8,9 +16,9 @@
           position = "top";
           height = 5;
           spacing = 15;
-          modules-center = [ "niri/window" ];
-          modules-left = [ "niri/workspaces" ];
-          modules-right = [ "tray" "cpu" "memory" "battery" "clock#date" "clock#time" ];
+          modules-center = ["niri/window"];
+          modules-left = ["niri/workspaces"];
+          modules-right = ["tray" "cpu" "memory" "battery" "clock#date" "clock#time"];
           "cpu" = {
             interval = 10;
             format = " {usage}%";

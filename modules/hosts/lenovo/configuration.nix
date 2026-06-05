@@ -1,15 +1,23 @@
-{ self, inputs, ... }: { 
-  flake.nixosModules.lenovoConfiguration = { config, lib, pkgs, ... }: {
-    imports =
-      [ 
-        self.nixosModules.lenovoHardware
-        self.nixosModules.niri
-        self.nixosModules.ly
-        self.nixosModules.vim
-        self.nixosModules.pipewire
-        self.nixosModules.fonts
-        self.nixosModules.foot
-      ];
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.lenovoConfiguration = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      self.nixosModules.lenovoHardware
+      self.nixosModules.niri
+      self.nixosModules.ly
+      self.nixosModules.vim
+      self.nixosModules.pipewire
+      self.nixosModules.fonts
+      self.nixosModules.foot
+    ];
 
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
@@ -19,7 +27,7 @@
 
     users.users.kin = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ]; 
+      extraGroups = ["wheel"];
       packages = with pkgs; [
         xwayland-satellite
         tree
@@ -34,11 +42,11 @@
 
     services.gvfs.enable = true;
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = ["nix-command" "flakes"];
 
     hardware.graphics.enable = true;
     hardware.graphics.enable32Bit = true;
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = ["nvidia"];
     hardware.nvidia.open = true;
     hardware.nvidia.modesetting.enable = true;
     # hardware.nvidia.prime = {
@@ -53,7 +61,7 @@
       pkgs.wget
       pkgs.neovim
       pkgs.home-manager
-      inputs.prismlauncher.packages.${pkgs.system}.prismlauncher 
+      inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       inputs.helium.packages.${pkgs.system}.helium
     ];
 
@@ -66,9 +74,6 @@
     networking.wireless.iwd.enable = true;
     networking.networkmanager.wifi.backend = "iwd";
 
-    system.stateVersion = "25.11"; 
-
+    system.stateVersion = "25.11";
   };
-
-
 }

@@ -1,11 +1,23 @@
-{ self, inputs, ... }: {
-  flake.homeModules.fuzzel = { pkgs, lib, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.homeModules.fuzzel = {
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.fuzzel = {
       enable = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.myFuzzel;
     };
   };
-  perSystem = { pkgs, lib, ... }: {
+  perSystem = {
+    pkgs,
+    lib,
+    ...
+  }: {
     packages.myFuzzel = inputs.wrapper-modules.wrappers.fuzzel.wrap {
       inherit pkgs;
       settings = {
@@ -29,4 +41,3 @@
     };
   };
 }
-    

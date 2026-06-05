@@ -1,5 +1,13 @@
-{ self, inputs, ... }: {
-  flake.homeModules.gtk = { pkgs, config, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.homeModules.gtk = {
+    pkgs,
+    config,
+    ...
+  }: {
     gtk = {
       enable = true;
       theme = {

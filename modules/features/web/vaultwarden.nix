@@ -1,4 +1,8 @@
-{ self, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosModules.vaultwarden = {
     services.vaultwarden = {
       enable = true;
@@ -8,4 +12,3 @@
     };
   };
 }
-

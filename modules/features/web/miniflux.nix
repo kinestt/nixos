@@ -1,4 +1,8 @@
-{ self, inputs, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.nixosModules.miniflux = {
     services.miniflux = {
       enable = true;
@@ -10,4 +14,3 @@
     };
   };
 }
-        

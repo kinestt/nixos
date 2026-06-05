@@ -1,11 +1,23 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.niri = { pkgs, lib, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.niri = {
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.niri = {
       enable = true;
-      package  = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+      package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
     };
   };
-  perSystem = { pkgs, lib, ... }: {
+  perSystem = {
+    pkgs,
+    lib,
+    ...
+  }: {
     packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
       inherit pkgs;
       settings = {
@@ -14,7 +26,7 @@
         };
         prefer-no-csd = _: {};
         input = {
-          keyboard = { 
+          keyboard = {
             xkb.layout = "us";
           };
           touchpad = {
@@ -73,18 +85,18 @@
         window-rules = [
           {
             matches = [
-              { app-id = "firefox"; }
-              { app-id = "helium"; }
-              { app-id = "spotify"; }
-              { app-id = "Spotify"; }
-              { app-id = "equibop"; }
-              { app-id = "io.github.tdesktop_x64.TDesktop"; }
+              {app-id = "firefox";}
+              {app-id = "helium";}
+              {app-id = "spotify";}
+              {app-id = "Spotify";}
+              {app-id = "equibop";}
+              {app-id = "io.github.tdesktop_x64.TDesktop";}
             ];
             open-maximized = true;
           }
           {
             matches = [
-              { app-id = "Alacritty"; }
+              {app-id = "Alacritty";}
             ];
             background-effect = {
               blur = true;
@@ -94,7 +106,7 @@
         layer-rules = [
           {
             matches = [
-              { namespace = "^launcher$"; }
+              {namespace = "^launcher$";}
             ];
             background-effect = {
               blur = false;
@@ -108,7 +120,7 @@
           "Mod+P".spawn-sh = "spotify";
 
           "Mod+F".maximize-column = _: {};
-          "Mod+Shift+F".fullscreen-window = _:{};
+          "Mod+Shift+F".fullscreen-window = _: {};
 
           "Mod+Space".toggle-overview = _: {};
           "Mod+Q".close-window = _: {};
@@ -116,16 +128,16 @@
           "Mod+BracketLeft".consume-or-expel-window-left = _: {};
           "Mod+BracketRight".consume-or-expel-window-right = _: {};
 
-          "Mod+H".focus-column-left  = _: {};
-          "Mod+J".focus-window-down  = _: {};
-          "Mod+K".focus-window-up    = _: {};
+          "Mod+H".focus-column-left = _: {};
+          "Mod+J".focus-window-down = _: {};
+          "Mod+K".focus-window-up = _: {};
           "Mod+L".focus-column-right = _: {};
 
-          "Mod+Ctrl+H".move-column-left  = _: {};
-          "Mod+Ctrl+J".move-window-down  = _: {};
-          "Mod+Ctrl+K".move-window-up    = _: {};
+          "Mod+Ctrl+H".move-column-left = _: {};
+          "Mod+Ctrl+J".move-window-down = _: {};
+          "Mod+Ctrl+K".move-window-up = _: {};
           "Mod+Ctrl+L".move-column-right = _: {};
-          
+
           "Mod+1".focus-workspace = 1;
           "Mod+2".focus-workspace = 2;
           "Mod+3".focus-workspace = 3;
@@ -145,15 +157,15 @@
           "Mod+Ctrl+7".move-column-to-workspace = 7;
           "Mod+Ctrl+8".move-column-to-workspace = 8;
           "Mod+Ctrl+9".move-column-to-workspace = 9;
-        
-          "Mod+Shift+H".focus-monitor-left  = _: {};
-          "Mod+Shift+J".focus-monitor-down  = _: {};
-          "Mod+Shift+K".focus-monitor-up    = _: {};
+
+          "Mod+Shift+H".focus-monitor-left = _: {};
+          "Mod+Shift+J".focus-monitor-down = _: {};
+          "Mod+Shift+K".focus-monitor-up = _: {};
           "Mod+Shift+L".focus-monitor-right = _: {};
 
-          "Mod+Shift+Ctrl+H".move-column-to-monitor-left  = _: {};
-          "Mod+Shift+Ctrl+J".move-column-to-monitor-down  = _: {};
-          "Mod+Shift+Ctrl+K".move-column-to-monitor-up    = _: {};
+          "Mod+Shift+Ctrl+H".move-column-to-monitor-left = _: {};
+          "Mod+Shift+Ctrl+J".move-column-to-monitor-down = _: {};
+          "Mod+Shift+Ctrl+K".move-column-to-monitor-up = _: {};
           "Mod+Shift+Ctrl+L".move-column-to-monitor-right = _: {};
 
           "Mod+WheelScrollDown".focus-workspace-down = _: {};
@@ -171,13 +183,13 @@
           "Ctrl+Print".screenshot-screen = _: {};
           "Alt+Print".screenshot-window = _: {};
 
-          "Mod+Shift+E".quit = _: {}; 
+          "Mod+Shift+E".quit = _: {};
 
           "Mod+Minus".set-column-width = "-10%";
           "Mod+Equal".set-column-width = "+10%";
           "Mod+Shift+Minus".set-window-height = "-10%";
           "Mod+Shift+Equal".set-window-height = "+10%";
-          
+
           "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
           "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
           "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";

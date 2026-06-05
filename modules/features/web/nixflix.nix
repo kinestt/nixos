@@ -1,5 +1,13 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.nixflix = { config, lib, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.nixflix = {
+    config,
+    lib,
+    ...
+  }: {
     imports = [
       inputs.nixflix.nixosModules.default
     ];
@@ -29,10 +37,10 @@
       enable = true;
       mediaDir = "/mnt/external-hdd/stream";
       stateDir = "/data/.state";
-      mediaUsers = [ "users" ];
+      mediaUsers = ["users"];
 
       postgres.enable = false;
-      
+
       downloadarr = {
         enable = true;
         qbittorrent = {
@@ -88,7 +96,6 @@
           };
         };
       };
-
 
       sonarr = {
         enable = true;
@@ -150,7 +157,7 @@
         enable = true;
         apiKey = config.sops.secrets."seerr/api_key".path;
         jellyfin = {
-          libraryFilter.names = [ "Movies" "Shows" ];
+          libraryFilter.names = ["Movies" "Shows"];
         };
         radarr = {
           Radarr = {

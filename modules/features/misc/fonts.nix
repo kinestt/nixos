@@ -1,5 +1,13 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.fonts = { pkgs, lib, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.fonts = {
+    pkgs,
+    lib,
+    ...
+  }: {
     fonts = {
       packages = with pkgs; [
         noto-fonts
@@ -19,12 +27,11 @@
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = [ "IBM Plex Sans" ];
-          sansSerif = [ "IBM Plex Sans" ];
-          monospace = [ "Iosevka Nerd Font Mono" ];
+          serif = ["IBM Plex Sans"];
+          sansSerif = ["IBM Plex Sans"];
+          monospace = ["Iosevka Nerd Font Mono"];
         };
       };
     };
   };
 }
-  

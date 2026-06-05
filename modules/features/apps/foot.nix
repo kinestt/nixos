@@ -1,16 +1,28 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.foot = { pkgs, lib, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.foot = {
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.foot = {
       enable = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.myFoot;
     };
   };
-  perSystem = { pkgs, lib, ... }: {
+  perSystem = {
+    pkgs,
+    lib,
+    ...
+  }: {
     packages.myFoot = inputs.wrapper-modules.wrappers.foot.wrap {
       inherit pkgs;
       settings = {
         main = {
-          font="Iosevka Nerd Font Mono:size=12";
+          font = "Iosevka Nerd Font Mono:size=12";
         };
         colors-dark = {
           alpha = "0.7";

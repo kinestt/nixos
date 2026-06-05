@@ -1,13 +1,25 @@
-{ self, inputs, ... }: {
-  flake.homeModules.alacritty = { pkgs, lib, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.homeModules.alacritty = {
+    pkgs,
+    lib,
+    ...
+  }: {
     programs.alacritty = {
       enable = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty;
     };
   };
-  perSystem = { pkgs, lib, ... }: {
+  perSystem = {
+    pkgs,
+    lib,
+    ...
+  }: {
     packages.myAlacritty = inputs.wrapper-modules.wrappers.alacritty.wrap {
-    inherit pkgs;
+      inherit pkgs;
       settings = {
         font = {
           size = 11;
@@ -67,4 +79,4 @@
       };
     };
   };
-} 
+}

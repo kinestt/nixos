@@ -1,5 +1,9 @@
-{self, inputs, ... }: {
-  flake.nixosModules.searxng = { config, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.searxng = {config, ...}: {
     sops.secrets = {
       "searxng/secret_key" = {};
     };

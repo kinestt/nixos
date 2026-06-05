@@ -1,13 +1,25 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.vim = { pkgs, lib, ... }: {
-    programs.vim = { 
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.vim = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    programs.vim = {
       enable = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.myVim;
     };
   };
-  perSystem = { pkgs, lib, ... }: {
+  perSystem = {
+    pkgs,
+    lib,
+    ...
+  }: {
     packages.myVim = inputs.wrapper-modules.wrappers.vim.wrap {
-    inherit pkgs;
+      inherit pkgs;
       vimrc = "
         set number
         set cursorline
@@ -55,5 +67,4 @@
       ";
     };
   };
-
-} 
+}

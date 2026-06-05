@@ -1,5 +1,13 @@
-{ self, inputs, ... }: {
-  flake.nixosModules.pipewire = { pkgs, lib, ... }: {
+{
+  self,
+  inputs,
+  ...
+}: {
+  flake.nixosModules.pipewire = {
+    pkgs,
+    lib,
+    ...
+  }: {
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
@@ -34,7 +42,7 @@
             ];
             "context.properties" = {
               "default.clock.rate" = "44100";
-              "default.clock.allowed-rates" = [ "44100" ];
+              "default.clock.allowed-rates" = ["44100"];
               "default.clock.quantum" = "1024";
               "default.clock.max-quantum" = "8192";
               "default.clock.min-quantum" = "32";
@@ -59,5 +67,3 @@
     };
   };
 }
-
-
