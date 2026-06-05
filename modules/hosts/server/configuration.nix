@@ -6,11 +6,18 @@
     imports =
       [
         self.nixosModules.serverHardware
+        self.nixosModules.searxng
+        self.nixosModules.nginx
+        self.nixosModules.qbittorrent
+        self.nixosModules.vaultwarden
+
+
+        inputs.sops-nix.nixosModules.sops
       ];
 
-    boot.loader.system-boot.enable = true;
+    boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    boot.kernelPackages = pkgs.linuxPackages_lastest;
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     users.users.kin ={
       isNormalUser = true;
@@ -19,7 +26,7 @@
       shell = pkgs.bash;
       home =  "/home/kin";
     };
-    inputs.sops-nix.sops = {
+    sops = {
       defaultSopsFile = "${secretspath}/secrets/server.yaml";
       age = {
         sshKeyPaths = ["${config.users.users.kin.home}/.ssh/id_ed25519"];

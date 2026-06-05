@@ -2,7 +2,7 @@
   flake.nixosModules.qbittorrent = { pkgs, lib, ... }: {
     services.qbittorrent = {
       enable = true;
-      webuiPort = true;
+      webuiPort = 8888;
       extraArgs =
         [
           "--confirm-legal-notice"

@@ -90,6 +90,24 @@
         "type": "github"
       }
     },
+    "nix-secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1777974777,
+        "narHash": "sha256-Kt/mVz845i9TDyXqDqrlQMFUeYcrmvaxm73E1U2+NPM=",
+        "ref": "main",
+        "rev": "b78c11b32a458d42ceb4dd9f673daae893cd6ba7",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/kinestt/nix-secrets"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/kinestt/nix-secrets"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1780243769,
@@ -179,9 +197,31 @@
         "helium": "helium",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
+        "nix-secrets": "nix-secrets",
         "nixpkgs": "nixpkgs",
         "prismlauncher": "prismlauncher",
+        "sops-nix": "sops-nix",
         "wrapper-modules": "wrapper-modules"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780547341,
+        "narHash": "sha256-Gq8KNx5A7hBB3uGJaj6eQfLDIz5YdLu92gqBcvHvoUo=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "9ed65852b6257fbeae4355bc24ecfea307ca759a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "systems": {

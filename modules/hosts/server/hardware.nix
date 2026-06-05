@@ -1,5 +1,5 @@
 { self, inputs, ... }: {
-  flake.nixosHardware.serverHardware = { config, lib, pkgs, modulesPath, ... }: {
+  flake.nixosModules.serverHardware = { config, lib, pkgs, modulesPath, ... }: {
     imports =
       [ (modulesPath + "/installer/scan/not-detected.nix")
       ];
