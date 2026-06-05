@@ -106,24 +106,6 @@
         "type": "github"
       }
     },
-    "nix-secrets": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1777974777,
-        "narHash": "sha256-Kt/mVz845i9TDyXqDqrlQMFUeYcrmvaxm73E1U2+NPM=",
-        "ref": "main",
-        "rev": "b78c11b32a458d42ceb4dd9f673daae893cd6ba7",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@codeberg.org/kinest/secrets"
-      },
-      "original": {
-        "ref": "main",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@codeberg.org/kinest/secrets"
-      }
-    },
     "nixflix": {
       "inputs": {
         "mkdocs-catppuccin": "mkdocs-catppuccin",
@@ -236,12 +218,30 @@
         "helium": "helium",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
-        "nix-secrets": "nix-secrets",
         "nixflix": "nixflix",
         "nixpkgs": "nixpkgs",
         "prismlauncher": "prismlauncher",
+        "secrets": "secrets",
         "sops-nix": "sops-nix",
         "wrapper-modules": "wrapper-modules"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1777974777,
+        "narHash": "sha256-Kt/mVz845i9TDyXqDqrlQMFUeYcrmvaxm73E1U2+NPM=",
+        "ref": "main",
+        "rev": "b78c11b32a458d42ceb4dd9f673daae893cd6ba7",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/kinest/secrets"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@codeberg.org/kinest/secrets"
       }
     },
     "sops-nix": {

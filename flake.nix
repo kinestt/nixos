@@ -14,7 +14,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-secrets = {
+    secrets = {
       url = "git+ssh://git@codeberg.org/kinest/secrets?ref=main&shallow=1";
       flake = false;
     };
