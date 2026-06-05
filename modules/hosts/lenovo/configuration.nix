@@ -1,5 +1,4 @@
 { self, inputs, ... }: { 
-
   flake.nixosModules.lenovoConfiguration = { config, lib, pkgs, ... }: {
     imports =
       [ 

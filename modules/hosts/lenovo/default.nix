@@ -4,9 +4,9 @@
       self.nixosModules.lenovoConfiguration 
       ({ pkgs, ... }: {
         nixpkgs.config.allowUnfree = true;
-	nixpkgs.overlays = [
-	  inputs.helium.overlays.default
-	];
+        nixpkgs.overlays = [
+          inputs.helium.overlays.default
+        ];
       })
     ];
   };
