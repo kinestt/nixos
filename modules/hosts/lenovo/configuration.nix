@@ -37,6 +37,7 @@
         glib
         android-tools
         btop
+        easyeffects
       ];
     };
 

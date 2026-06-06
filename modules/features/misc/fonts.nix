@@ -29,7 +29,7 @@
         defaultFonts = {
           serif = ["IBM Plex Sans"];
           sansSerif = ["IBM Plex Sans"];
-          monospace = ["Iosevka Nerd Font Mono"];
+          monospace = ["JetBrains Mono Nerd Font Mono"];
         };
       };
     };
