@@ -14,10 +14,13 @@
     };
   };
   perSystem = {
+    config,
     pkgs,
     lib,
     ...
-  }: {
+  }: let 
+    wallspath = builtins.toString inputs.walls;
+  in {
     packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
       inherit pkgs;
       settings = {
@@ -201,7 +204,7 @@
         };
         spawn-sh-at-startup = [
           # "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/dune.jpg"
-          "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/gruvb99810.png"
+          "${lib.getExe pkgs.swaybg} -i ${wallspath}/gruvb99810.png"
           "waybar"
         ];
       };

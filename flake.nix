@@ -18,6 +18,10 @@
       url = "git+ssh://git@codeberg.org/kinest/secrets?ref=main&shallow=1";
       flake = false;
     };
+    walls = {
+      url = "git+ssh://git@codeberg.org/kinest/walls?ref=main&shallow=1";
+      flake = false;
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
