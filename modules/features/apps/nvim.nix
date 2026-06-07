@@ -3,8 +3,6 @@
   ... 
 }: {
   flake.nixosModules.nvim = { 
-    pkgs, 
-    lib, 
     ... 
   }: {
     imports = [ inputs.nvf.nixosModules.default ];
@@ -44,7 +42,6 @@
             backup = false;
             writebackup = false;
             swapfile = false;
-            undodir = "vim.fn.expand('~/.vim/undodir')";
             updatetime = 300;
             autoread =  true;
             autowrite = true;
