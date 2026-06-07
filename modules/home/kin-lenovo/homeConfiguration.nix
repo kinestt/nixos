@@ -2,7 +2,10 @@
   self,
   ...
 }: {
-  flake.homeModules.kinConfiguration = {pkgs, ...}: {
+  flake.homeModules.kinConfiguration = {
+    pkgs, 
+    ...
+  }: {
     imports = [
       self.homeModules.mako
       self.homeModules.alacritty
