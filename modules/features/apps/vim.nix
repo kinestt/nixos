@@ -25,7 +25,7 @@
         set cursorline
         set relativenumber
         
-        set nowrap
+        set wrap
         set scrolloff=10
         set sidescrolloff=8
         

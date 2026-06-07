@@ -23,6 +23,7 @@
         inter
         maple-mono.NF
         ibm-plex
+        corefonts
       ];
       fontconfig = {
         enable = true;

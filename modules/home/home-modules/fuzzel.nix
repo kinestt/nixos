@@ -22,7 +22,7 @@
       inherit pkgs;
       settings = {
         main = {
-          font = "IBM Plex Sans:size=10";
+          font = "IBM Plex Sans:size=12";
         };
         colors = {
           background = "#191724b3";

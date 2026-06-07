@@ -17,6 +17,7 @@
       self.nixosModules.pipewire
       self.nixosModules.fonts
       self.nixosModules.foot
+      self.nixosModules.yazi
     ];
 
     boot.loader.systemd-boot.enable = true;
@@ -29,7 +30,6 @@
       isNormalUser = true;
       extraGroups = ["wheel"];
       packages = with pkgs; [
-        xwayland-satellite
         tree
         git
         libnotify
@@ -38,6 +38,7 @@
         android-tools
         btop
         easyeffects
+        lutris
       ];
     };
 
@@ -58,13 +59,19 @@
 
     programs.firefox.enable = true;
 
-    environment.systemPackages = [
-      pkgs.wget
-      pkgs.neovim
-      pkgs.home-manager
-      inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
-      inputs.helium.packages.${pkgs.system}.helium
-    ];
+    environment = { 
+      systemPackages = [
+        pkgs.wget
+        pkgs.neovim
+        pkgs.home-manager
+        inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
+        inputs.helium.packages.${pkgs.system}.helium
+        inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
+      ];
+      variables = {
+        EDITOR = "vim";
+      };
+    };
 
     hardware.bluetooth = {
       enable = true;

@@ -55,7 +55,7 @@
           "eDP-1" = {
             # off = _: {};
             mode = "1920x1080@165.002";
-            scale = 1;
+            scale = 1.25;
             position = _: {
               props = {
                 x = 0;
@@ -200,11 +200,13 @@
           "XF86MonBrightnessUp".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
           "XF86MonBrightnessDown".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
 
+          "Mod+F6".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
+          "Mod+F5".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
+
           "Mod+T".spawn-sh = ''notify-send "Current Time" "$(date +"%I:%M %p")"'';
         };
         spawn-sh-at-startup = [
-          # "${lib.getExe pkgs.swaybg} -i /home/kin/nixos/walls/dune.jpg"
-          "${lib.getExe pkgs.swaybg} -i ${wallspath}/gruvb99810.png"
+          "${lib.getExe pkgs.swaybg} -i ${wallspath}/uwp5003040.jpeg"
           "waybar"
         ];
       };
