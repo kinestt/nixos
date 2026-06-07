@@ -5,7 +5,6 @@
 }: {
   flake.homeModules.mako = {
     pkgs,
-    lib,
     ...
   }: {
     services.mako = {
@@ -15,7 +14,6 @@
   };
   perSystem = {
     pkgs,
-    lib,
     ...
   }: {
     packages.myMako = inputs.wrapper-modules.wrappers.mako.wrap {

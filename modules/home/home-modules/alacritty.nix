@@ -5,7 +5,6 @@
 }: {
   flake.homeModules.alacritty = {
     pkgs,
-    lib,
     ...
   }: {
     programs.alacritty = {
@@ -15,7 +14,6 @@
   };
   perSystem = {
     pkgs,
-    lib,
     ...
   }: {
     packages.myAlacritty = inputs.wrapper-modules.wrappers.alacritty.wrap {

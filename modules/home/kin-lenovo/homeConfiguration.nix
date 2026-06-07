@@ -1,6 +1,5 @@
 {
   self,
-  inputs,
   ...
 }: {
   flake.homeModules.kinConfiguration = {pkgs, ...}: {

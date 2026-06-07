@@ -1,11 +1,7 @@
 {
-  self,
-  inputs,
   ...
 }: {
   flake.homeModules.waybar = {
-    pkgs,
-    inputs,
     ...
   }: {
     programs.waybar = {

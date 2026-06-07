@@ -5,7 +5,6 @@
 }: {
   flake.homeModules.fuzzel = {
     pkgs,
-    lib,
     ...
   }: {
     programs.fuzzel = {
@@ -15,7 +14,6 @@
   };
   perSystem = {
     pkgs,
-    lib,
     ...
   }: {
     packages.myFuzzel = inputs.wrapper-modules.wrappers.fuzzel.wrap {
