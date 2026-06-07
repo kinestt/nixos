@@ -58,8 +58,6 @@
     #   nvidiaBusId = "PCI:01:0:0";
     # };
 
-    programs.firefox.enable = true;
-
     environment = { 
       systemPackages = [
         pkgs.wget

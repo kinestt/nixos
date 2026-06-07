@@ -9,6 +9,7 @@
       self.homeModules.gtk
       self.homeModules.fuzzel
       self.homeModules.waybar
+      self.homeModules.firefox
     ];
     home = {
       username = "kin";
