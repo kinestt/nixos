@@ -5,7 +5,6 @@
 }: {
   flake.nixosModules.serverConfiguration = {
     config,
-    lib,
     pkgs,
     ...
   }: let
@@ -13,7 +12,7 @@
   in {
     imports = [
       self.nixosModules.serverHardware
-      self.nixosModules.vim
+      self.nixosModules.nvim
       self.nixosModules.searxng
       self.nixosModules.nginx
       self.nixosModules.qbittorrent

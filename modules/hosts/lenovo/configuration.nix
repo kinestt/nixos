@@ -4,8 +4,6 @@
   ...
 }: {
   flake.nixosModules.lenovoConfiguration = {
-    config,
-    lib,
     pkgs,
     ...
   }: {
@@ -13,11 +11,11 @@
       self.nixosModules.lenovoHardware
       self.nixosModules.niri
       self.nixosModules.ly
-      self.nixosModules.vim
       self.nixosModules.pipewire
       self.nixosModules.fonts
       self.nixosModules.foot
       self.nixosModules.yazi
+      self.nixosModules.nvim
     ];
 
     boot.loader.systemd-boot.enable = true;
@@ -39,6 +37,9 @@
         btop
         easyeffects
         lutris
+        wine-wayland
+        protonup-qt
+        protontricks
       ];
     };
 
