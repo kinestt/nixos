@@ -29,6 +29,14 @@
             proxyWebsockets = true;
           };
         };
+        "redlib.peanutbutter.quest" = {
+          enableACME = true;
+          forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:5544";
+            proxyWebsockets = true;
+          };
+        };
         "notes.peanutbutter.quest" = {
           enableACME = true;
           forceSSL = true;
