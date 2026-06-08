@@ -7,7 +7,6 @@
   }: {
     gtk = {
       enable = true;
-      colorScheme = "dark";
       font = {
         name = "IBM Plex Sans";
         package = pkgs.ibm-plex; 
@@ -20,25 +19,13 @@
         name = "rose-pine";
         package = pkgs.rose-pine-icon-theme;
       };
-      gtk4 = {
-        colorScheme = "dark";
-        theme = {
-          name = "rose-pine";
-          package = pkgs.rose-pine-gtk-theme;
-        };
-      };
-      gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+      gtk4.theme = null;
+      gtk3.extraConfig.gtk-application-prefer-light-theme = true;
+      gtk4.extraConfig.gtk-application-prefer-light-theme = true;
     };
     dconf.settings = {
       "org/gnome/desktop/interface".color-scheme = "prefer-dark";
-    };
-    qt = {
-      enable = true;
-      platformTheme.name = "gtk";
-      style = {
-        name = "rose-pine";
-        package = pkgs.rose-pine-gtk-theme;
-      };
+      "org/gnome/desktop/interface".gtk-theme = "rose-pine";
     };
   };
 }

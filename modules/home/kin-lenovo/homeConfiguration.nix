@@ -36,6 +36,7 @@
         protonup-qt
         tree
         htop
+        p7zip
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];
