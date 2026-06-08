@@ -6,6 +6,7 @@
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
     prismlauncher.url = "github:PrismLauncher/PrismLauncher?ref=release-9.x";
     xwayland-satellite-unscaled.url = "github:Supreeeme/xwayland-satellite?ref=unscaled-dpi";
+    redlib-fork.url = "github:taglia/redlib?ref=dockerhub-redlib-0.36.0";
 
     secrets = {
       url = "git+ssh://git@codeberg.org/kinest/secrets?ref=main&shallow=1";
