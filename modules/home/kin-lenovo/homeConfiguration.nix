@@ -35,6 +35,7 @@
         android-tools
         protonup-qt
         tree
+        htop
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];

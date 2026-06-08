@@ -25,8 +25,8 @@
           font = "JetBrains Mono Nerd Font Mono:size=11";
         };
         colors-dark = {
-          alpha = "0.7";
-          blur = "yes";
+          alpha = "1";
+          blur = "no";
           background = "191724";
           foreground = "e0def4";
 

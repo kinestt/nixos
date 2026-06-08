@@ -68,6 +68,12 @@
           statusline = {
             lualine = {
               enable = true;
+              icons.enable = true;
+            };
+          };
+          tabline = {
+            nvimBufferline = {
+              enable = true;
             };
           };
           theme = {

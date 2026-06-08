@@ -73,6 +73,12 @@
     networking.wireless.iwd.enable = true;
     networking.networkmanager.wifi.backend = "iwd";
 
+    swapDevices = [
+      { 
+        device = "/var/lib/swapfile";
+        size = 24 * 1024;
+      }
+    ];
     system.stateVersion = "25.11";
   };
 }
