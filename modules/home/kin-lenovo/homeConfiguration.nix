@@ -1,5 +1,6 @@
 {
   self,
+  inputs,
   ...
 }: {
   flake.homeModules.kinConfiguration = {
@@ -28,6 +29,14 @@
         mpv
         pcmanfm
         _64gram
+        helium
+        btop
+        lutris
+        android-tools
+        protonup-qt
+        tree
+
+        inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];
     };
   };

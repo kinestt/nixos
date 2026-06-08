@@ -28,18 +28,15 @@
       isNormalUser = true;
       extraGroups = ["wheel"];
       packages = with pkgs; [
-        tree
-        git
         libnotify
         usbutils
         glib
-        android-tools
-        btop
-        easyeffects
-        lutris
         wine-wayland
-        protonup-qt
         protontricks
+        wget
+        home-manager
+
+        inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
       ];
     };
 
@@ -59,13 +56,8 @@
     # };
 
     environment = { 
-      systemPackages = [
-        pkgs.wget
-        pkgs.neovim
-        pkgs.home-manager
-        inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
-        inputs.helium.packages.${pkgs.system}.helium
-        inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
+      systemPackages = with pkgs; [
+        git
       ];
       variables = {
         EDITOR = "vim";

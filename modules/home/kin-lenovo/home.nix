@@ -9,6 +9,7 @@
       system = "x86_64-linux";
       overlays = [
         inputs.nur.overlays.default
+        inputs.helium.overlays.default
       ];
     };
     modules = [
