@@ -74,6 +74,7 @@
                 "ublock-unbreak"
                 "ublock-quick-fixes"
               ];
+              disableJavascript = true;
             };
           };
           settings = {
