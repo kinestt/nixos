@@ -225,7 +225,7 @@
             "general.smoothScroll.currentVelocityWeighting" = "1";
             "general.smoothScroll.stopDecelerationWeighting" = "1";
 
-            "mousewheel.default.delta_multiplier_y" = 300;
+            "mousewheel.default.delta_multiplier_y" = 250;
             "mousewheel.min_line_scroll_amount" = 35;
 
             "widget.gtk.overlay-scrollbars.enabled" = true;
