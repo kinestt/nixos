@@ -14,6 +14,7 @@
       self.homeModules.fuzzel
       self.homeModules.waybar
       self.homeModules.firefox
+      self.homeModules.helix
     ];
     home = {
       username = "kin";

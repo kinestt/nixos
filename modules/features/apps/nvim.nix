@@ -95,6 +95,11 @@
               treesitter.enable = true;
             };
           };
+          terminal = {
+            toggleterm = {
+              enable = true;
+            };
+          };
         };
       };
     };
