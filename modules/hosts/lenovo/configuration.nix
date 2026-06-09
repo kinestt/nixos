@@ -44,7 +44,10 @@
 
     nix.settings.experimental-features = ["nix-command" "flakes"];
 
-    programs.dconf.enable = true;
+    programs = { 
+      dconf.enable = true;
+      localsend.enable = true;
+    };
 
     hardware.graphics.enable = true;
     hardware.graphics.enable32Bit = true;
