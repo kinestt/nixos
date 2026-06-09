@@ -79,6 +79,7 @@
           };
           settings = {
             "sidebar.verticalTabs" = true;
+            "browser.sessionstore.resume_from_crash" = false;
 
             "browser.startup.homepage" = "https://search.peanutbutter.quest";
             "extensions.autoDisableScopes" = 0;
