@@ -23,10 +23,9 @@
       settings = {
         main = {
           font = "JetBrains Mono Nerd Font Mono:size=11";
-          shell = "fish";
         };
         colors-dark = {
-          alpha = "1";
+          alpha = "0.7";
           blur = "no";
           background = "191724";
           foreground = "e0def4";

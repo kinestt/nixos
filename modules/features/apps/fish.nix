@@ -25,6 +25,9 @@
         nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$hostname";
         hms = "home-manager switch --flake ${nixosDir}#kin-$hostname";
       };
+      plugins = with pkgs.fishPlugins; [
+        pure
+      ];
     };
   };
 }
