@@ -23,6 +23,7 @@
       self.nixosModules.nixflix
       self.nixosModules.redlib
       self.nixosModules.docker
+      self.nixosModules.fish
 
       inputs.sops-nix.nixosModules.sops
     ];
