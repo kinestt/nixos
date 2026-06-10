@@ -13,6 +13,7 @@
     imports = [
       self.nixosModules.serverHardware
       self.nixosModules.nvim
+      self.nixosModules.tmux
       self.nixosModules.searxng
       self.nixosModules.nginx
       self.nixosModules.qbittorrent
