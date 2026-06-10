@@ -23,6 +23,8 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
+    networking.hostName = "lenovo";
+
     networking.networkmanager.enable = true;
     time.timeZone = "Asia/Kolkata";
 
@@ -38,6 +40,7 @@
         protontricks
         wget
         home-manager
+        bat
 
         inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
       ];

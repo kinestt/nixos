@@ -14,15 +14,16 @@
   };
   perSystem = {
     pkgs,
+    config,
     ...
   }: let 
     nixosDir = "/home/kin/nixos/";
   in { 
     packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
       inherit pkgs;
-      abbreviations = {
-        nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#lenovo";
-        hms = "home-manager switch --flake ${nixosDir}#kin-lenovo";
+      shellAliases = {
+        nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$hostname";
+        hms = "home-manager switch --flake ${nixosDir}#kin-$hostname";
       };
     };
   };
