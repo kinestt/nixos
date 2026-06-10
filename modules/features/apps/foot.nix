@@ -23,6 +23,7 @@
       settings = {
         main = {
           font = "JetBrains Mono Nerd Font Mono:size=11";
+          shell = "fish";
         };
         colors-dark = {
           alpha = "1";

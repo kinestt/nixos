@@ -38,6 +38,7 @@
         tree
         htop
         p7zip
+        blanket
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];

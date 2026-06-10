@@ -17,6 +17,7 @@
       self.nixosModules.yazi
       self.nixosModules.nvim
       self.nixosModules.tmux
+      self.nixosModules.fish
     ];
 
     boot.loader.systemd-boot.enable = true;
