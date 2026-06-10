@@ -17,13 +17,13 @@
     config,
     ...
   }: let 
-    nixosDir = "/home/kin/nixos/";
+    nixosDir = "/home/$USER/nixos/";
   in { 
     packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
       inherit pkgs;
       shellAliases = {
         nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$hostname";
-        hms = "home-manager switch --flake ${nixosDir}#kin-$hostname";
+        hms = "home-manager switch --flake ${nixosDir}#$USER-$hostname";
       };
       plugins = with pkgs.fishPlugins; [
         pure

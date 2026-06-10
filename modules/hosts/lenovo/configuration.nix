@@ -32,6 +32,7 @@
       isNormalUser = true;
       extraGroups = ["wheel"];
       shell = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
+      home = "/home/kin/";
       packages = with pkgs; [
         libnotify
         usbutils

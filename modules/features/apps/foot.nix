@@ -23,6 +23,7 @@
       settings = {
         main = {
           font = "JetBrains Mono Nerd Font Mono:size=11";
+          shell = "tmux new-session -As default";
         };
         colors-dark = {
           alpha = "0.7";
