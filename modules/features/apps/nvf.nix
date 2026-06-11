@@ -2,7 +2,7 @@
   inputs, 
   ... 
 }: {
-  flake.nixosModules.nvim = { 
+  flake.nixosModules.nvf = { 
     ... 
   }: {
     imports = [ inputs.nvf.nixosModules.default ];
@@ -10,8 +10,8 @@
       enable = true;
       settings = {
         vim = {
-          viAlias = true;
-          vimAlias = true;
+          viAlias = false;
+          vimAlias = false;
 
           opts = {
             wrap = true;
@@ -54,12 +54,6 @@
             mouse = "a";
             encoding = "UTF-8";
           };
-
-          autocomplete = {
-            blink-cmp = {
-              enable = true;
-            };
-          };
           clipboard = {
             enable = true;
             providers.wl-copy.enable = true;
@@ -81,19 +75,6 @@
             name = "rose-pine";
             style = "main";
             transparent = true;
-          };
-          lsp = {
-            enable = true;
-          };
-          languages = {
-            nix = {
-              enable = true;
-              lsp = {
-                enable = true;
-                servers = [ "nixd" ];
-              };
-              treesitter.enable = true;
-            };
           };
           terminal = {
             toggleterm = {

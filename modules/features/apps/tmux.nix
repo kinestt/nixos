@@ -66,15 +66,21 @@
         bind -n M-k select-pane -U 
         bind -n M-l select-pane -R 
 
-        bind -n M-1 select-window -t 1 
-        bind -n M-2 select-window -t 2 
-        bind -n M-3 select-window -t 3 
-        bind -n M-4 select-window -t 4 
-        bind -n M-5 select-window -t 5 
-        bind -n M-6 select-window -t 6 
-        bind -n M-7 select-window -t 7 
-        bind -n M-8 select-window -t 8 
-        bind -n M-9 select-window -t 9 
+        bind -n M-q display-panes
+        bind -n M-1 select-pane -t 1 
+        bind -n M-2 select-pane -t 2 
+        bind -n M-3 select-pane -t 3 
+        bind -n M-4 select-pane -t 4 
+
+        bind -n M-! select-window -t 1 # Shift + 1 = ! 
+        bind -n M-@ select-window -t 2        
+        bind -n M-# select-window -t 3        
+        bind -n M-$ select-window -t 4        
+        bind -n M-% select-window -t 5        
+        bind -n M-^ select-window -t 6        
+        bind -n M-& select-window -t 7        
+        bind -n M-* select-window -t 8        
+        bind -n M-( select-window -t 9        
 
         bind -n S-Left previous-window
         bind -n S-Right next-window 

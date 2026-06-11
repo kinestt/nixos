@@ -15,7 +15,8 @@
       self.nixosModules.fonts
       self.nixosModules.foot
       self.nixosModules.yazi
-      self.nixosModules.nvim
+      self.nixosModules.vim
+      self.nixosModules.nvf
       self.nixosModules.tmux
       self.nixosModules.fish
     ];

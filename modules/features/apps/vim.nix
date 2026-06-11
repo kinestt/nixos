@@ -61,7 +61,7 @@
         set noautochdir
         set selection=exclusive
         set mouse=a
-        set clipboard+=unnamedplus
+        set clipboard=unnamedplus
         set modifiable
         set encoding=utf-8
       ";

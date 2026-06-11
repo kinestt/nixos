@@ -12,6 +12,7 @@
   in {
     imports = [
       self.nixosModules.serverHardware
+      self.nixosModules.vim
       self.nixosModules.nvim
       self.nixosModules.tmux
       self.nixosModules.searxng
