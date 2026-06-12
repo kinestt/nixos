@@ -32,7 +32,7 @@
     users.users.kin = {
       isNormalUser = true;
       extraGroups = ["wheel"];
-      shell = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
+      shell = pkgs.bash;
       home = "/home/kin/";
       packages = with pkgs; [
         libnotify
@@ -43,6 +43,7 @@
         wget
         home-manager
         bat
+        unzip
 
         inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
       ];
@@ -89,7 +90,7 @@
     swapDevices = [
       { 
         device = "/var/lib/swapfile";
-        size = 24 * 1024;
+        size = 64 * 1024;
       }
     ];
     system.stateVersion = "25.11";

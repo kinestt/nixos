@@ -37,7 +37,7 @@
       isNormalUser = true;
       description = "kin";
       extraGroups = ["wheel"];
-      shell = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
+      shell = pkgs.bash;
       home = "/home/kin";
     };
     sops = {
