@@ -22,7 +22,6 @@
         ubuntu-sans
         inter
         maple-mono.NF
-        ibm-plex
         corefonts
       ];
       fontconfig = {
@@ -30,7 +29,7 @@
         defaultFonts = {
           #serif = ["IBM Plex Sans"];
           #sansSerif = ["IBM Plex Sans"];
-          monospace = ["JetBrains Mono Nerd Font Mono"];
+          #monospace = ["JetBrains Mono Nerd Font Mono"];
         };
       };
     };

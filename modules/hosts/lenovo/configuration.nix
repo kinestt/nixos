@@ -13,7 +13,6 @@
       self.nixosModules.ly
       self.nixosModules.pipewire
       self.nixosModules.fonts
-      self.nixosModules.foot
       self.nixosModules.yazi
       self.nixosModules.vim
       self.nixosModules.nvf

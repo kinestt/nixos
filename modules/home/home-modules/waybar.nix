@@ -37,10 +37,10 @@
       };
       style = "
         #waybar {
-          font-family: 'Futura', 'JetBrains Mono Nerd Font Propo' ;
+          font-family: 'BlexMono Nerd Font Propo' ;
           font-size: 14px;
           font-weight: normal;
-          background-color: #191724;
+          background-color: rgba(25, 23, 36, 0.7);
         }
         #cpu {
           color: #c4a7e7;

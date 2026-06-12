@@ -66,7 +66,7 @@
           "eDP-2" = {
             off = _: {};
             mode = "1920x1080@165.000";
-            scale = 1.25;
+            scale = 1;
             position = _: {
               props = {
                 x = 0;

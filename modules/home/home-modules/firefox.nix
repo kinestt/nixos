@@ -65,6 +65,7 @@
             packages = with pkgs.nur.repos.rycee.firefox-addons; [
               ublock-origin
               bitwarden
+              darkreader
             ];
             settings."uBlock0@raymondhill.net".settings = {
               selectedFilterLists = [
