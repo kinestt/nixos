@@ -17,6 +17,7 @@
       self.nixosModules.vim
       self.nixosModules.nvf
       self.nixosModules.tmux
+      self.nixosModules.foot
       self.nixosModules.bash
       self.nixosModules.fish
       self.nixosModules.customFonts
