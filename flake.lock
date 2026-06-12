@@ -15,6 +15,24 @@
         "type": "github"
       }
     },
+    "custom-fonts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781287972,
+        "narHash": "sha256-hEFOa9sbhV+ytunVJK9HYQQuylg+BkY8TyhJ48rRc7M=",
+        "ref": "main",
+        "rev": "0738f93bb315d92708342b5b0627076e2128b67a",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/kinestt/custom-fonts"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/kinestt/custom-fonts"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -474,6 +492,7 @@
     },
     "root": {
       "inputs": {
+        "custom-fonts": "custom-fonts",
         "flake-parts": "flake-parts",
         "helium": "helium",
         "home-manager": "home-manager",

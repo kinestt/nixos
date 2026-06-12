@@ -28,8 +28,8 @@
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = ["IBM Plex Sans"];
-          sansSerif = ["IBM Plex Sans"];
+          #serif = ["IBM Plex Sans"];
+          #sansSerif = ["IBM Plex Sans"];
           monospace = ["JetBrains Mono Nerd Font Mono"];
         };
       };

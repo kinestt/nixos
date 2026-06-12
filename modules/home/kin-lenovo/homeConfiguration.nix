@@ -15,6 +15,7 @@
       self.homeModules.waybar
       self.homeModules.firefox
       self.homeModules.helix
+      self.homeModules.gtk-fonts
     ];
     home = {
       username = "kin";

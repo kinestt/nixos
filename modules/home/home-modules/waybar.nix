@@ -37,8 +37,8 @@
       };
       style = "
         #waybar {
-          font-family: 'IBM Plex Sans', 'JetBrains Mono Nerd Font Propo' ;
-          font-size: 16px;
+          font-family: 'Futura', 'JetBrains Mono Nerd Font Propo' ;
+          font-size: 14px;
           font-weight: normal;
           background-color: #191724;
         }

@@ -16,6 +16,10 @@
       url = "git+ssh://git@codeberg.org/kinest/walls?ref=main&shallow=1";
       flake = false;
     };
+    custom-fonts = {
+      url = "git+ssh://git@github.com/kinestt/custom-fonts?ref=main&shallow=1";
+      flake = false;
+    };
 
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";

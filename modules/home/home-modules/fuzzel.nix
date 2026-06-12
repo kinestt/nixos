@@ -20,7 +20,7 @@
       inherit pkgs;
       settings = {
         main = {
-          font = "IBM Plex Sans:size=12";
+          #font = "Futura:size=12";
         };
         colors = {
           background = "#191724b3";

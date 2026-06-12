@@ -1,4 +1,5 @@
 {
+  self,
   ...
 }: {
   flake.homeModules.gtk = {
@@ -7,10 +8,6 @@
   }: {
     gtk = {
       enable = true;
-      font = {
-        name = "IBM Plex Sans";
-        package = pkgs.ibm-plex; 
-      };
       theme = {
         name = "rose-pine";
         package = pkgs.rose-pine-gtk-theme;
