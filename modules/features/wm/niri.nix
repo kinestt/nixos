@@ -193,8 +193,8 @@
           "Mod+Shift+Minus".set-window-height = "-10%";
           "Mod+Shift+Equal".set-window-height = "+10%";
 
-          "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0";
-          "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-";
+          "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0";
+          "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
           "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           "Mod+M".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
           "XF86MonBrightnessUp".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";

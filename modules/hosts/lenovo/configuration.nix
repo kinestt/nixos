@@ -12,7 +12,6 @@
       self.nixosModules.niri
       self.nixosModules.ly
       self.nixosModules.pipewire
-      self.nixosModules.fonts
       self.nixosModules.yazi
       self.nixosModules.vim
       self.nixosModules.nvf
@@ -46,8 +45,10 @@
         home-manager
         bat
         unzip
+        zip
+        spotify
 
-        inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
+        #inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
       ];
     };
 
@@ -74,9 +75,22 @@
     environment = { 
       systemPackages = with pkgs; [
         git
+        #(pkgs.spotify.overrideAttrs (old: {
+        #  nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
+        #    pkgs.makeWrapper
+        #  ];
+        #  postInstall = (old.postInstall or "") + ''
+        #    wrapProgram $out/bin/spotify \
+        #      --add-flags "--enable-features=UseOzonePlatform"\
+        #      --add-flags "--ozone-platform=wayland"
+        #  '';
+        #}))
       ];
       variables = {
         EDITOR = "vim";
+      };
+      sessionVariables = {
+        NIXOS_OZONE_WL = "1";
       };
     };
 

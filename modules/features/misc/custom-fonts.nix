@@ -15,8 +15,8 @@
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = ["Futura"];
-          sansSerif = ["Futura"];
+          serif = ["BlexMono Nerd Font Propo"];
+          sansSerif = ["BlexMono Nerd Font Propo"];
           monospace = ["BlexMono Nerd Font Propo"];
         };
       };
@@ -28,8 +28,8 @@
   }: {
     gtk = {
       font = {
-        name = "Futura";
-        package = self.packages.${pkgs.stdenv.hostPlatform.system}.futura; 
+        name = "BlexMono Nerd Font Propo";
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.IBMPlexMono; 
       };
     };
   };

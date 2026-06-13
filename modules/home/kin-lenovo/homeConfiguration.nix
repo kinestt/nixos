@@ -22,10 +22,8 @@
       homeDirectory = "/home/kin";
       stateVersion = "25.11";
       packages = with pkgs; [
-        spotify
         swappy
         libreoffice
-        equibop
         fastfetch
         qbittorrent-nox
         mpv
