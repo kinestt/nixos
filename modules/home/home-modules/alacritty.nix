@@ -24,7 +24,6 @@
         };
         window = {
           opacity = 0.7;
-          blur = true;
         };
         colors = {
           primary = {

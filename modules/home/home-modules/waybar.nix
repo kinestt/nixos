@@ -10,7 +10,7 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 30;
+          height = 25;
           spacing = 2;
           modules-center = ["niri/window"];
           modules-left = ["niri/workspaces"];
