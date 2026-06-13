@@ -22,7 +22,7 @@
       inherit pkgs;
       settings = {
         main = {
-          font = "BlexMono Nerd Font Propo:size=12";
+          font = ":size=11";
         };
         colors-dark = {
           alpha = "0.7";

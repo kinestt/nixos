@@ -41,7 +41,7 @@
       };
       style = "
         #waybar {
-          font-family: 'BlexMono Nerd Font Propo' ;
+        font-family: 'Futura', 'BlexMono Nerd Font Propo' ;
           font-weight: normal;
           background-color: rgba(25, 23, 36, 0.7);
         }
