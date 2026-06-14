@@ -43,12 +43,12 @@
           };
         };
         layout = {
-          gaps = 2;
+          gaps = 1;
           center-focused-column = "never";
           focus-ring = {
             active-color = "#907aa9";
             inactive-color = "#907aa9";
-            width = 2;
+            width = 1;
           };
         };
         outputs = {
@@ -201,6 +201,10 @@
           "XF86MonBrightnessUp".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
           "XF86MonBrightnessDown".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
 
+
+          "Mod+F2".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          "Mod+F3".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
+          "Mod+F4".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0";
           "Mod+F6".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
           "Mod+F5".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
 

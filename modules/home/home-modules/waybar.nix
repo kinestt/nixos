@@ -43,7 +43,7 @@
         #waybar {
         font-family: 'Futura', 'BlexMono Nerd Font Propo' ;
           font-weight: normal;
-          background-color: rgba(25, 23, 36, 0.7);
+          background-color: rgba(25, 23, 36, 1);
         }
         #cpu {
           color: #c4a7e7;

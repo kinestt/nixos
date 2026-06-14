@@ -25,6 +25,7 @@
       self.nixosModules.redlib
       self.nixosModules.docker
       self.nixosModules.fish
+      self.nixosModules.bash
       self.nixosModules.stirlingpdf
 
       inputs.sops-nix.nixosModules.sops

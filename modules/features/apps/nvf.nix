@@ -33,7 +33,13 @@
                 mode = "n";
                 silent = true;
                 action = ":Neotree toggle current reveal_force_cwd<cr>";
-               }
+              }
+              {
+                key = "<leader>ff";
+                mode = "n";
+                action = "<cmd>Telescope find_files<CR>";
+                desc = " Telescope find_files";
+              }
             ];
 
             opts = {
