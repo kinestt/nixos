@@ -14,6 +14,7 @@
       shellAliases = {
         nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$HOSTNAME";
         hms = "home-manager switch --flake ${nixosDir}#$USER-$HOSTNAME";
+        y = "yazi";
       };
       enableLsColors = true;
     };

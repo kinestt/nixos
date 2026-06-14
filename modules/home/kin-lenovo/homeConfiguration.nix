@@ -27,7 +27,7 @@
         fastfetch
         qbittorrent-nox
         mpv
-        pcmanfm
+        nautilus
         _64gram
         helium
         btop

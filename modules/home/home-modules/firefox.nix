@@ -67,9 +67,15 @@
               bitwarden
               darkreader
               sponsorblock
-              tridactyl
+              stylus
             ];
           };
+          userChrome = ''
+            #TabsToolbar { display: none !important; }
+            #sidebar-box #sidebar-header { display: none !important; }
+
+            * { border-radius: 0px; }
+          '';
           settings = {
             "sidebar.verticalTabs" = true;
             "browser.sessionstore.resume_from_crash" = false;

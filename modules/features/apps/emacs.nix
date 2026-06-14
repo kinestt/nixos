@@ -9,6 +9,7 @@
   }: {
     environment.systemPackages = [
       self.packages.${pkgs.stdenv.hostPlatform.system}.myEmacs
+      pkgs.emacs-pgtk
     ];
   };
   perSystem = {
@@ -21,7 +22,6 @@
         evil
 	      nix-mode
 	      nixfmt
-
       ];
       configFile = ''
         (use-package evil
