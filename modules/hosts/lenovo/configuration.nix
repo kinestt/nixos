@@ -20,6 +20,7 @@
       self.nixosModules.bash
       self.nixosModules.fish
       self.nixosModules.emacs
+      self.nixosModules.bash
       self.nixosModules.customFonts
     ];
 
