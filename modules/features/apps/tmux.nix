@@ -63,22 +63,20 @@
         bind -n M-j select-pane -D 
         bind -n M-k select-pane -U 
         bind -n M-l select-pane -R 
+        bind -n M-x kill-pane
 
         bind -n M-q display-panes
-        bind -n M-1 select-pane -t 1 
-        bind -n M-2 select-pane -t 2 
-        bind -n M-3 select-pane -t 3 
-        bind -n M-4 select-pane -t 4 
 
-        bind -n M-! select-window -t 1 # Shift + 1 = ! 
-        bind -n M-@ select-window -t 2        
-        bind -n M-# select-window -t 3        
-        bind -n M-$ select-window -t 4        
-        bind -n M-% select-window -t 5        
-        bind -n M-^ select-window -t 6        
-        bind -n M-& select-window -t 7        
-        bind -n M-* select-window -t 8        
-        bind -n M-( select-window -t 9        
+        bind -n M-1 select-window -t 1  
+        bind -n M-2 select-window -t 2        
+        bind -n M-3 select-window -t 3        
+        bind -n M-4 select-window -t 4        
+        bind -n M-5 select-window -t 5        
+        bind -n M-6 select-window -t 6        
+        bind -n M-7 select-window -t 7        
+        bind -n M-8 select-window -t 8        
+        bind -n M-9 select-window -t 9        
+        bind -n M-c new-window
 
         bind -n S-Left previous-window
         bind -n S-Right next-window 
@@ -111,7 +109,7 @@
         set -g window-status-format "#[fg=${thm_blue},bg=${thm_bg}] #I: #[fg=${thm_fg},bg=${thm_bg}]#W"
 
         # Statusline - right side
-        set -g status-right "#[fg=${thm_blue},bg=${thm_bg},nobold,nounderscore,noitalics]#[fg=${thm_bg},bg=${thm_blue},nobold,nounderscore,noitalics] #[fg=${thm_fg},bg=${thm_gray}] #W #{?client_prefix,#[fg=${thm_magenta}],#[fg=${thm_cyan}]}#[bg=${thm_gray}]#{?client_prefix,#[bg=${thm_magenta}],#[bg=${thm_cyan}]}#[fg=${thm_bg}] #[fg=${thm_fg},bg=${thm_gray}] #S "
+        set -g status-right "#[fg=${thm_blue},bg=${thm_bg},nobold,nounderscore,noitalics]#[fg=${thm_bg},bg=${thm_blue},nobold,nounderscore,noitalics] #[fg=${thm_fg},bg=${thm_gray}] #W #{?client_prefix,#[fg=${thm_magenta}],#[fg=${thm_cyan}]}#[bg=${thm_gray}]#{?client_prefix,#[bg=${thm_magenta}],#[bg=${thm_cyan}]}#[fg=${thm_bg}] #[fg=${thm_fg},bg=${thm_gray}] #S "
 
         # Statusline - left side (empty)
         set -g status-left ""

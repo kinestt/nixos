@@ -41,7 +41,7 @@
       };
       style = "
         #waybar {
-        font-family: 'Futura', 'BlexMono Nerd Font Propo' ;
+        font-family: 'Iosevka Nerd Font Propo' ;
           font-weight: normal;
           background-color: rgba(25, 23, 36, 1);
         }

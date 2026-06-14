@@ -10,14 +10,15 @@
     fonts = {
       packages = [
         self.packages.${pkgs.stdenv.hostPlatform.system}.futura
-        pkgs.nerd-fonts.blex-mono
+        pkgs.nerd-fonts.iosevka
+        pkgs.lexend
       ];
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = ["Futura"];
-          sansSerif = ["Futura"];
-          monospace = ["BlexMono Nerd Font Mono"];
+          serif = ["Iosevka Nerd Font Mono"];
+          sansSerif = ["Iosevka Nerd Font Mono"];
+          monospace = ["Iosevka Nerd Font Mono"];
         };
       };
     };
@@ -28,8 +29,7 @@
   }: {
     gtk = {
       font = {
-        name = "Futura";
-        package = pkgs.nerd-fonts.blex-mono; 
+        name = "Iosevka Nerd Font Mono";
       };
     };
   };

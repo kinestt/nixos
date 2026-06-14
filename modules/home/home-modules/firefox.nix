@@ -66,17 +66,9 @@
               ublock-origin
               bitwarden
               darkreader
+              sponsorblock
+              tridactyl
             ];
-            settings."uBlock0@raymondhill.net".settings = {
-              selectedFilterLists = [
-                "ublock-filters"
-                "ublock-badware"
-                "ublock-privacy"
-                "ublock-unbreak"
-                "ublock-quick-fixes"
-              ];
-              disableJavascript = true;
-            };
           };
           settings = {
             "sidebar.verticalTabs" = true;
