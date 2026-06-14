@@ -19,6 +19,7 @@
       self.nixosModules.foot
       self.nixosModules.bash
       self.nixosModules.fish
+      self.nixosModules.emacs
       self.nixosModules.customFonts
     ];
 

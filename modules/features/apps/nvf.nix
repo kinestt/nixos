@@ -27,6 +27,15 @@
               mapLeader = " ";
             };
 
+            keymaps = [
+              {
+                key = "<leader>f";
+                mode = "n";
+                silent = true;
+                action = ":Neotree toggle current reveal_force_cwd<cr>";
+               }
+            ];
+
             opts = {
               wrap = true;
               number = true;
@@ -96,12 +105,17 @@
             };
             tabline = {
               nvimBufferline = {
-                enable = true;
+                enable = false;
               };
             };
             filetree = {
               neo-tree = {
                 enable = true;
+                setupOpts = {
+                  filesystem = {
+                    hijack_netrw_behavior = "disabled";
+                  };
+                };
               };
             };
             theme = {

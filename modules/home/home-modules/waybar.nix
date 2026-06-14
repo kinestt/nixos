@@ -17,20 +17,20 @@
           modules-right = ["tray" "custom/seperator" "cpu" "custom/seperator" "memory" "custom/seperator" "battery" "custom/seperator" "clock#date" "custom/seperator" "clock#time" "custom/seperator"];
           "cpu" = {
             interval = 10;
-            format = "CPU:{usage}%";
+            format = "Cpu: {usage}%";
           };
           "memory" = {
             interval = 30;
-            format = "RAM:{}%";
+            format = "Ram: {}%";
           };
           "battery" = {
-            format = "{Battery:capacity}%";
+            format = "Battery: {capacity}%";
           };
           "clock#date" = {
-            format = "{:%d/%m(%a)}";
+            format = "Date: {:%d/%m(%a)}";
           };
           "clock#time" = {
-            format = "{:%I:%M %p}";
+            format = "Time: {:%I:%M %p}";
             interval = 1;
           };
           "custom/seperator" = {

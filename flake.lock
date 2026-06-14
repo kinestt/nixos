@@ -153,11 +153,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1781239081,
-        "narHash": "sha256-wap2kGtUr9S7K7OVGHRAMRequGqAJDsBgEyGrOkt5os=",
+        "lastModified": 1781324208,
+        "narHash": "sha256-bygOOsF1MFbhpl420ja6Md5bGIyRIJ2/UDS2nqEX1eA=",
         "owner": "schembriaiden",
         "repo": "helium-browser-nix-flake",
-        "rev": "49bf9e02664380b2111510a5c21d3d0be22bb211",
+        "rev": "87c5dbbabd13547db8e14937c77bd3abce315d56",
         "type": "github"
       },
       "original": {
@@ -412,11 +412,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781319038,
-        "narHash": "sha256-4iu8nDIdwxQdnmaerg5lNGtLRluave3C4z44bIT6od4=",
+        "lastModified": 1781352734,
+        "narHash": "sha256-5yNLh4Af49nWq4cQGJJy5DDbDxbJa1JtfdT78yimJ98=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "ba4d1b84342260df0d33fdc153501980fda967da",
+        "rev": "9f22495cb9965bea49f5b31ef1a3edfc22ec1cc8",
         "type": "github"
       },
       "original": {
@@ -435,11 +435,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1781312467,
-        "narHash": "sha256-tTAbFLvDhpeCluFXvuNmYgOACXlj+URh/0bgX3mFpO4=",
+        "lastModified": 1781348802,
+        "narHash": "sha256-XUHOqeWwU9CbUhNKBoA/Vjm5wIcpB2cF7Ll1eQrGtts=",
         "owner": "notashelf",
         "repo": "nvf",
-        "rev": "5ee7fb19860bd110668bbec108f909514a8dc006",
+        "rev": "40c37ff2f79089f1cc8fcd35d3c837e2401521cf",
         "type": "github"
       },
       "original": {

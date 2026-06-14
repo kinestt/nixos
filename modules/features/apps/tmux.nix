@@ -5,7 +5,6 @@
 }: {
   flake.nixosModules.tmux = {
     pkgs,
-    lib,
     ...
   }: { 
     programs.tmux = {
@@ -15,7 +14,6 @@
   };
   perSystem = {
     pkgs,
-    lib,
     ...
   }: {
     packages.myTmux = inputs.wrapper-modules.wrappers.tmux.wrap {
@@ -85,27 +83,13 @@
         bind -n S-Left previous-window
         bind -n S-Right next-window 
 
-        #Rose Pine 
-        thm_bg="#191724"
-        thm_fg="#e0def4"
-        thm_black="#16141f"
-        thm_gray="#403d52"
-        thm_black4="#524f67"
-        thm_red="#eb6f92"
-        thm_pink="#eb6f92"
-        thm_green="#9ccfd8"
-        thm_yellow="#f6c177"
-        thm_orange="#ea9a97"
-        thm_blue="#31748f"
-        thm_cyan="#9ccfd8"
-        thm_magenta="#c4a7e7"
-
         # Status bar
         set -g status "on"
         set -g status-bg "${thm_bg}"
         set -g status-justify "left"
         set -g status-left-length "100"
         set -g status-right-length "100"
+        set -g status-position "top"
 
         # Messages
         set -g message-style "fg=${thm_cyan},bg=${thm_gray},align=centre"
