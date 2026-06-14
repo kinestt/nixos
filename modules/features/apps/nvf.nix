@@ -29,7 +29,7 @@
 
             keymaps = [
               {
-                key = "<leader>f";
+                key = "<leader>n";
                 mode = "n";
                 silent = true;
                 action = ":Neotree toggle current reveal_force_cwd<cr>";
@@ -96,6 +96,9 @@
             };
             treesitter = {
               indent.excludes = [ "nix" ];
+            };
+            telescope = {
+              enable = true;
             };
             statusline = {
               lualine = {
