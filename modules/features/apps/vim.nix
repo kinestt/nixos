@@ -12,6 +12,11 @@
       enable = true;
       package = self.packages.${pkgs.stdenv.hostPlatform.system}.myVim;
     };
+    environment.systemPackages = [
+      pkgs.fzf
+      pkgs.fd
+      pkgs.ripgrep
+    ];
   };
   perSystem = {
     pkgs,
@@ -20,15 +25,21 @@
   }: {
     packages.myVim = inputs.wrapper-modules.wrappers.vim.wrap {
       inherit pkgs;
-      vimrc = "
+      plugins = with pkgs; [
+        vimPlugins.fzf-vim
+        vimPlugins.lightline          
+      ];
+      vimrc = '' 
         set number
         set cursorline
         set relativenumber
+        syntax on
         
         set wrap
         set scrolloff=10
         set sidescrolloff=8
         
+        filetype plugin indent on
         set tabstop=2
         set shiftwidth=2
         set softtabstop=2
@@ -64,7 +75,15 @@
         set clipboard=unnamedplus
         set modifiable
         set encoding=utf-8
-      ";
+
+        let mapleader = " " 
+        nnoremap <leader>cd :Ex<CR>
+        nnoremap <leader>ff :Files<CR>
+        nnoremap <leader>fo :History<CR>
+        nnoremap <leader>fb :Buffers<CR>
+
+        nnoremap <leader>fg :Rg<Space>
+      '';
     };
   };
 }
