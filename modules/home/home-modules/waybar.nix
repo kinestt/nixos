@@ -41,7 +41,7 @@
       };
       style = "
         #waybar {
-        font-family: 'Lexend Deca', 'Iosevka Nerd Font Propo' ;
+        font-family: 'Lexend Deca', 'IllinoisMono Nerd Font Propo' ;
           font-size: 16px;
           font-weight: normal;
           background-color: rgba(25, 23, 36, 1);

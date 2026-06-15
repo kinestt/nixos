@@ -22,7 +22,7 @@
       inherit pkgs;
       settings = {
         main = {
-          font = "Iosevka Nerd Font Mono:size=12.5";
+          font = "IllinoisMono Nerd Font Mono:size=12.5";
         };
         colors-dark = {
           alpha = "0.7";

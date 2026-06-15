@@ -18,10 +18,10 @@
     "custom-fonts": {
       "flake": false,
       "locked": {
-        "lastModified": 1781296225,
-        "narHash": "sha256-d+9YMlpupIyRnuwt0sKUHOX6YNQKoJ8kZ0a7aKmP1dM=",
+        "lastModified": 1781501984,
+        "narHash": "sha256-pvXOERNiGf4HvSgNdJAkpLJuXCYeZoa5OarhbPQ+Lxo=",
         "ref": "main",
-        "rev": "58641d2777682c6cdf44cd2a2caf9d686c8b92e2",
+        "rev": "0d552bb69f494be4b18a1319f078c010b0c26331",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/kinestt/custom-fonts"
