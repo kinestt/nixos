@@ -9,17 +9,15 @@
   }: {
     fonts = {
       packages = [
-        self.packages.${pkgs.stdenv.hostPlatform.system}.futura
         pkgs.nerd-fonts.iosevka
-        pkgs.lexend
-        self.packages.${pkgs.stdenv.hostPlatform.system}.illinois-mono
+        self.packages.${pkgs.stdenv.hostPlatform.system}.san-francisco-pro
       ];
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = ["Lexend Deca"];
-          sansSerif = ["Lexend Deca"];
-          monospace = ["IllinoisMono Nerd Font Mono"];
+          serif = ["SF Pro"];
+          sansSerif = ["SF Pro"];
+          monospace = ["Iosevka Nerd Font Mono"];
         };
       };
     };
@@ -30,8 +28,8 @@
   }: {
     gtk = {
       font = {
-        name = "Lexend Deca";
-        size = 12.5;
+        name = "SF Pro";
+        size = 13;
       };
     };
   };
@@ -47,12 +45,21 @@
       name = "Futura";
       pname = "futura";
       src = "${customFontsDir}";
-      nativeBuildInputs = [ pkgs.nerd-font-patcher ];
       installPhase = ''
         mkdir -p $out/share/fonts/truetype
         cp futura.ttf -t $out/share/fonts/truetype/
       '';
     };
+    packages.san-francisco-pro = pkgs.stdenv.mkDerivation {
+      name = "San Francico Pro";
+      pname = "san-francisco-pro";
+      src = "${customFontsDir}";
+      installPhase = ''
+        mkdir -p $out/share/fonts/truetype
+        cp SF-Pro.ttf -t $out/share/fonts/truetype/
+      '';
+    };
+
     packages.illinois-mono = pkgs.stdenv.mkDerivation {
       name = "Illinois Mono";
       pname = "illinois-mono";
