@@ -38,7 +38,7 @@
                 key = "<leader>ff";
                 mode = "n";
                 action = "<cmd>Telescope find_files<CR>";
-                desc = " Telescope find_files";
+                desc = "Telescope find_files";
               }
             ];
 

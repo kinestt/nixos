@@ -93,7 +93,6 @@
               {app-id = "spotify";}
               {app-id = "Spotify";}
               {app-id = "equibop";}
-              {app-id = "foot";}
               {app-id = "io.github.tdesktop_x64.TDesktop";}
             ];
             open-maximized = true;

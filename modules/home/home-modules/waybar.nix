@@ -10,9 +10,9 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 25;
+          height = 30;
           spacing = 2;
-          modules-center = ["niri/window"];
+          modules-center = ["niri/window" "custom/media"];
           modules-left = ["niri/workspaces"];
           modules-right = ["tray" "custom/seperator" "cpu" "custom/seperator" "memory" "custom/seperator" "battery" "custom/seperator" "clock#date" "custom/seperator" "clock#time" "custom/seperator"];
           "cpu" = {
@@ -34,14 +34,15 @@
             interval = 1;
           };
           "custom/seperator" = {
-            format = "|";
+            format = " | ";
             tooltip = false;
           };
         };
       };
       style = "
         #waybar {
-        font-family: 'Iosevka Nerd Font Propo' ;
+        font-family: 'Lexend Deca', 'Iosevka Nerd Font Propo' ;
+          font-size: 16px;
           font-weight: normal;
           background-color: rgba(25, 23, 36, 1);
         }

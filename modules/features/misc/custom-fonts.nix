@@ -16,8 +16,8 @@
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = ["Iosevka Nerd Font Mono"];
-          sansSerif = ["Iosevka Nerd Font Mono"];
+          serif = ["Lexend Deca"];
+          sansSerif = ["Lexend Deca"];
           monospace = ["Iosevka Nerd Font Mono"];
         };
       };
@@ -29,7 +29,8 @@
   }: {
     gtk = {
       font = {
-        name = "Iosevka Nerd Font Mono";
+        name = "Lexend Deca";
+        size = 12.5;
       };
     };
   };
