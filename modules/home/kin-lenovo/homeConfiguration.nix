@@ -15,6 +15,7 @@
       self.homeModules.waybar
       self.homeModules.firefox
       self.homeModules.helix
+      self.homeModules.chromium
       self.homeModules.gtk-fonts
     ];
     home = {
@@ -38,6 +39,7 @@
         htop
         p7zip
         blanket
+        nwg-look
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];
