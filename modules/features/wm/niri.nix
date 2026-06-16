@@ -97,14 +97,6 @@
             ];
             open-maximized = true;
           }
-          {
-            matches = [
-              {app-id = "Alacritty";}
-            ];
-            background-effect = {
-              blur = true;
-            };
-          }
         ];
         layer-rules = [
           {

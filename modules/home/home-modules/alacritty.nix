@@ -20,10 +20,10 @@
       inherit pkgs;
       settings = {
         font = {
-          size = 11;
+          size = 12;
         };
         window = {
-          opacity = 0.7;
+          opacity = 1;
         };
         colors = {
           primary = {
