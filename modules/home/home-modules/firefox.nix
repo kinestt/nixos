@@ -52,6 +52,13 @@
               Method = "POST";
               URLTemplate = "https://search.peanutbutter.quest/search?q={searchTerms}";
             }
+            {
+              Name = "Searchix";
+              Description = "NixOS Module/Option search";
+              Alias = "six";
+              Method = "POST";
+              URLTemplate = "https://searchix.ovh?query={searchTerms}";
+            }
           ];
         };
       };
