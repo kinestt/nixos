@@ -27,12 +27,13 @@
       inherit pkgs;
       plugins = with pkgs; [
         vimPlugins.fzf-vim
-        vimPlugins.lightline          
+        vimPlugins.lightline-vim         
       ];
       vimrc = '' 
         set number
         set cursorline
         set relativenumber
+        set termguicolors
         syntax on
         
         set wrap
@@ -83,6 +84,10 @@
         nnoremap <leader>fb :Buffers<CR>
 
         nnoremap <leader>fg :Rg<Space>
+
+        set laststatus=2
+        set background=dark
+        let g:lightline = {'colorscheme' : 'rosepine'}
       '';
     };
   };

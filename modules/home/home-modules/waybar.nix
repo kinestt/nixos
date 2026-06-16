@@ -44,7 +44,7 @@
         font-family: 'SF Pro';
           font-size: 16px;
           font-weight: normal;
-          background-color: rgba(25, 23, 36, 1);
+          background-color: rgba(25, 23, 36, 0.7);
         }
         #cpu {
           color: #c4a7e7;
