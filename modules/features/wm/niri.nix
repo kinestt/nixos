@@ -93,6 +93,7 @@
               {app-id = "spotify";}
               {app-id = "Spotify";}
               {app-id = "equibop";}
+              {app-id = "chromium-browser";}
               {app-id = "io.github.tdesktop_x64.TDesktop";}
             ];
             open-maximized = true;
@@ -111,7 +112,7 @@
         binds = {
           "Mod+Return".spawn-sh = "foot";
           "Mod+D".spawn-sh = "fuzzel";
-          "Mod+B".spawn-sh = "firefox";
+          "Mod+B".spawn-sh = "chromium";
           "Mod+P".spawn-sh = "spotify";
 
           "Mod+F".maximize-column = _: {};
