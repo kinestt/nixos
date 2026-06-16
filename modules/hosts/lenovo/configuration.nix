@@ -49,7 +49,7 @@
         zip
         spotify
 
-        inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
+        #inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
       ];
     };
 

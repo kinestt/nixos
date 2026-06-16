@@ -29,7 +29,7 @@
     gtk = {
       font = {
         name = "SF Pro";
-        size = 13;
+        size = 12;
       };
     };
   };

@@ -55,7 +55,7 @@
           "eDP-1" = {
             # off = _: {};
             mode = "1920x1080@165.002";
-            scale = 1;
+            scale = 1.25;
             position = _: {
               props = {
                 x = 0;
@@ -98,6 +98,17 @@
             ];
             open-maximized = true;
           }
+          {
+            matches = [
+              { 
+                app-id = "firefox$";
+                title = "^Picture-in-Picture$";
+              }
+            ];
+            open-floating = true;
+            default-column-width = [ { fixed = 480; } ];
+            default-window-height = [ { fixed = 270; } ];
+          }
         ];
         layer-rules = [
           {
@@ -112,7 +123,7 @@
         binds = {
           "Mod+Return".spawn-sh = "foot";
           "Mod+D".spawn-sh = "fuzzel";
-          "Mod+B".spawn-sh = "chromium";
+          "Mod+B".spawn-sh = "firefox";
           "Mod+P".spawn-sh = "spotify";
 
           "Mod+F".maximize-column = _: {};
