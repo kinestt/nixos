@@ -75,6 +75,7 @@
               darkreader
               sponsorblock
               stylus
+              youtube-enhancer-vc
             ];
           };
           userChrome = ''
