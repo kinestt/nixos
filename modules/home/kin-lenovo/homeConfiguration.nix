@@ -41,6 +41,7 @@
         p7zip
         blanket
         nwg-look
+        lsd
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];

@@ -25,3 +25,12 @@
 ;; Binding vterm
 (use-package vterm
 	:bind ("C-x C-t" . vterm))
+
+;; Nix Mode for syntax highlighting
+(use-package nix-mode
+	:mode "\\.nix\\'")
+
+;; Nerd Icons
+(use-package nerd-icons
+	:custom
+	(nerd-icons-color-icons nil))

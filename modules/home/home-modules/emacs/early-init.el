@@ -10,5 +10,6 @@
    (tool-bar-lines . 0)
    (vertical-scroll-bars . nil))
  tab-width 2 
+ indent-tabs-mode nil
 )
 

@@ -11,9 +11,10 @@
 
       extraPackages = epkgs: [
         epkgs.evil
-        epkgs.catppuccin-theme
+        epkgs.nerd-icons
 				epkgs.vterm
 				epkgs.autothemer
+				epkgs.nix-mode
       ];
     };
 
