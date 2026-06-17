@@ -8,6 +8,9 @@
     lib,
     ...
   }: {
+    environment.systemPackages = [
+      pkgs.playerctl 
+    ];
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
