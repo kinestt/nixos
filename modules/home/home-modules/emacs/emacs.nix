@@ -15,6 +15,7 @@
 				epkgs.vterm
 				epkgs.autothemer
 				epkgs.nix-mode
+        epkgs.rainbow-mode
       ];
     };
 

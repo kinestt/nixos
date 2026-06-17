@@ -34,3 +34,7 @@
 (use-package nerd-icons
 	:custom
 	(nerd-icons-color-icons nil))
+
+;; Rainbow Mode
+(use-package rainbow-mode
+  :hook (after-change-major-mode . rainbow-mode))
