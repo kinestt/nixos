@@ -43,7 +43,7 @@
             "Bing"
             "Perplexity"
           ];
-          Default = "SearXNG";
+          Default = "4get";
           Add = [
             {
               Name = "SearXNG";
@@ -58,6 +58,13 @@
               Alias = "six";
               Method = "POST";
               URLTemplate = "https://searchix.ovh?query={searchTerms}";
+            }
+            {
+              Name = "4get";
+              Description = "4get is a proxy search engine that doesn't suck";
+              Alias = "4g";
+              Method = "POST";
+              URLTemplate = "https://4get.peanutbutter.quest/web?s={searchTerms}&scraper=google_cse&country=in&nsfw=yes";
             }
           ];
         };
@@ -88,7 +95,7 @@
             "sidebar.verticalTabs" = true;
             "browser.sessionstore.resume_from_crash" = false;
 
-            "browser.startup.homepage" = "https://search.peanutbutter.quest";
+            "browser.startup.homepage" = "https://4get.peanutbutter.quest";
             "extensions.autoDisableScopes" = 0;
             "browser.contentblocking.category" = "strict";
             "browser.download.start_downloads_in_tmp_dir" = true;
