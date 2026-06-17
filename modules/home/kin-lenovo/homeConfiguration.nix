@@ -17,6 +17,7 @@
       self.homeModules.helix
       self.homeModules.chromium
       self.homeModules.gtk-fonts
+      self.homeModules.emacs
     ];
     home = {
       username = "kin";

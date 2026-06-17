@@ -10,6 +10,7 @@
       overlays = [
         inputs.nur.overlays.default
         inputs.helium.overlays.default
+        inputs.emacs-overlay.overlays.default
       ];
     };
     modules = [
