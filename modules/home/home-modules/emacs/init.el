@@ -13,7 +13,7 @@
 ;; qol customizations
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
-(global-hl-line-mode 1)
+(global-hl-line-mode 0)
 (column-number-mode 1)
 (show-paren-mode 1)
 (setq make-backup-files nil)
