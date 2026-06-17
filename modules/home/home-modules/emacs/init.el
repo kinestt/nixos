@@ -1,11 +1,14 @@
 ;;; init.el --- Emacs configuration -*- lexical-binding: t; -*-
 
+(add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
+(load "rose-pine-color-theme")
+
 ;; Enable Evil
 (require 'evil)
 (evil-mode 1)
 
 ;; Catppuccin theme for the time being till I write a nix package with rose-pine theme for nixos 
-(load-theme 'catppuccin :no-confirm)
+(load-theme 'rose-pine-color t)
 
 ;; Font 
 (set-frame-font "Iosevka Nerd Font Mono 12" nil t)
