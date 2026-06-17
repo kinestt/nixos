@@ -32,7 +32,7 @@
             proxyWebsockets = true;
           };
         };
-        "redlib.zbook.lan" = {
+        "redlib.server.lan" = {
           locations."/" = {
             proxyPass = "http://127.0.0.1:5544";
             proxyWebsockets = true;
