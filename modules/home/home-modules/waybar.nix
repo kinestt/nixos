@@ -11,7 +11,7 @@
           layer = "top";
           position = "top";
           height = 25;
-          spacing = 10;
+          spacing = 5;
           modules-center = ["niri/window"];
           modules-left = ["niri/workspaces"];
           modules-right = ["tray" "cpu" "memory" "battery" "clock#date" "clock#time"];
