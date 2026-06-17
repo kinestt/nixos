@@ -64,7 +64,7 @@
               Description = "4get is a proxy search engine that doesn't suck";
               Alias = "4g";
               Method = "POST";
-              URLTemplate = "https://4get.peanutbutter.quest/web?s={searchTerms}&scraper=google_cse&country=in&nsfw=yes";
+              URLTemplate = "https://4get.peanutbutter.quest/web?s={searchTerms}&scraper=google_cse&nsfw=yes";
             }
           ];
         };
