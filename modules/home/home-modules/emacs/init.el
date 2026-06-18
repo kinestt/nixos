@@ -1,5 +1,6 @@
 ;;; init.el --- Emacs configuration -*- lexical-binding: t; -*-
 
+;; Custom folder which contains .el files that can be loaded by the load command
 (add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
 (load "rose-pine-color-theme")
 
@@ -38,3 +39,20 @@
 ;; Rainbow Mode
 (use-package rainbow-mode
   :hook (after-change-major-mode . rainbow-mode))
+
+;; pdf-tools
+(use-package pdf-tools
+  :defer t
+  :mode "\\.pdf\\'"
+  :commands (pdf-loader-install)
+  :bind (:map pdf-view-mode-map
+              ("j" . pdf-view-next-line-or-next-page)
+              ("k" . pdf-view-previous-line-or-previous-page)
+              ("C-=" . pdf-view-enlarge)
+              ("C--" . pdf-view-shrink))
+  :init (pdf-loader-install)
+  :config (add-to-list 'revert-without-query ".pdf"))
+(add-hook 'pdf-view-mode-hook #'(lambda () (interactive) (display-line-numbers-mode -1)))
+(add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
+
+

@@ -16,6 +16,7 @@
 				epkgs.autothemer
 				epkgs.nix-mode
         epkgs.rainbow-mode
+        epkgs.pdf-tools
       ];
     };
 
