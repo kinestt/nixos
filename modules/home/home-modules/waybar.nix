@@ -10,7 +10,7 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 25;
+          height = 30;
           spacing = 10;
           modules-center = ["niri/window"];
           modules-left = ["niri/workspaces"];
@@ -42,7 +42,7 @@
       style = "
         #waybar {
         font-family: 'Iosevka Nerd Font Propo';
-          font-size: 14px;
+          font-size: 16px;
           font-weight: normal;
           background-color: rgba(25, 23, 36, 1);
         }
