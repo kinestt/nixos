@@ -7,7 +7,7 @@
 (require 'evil)
 (evil-mode 1)
 
-;; Catppuccin theme for the time being till I write a nix package with rose-pine theme for nixos 
+;; Rose Pine theme
 (load-theme 'rose-pine-color t)
 
 ;; Font 

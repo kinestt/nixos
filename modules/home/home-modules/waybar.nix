@@ -11,26 +11,26 @@
           layer = "top";
           position = "top";
           height = 25;
-          spacing = 5;
+          spacing = 10;
           modules-center = ["niri/window"];
           modules-left = ["niri/workspaces"];
           modules-right = ["tray" "cpu" "memory" "battery" "clock#date" "clock#time"];
           "cpu" = {
             interval = 10;
-            format = "Cpu: {usage}%";
+            format = "Cpu:{usage}%";
           };
           "memory" = {
             interval = 30;
-            format = "Ram: {}%";
+            format = "Ram:{}%";
           };
           "battery" = {
-            format = "Battery: {capacity}%";
+            format = "Battery:{capacity}%";
           };
           "clock#date" = {
-            format = "Date: {:%d/%m(%a)}";
+            format = "Date:{:%d/%m(%a)}";
           };
           "clock#time" = {
-            format = "Time: {:%I:%M %p} ";
+            format = "Time:{:%I:%M %p} ";
             interval = 1;
           };
           "custom/seperator" = {
@@ -41,8 +41,8 @@
       };
       style = "
         #waybar {
-        font-family: 'SF Pro';
-          font-size: 16px;
+        font-family: 'Iosevka Nerd Font Propo';
+          font-size: 14px;
           font-weight: normal;
           background-color: rgba(25, 23, 36, 1);
         }
