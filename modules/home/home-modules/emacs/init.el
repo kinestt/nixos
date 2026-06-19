@@ -4,9 +4,9 @@
 (add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
 (load "rose-pine-color-theme")
 
-;; Enable Evil
-(require 'evil)
-(evil-mode 1)
+(use-package evil
+  :config
+  (evil-mode 1))
 
 ;; Keybinds
 (global-set-key (kbd "C-x a") #'org-agenda)
