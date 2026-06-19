@@ -8,6 +8,10 @@
 (require 'evil)
 (evil-mode 1)
 
+;; Keybinds
+(global-set-key (kbd "C-x a") #'org-agenda)
+(global-set-key (kbd "C-x c") #'org-capture)
+
 ;; Rose Pine theme
 (load-theme 'rose-pine-color t)
 
