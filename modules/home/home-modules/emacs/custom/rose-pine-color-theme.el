@@ -33,7 +33,6 @@
   (faded      "#cecaed")  ;; faded
   (cursor     "#e0def4")) ;; cursor
 
-
   ;; Faces
  ((default                   (:background base :foreground text))
 

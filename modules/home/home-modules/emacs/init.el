@@ -1,19 +1,8 @@
 ;;; init.el --- Emacs configuration -*- lexical-binding: t; -*-
 
-;; Custom folder which contains .el files that can be loaded by the load command
-(add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
-(load "rose-pine-color-theme")
-
-(use-package evil
-  :config
-  (evil-mode 1))
-
 ;; Keybinds
 (global-set-key (kbd "C-x a") #'org-agenda)
 (global-set-key (kbd "C-x c") #'org-capture)
-
-;; Rose Pine theme
-(load-theme 'rose-pine-color t)
 
 ;; Font 
 (set-frame-font "Iosevka Nerd Font Mono 12" nil t)
@@ -26,6 +15,16 @@
 (show-paren-mode 1)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+
+;; Custom folder which contains .el files that can be loaded by the load command
+(add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
+(load "rose-pine-color-theme")
+(load-theme 'rose-pine-color t)
+
+;; Evil Mode
+(use-package evil
+  :config
+  (evil-mode 1))
 
 ;; Binding vterm
 (use-package vterm
