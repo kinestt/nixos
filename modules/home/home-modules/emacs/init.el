@@ -57,5 +57,3 @@
   :config (add-to-list 'revert-without-query ".pdf"))
 (add-hook 'pdf-view-mode-hook #'(lambda () (interactive) (display-line-numbers-mode -1)))
 (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
-
-

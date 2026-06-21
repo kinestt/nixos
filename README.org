@@ -1,0 +1,3425 @@
+#+TITLE: My NixOS Configuration
+#+PROPERTY: header-args  :noweb tangle :results silent :mkdirp yes
+
+* The Flake File
+In NixOS flakes are used to package and manage Nix projects, I and many others use flakes as a means
+to 
+
+#+begin_src nix :tangle flake.nix
+  {
+    inputs = {
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+      flake-parts.url = "github:hercules-ci/flake-parts";
+      import-tree.url = "github:vic/import-tree";
+      wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
+      prismlauncher.url = "github:PrismLauncher/PrismLauncher?ref=release-9.x";
+      xwayland-satellite-unscaled.url = "github:Supreeeme/xwayland-satellite?ref=unscaled-dpi";
+      redlib-fork.url = "github:taglia/redlib?ref=dockerhub-redlib-0.36.0";
+
+      secrets = {
+        url = "git+ssh://git@codeberg.org/kinest/secrets?ref=main&shallow=1";
+        flake = false;
+      };
+      walls = {
+        url = "git+ssh://git@codeberg.org/kinest/walls?ref=main&shallow=1";
+        flake = false;
+      };
+      custom-fonts = {
+        url = "git+ssh://git@github.com/kinestt/custom-fonts?ref=main&shallow=1";
+        flake = false;
+      };
+
+      emacs-overlay = {
+        url = "github:nix-community/emacs-overlay";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      helium = {
+        url = "github:schembriaiden/helium-browser-nix-flake";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      home-manager = {
+        url = "github:nix-community/home-manager";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      sops-nix = {
+        url = "github:Mic92/sops-nix";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      nixflix = {
+        url = "github:kiriwalawren/nixflix";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      nvf = {
+        url = "github:notashelf/nvf";
+      };
+      nur = {
+        url = "github:nix-community/NUR";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
+  }
+#+end_src
+
+* Parts 
+#+begin_src nix :tangle modules/parts.nix
+  {
+    config = {
+      systems = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+    };
+  }
+#+end_src
+* Hosts
+The default hosts structure goes as follows
+1. default.nix 
+2. configuration.nix
+3. hardware.nix 
+** Default   
+*** Lenovo Laptop 
+#+begin_src nix :tangle modules/hosts/lenovo/default.nix 
+  {
+    withSystem,
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosConfigurations.lenovo = inputs.nixpkgs.lib.nixosSystem {
+      modules = [
+        self.nixosModules.lenovoConfiguration
+        ({pkgs, ...}: {
+          nixpkgs.config.allowUnfree = true;
+          nixpkgs.overlays = [
+          ];
+        })
+      ];
+    };
+  }
+#+end_src
+*** Server 
+#+begin_src nix :tangle modules/hosts/server/default.nix 
+  {
+    withSystem,
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosConfigurations.server = inputs.nixpkgs.lib.nixosSystem {
+      modules = [
+        self.nixosModules.serverConfiguration
+      ];
+    };
+  }
+#+end_src
+** Configuration 
+*** Lenovo Laptop
+#+begin_src nix :tangle modules/hosts/lenovo/configuration.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.lenovoConfiguration = {
+      pkgs,
+      ...
+    }: {
+      imports = [
+        self.nixosModules.lenovoHardware
+        self.nixosModules.niri
+        self.nixosModules.ly
+        self.nixosModules.pipewire
+        self.nixosModules.yazi
+        self.nixosModules.vim
+        self.nixosModules.nvf
+        self.nixosModules.tmux
+        self.nixosModules.foot
+        self.nixosModules.bash
+        self.nixosModules.fish
+        self.nixosModules.bash
+        self.nixosModules.customFonts
+      ];
+
+      #boot.loader.systemd-boot.enable = true;
+      boot.loader.grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        useOSProber = true;
+      };
+      boot.loader.efi.canTouchEfiVariables = true;
+
+      networking.hostName = "lenovo";
+
+      networking.networkmanager.enable = true;
+      time.timeZone = "Asia/Kolkata";
+
+      users.users.kin = {
+        isNormalUser = true;
+        extraGroups = ["wheel"];
+        shell = pkgs.bash;
+        home = "/home/kin/";
+        packages = with pkgs; [
+          libnotify
+          usbutils
+          glib
+          wine-wayland
+          protontricks
+          wget
+          home-manager
+          bat
+          unzip
+          zip
+          spotify
+
+          #inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
+        ];
+      };
+
+      services.gvfs.enable = true;
+
+      nix.settings.experimental-features = ["nix-command" "flakes"];
+
+      programs = { 
+        dconf.enable = true;
+        localsend.enable = true;
+      };
+
+      hardware.graphics.enable = true;
+      hardware.graphics.enable32Bit = true;
+      #services.xserver.videoDrivers = ["nvidia"];
+      #hardware.nvidia.open = true;
+      #hardware.nvidia.modesetting.enable = true;
+      # hardware.nvidia.prime = {
+      #   sync.enable = true;
+      #   amdgpuBusId = "PCI:06:0:0";
+      #   nvidiaBusId = "PCI:01:0:0";
+      # };
+
+      environment = { 
+        systemPackages = with pkgs; [
+          git
+          #(pkgs.spotify.overrideAttrs (old: {
+          #  nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
+          #    pkgs.makeWrapper
+          #  ];
+          #  postInstall = (old.postInstall or "") + ''
+          #    wrapProgram $out/bin/spotify \
+          #      --add-flags "--enable-features=UseOzonePlatform"\
+          #      --add-flags "--ozone-platform=wayland"
+          #  '';
+          #}))
+        ];
+        variables = {
+          EDITOR = "vim";
+        };
+        sessionVariables = {
+          NIXOS_OZONE_WL = "1";
+        };
+      };
+
+      hardware.bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+      };
+
+      networking.wireless.enable = false;
+      networking.wireless.iwd.enable = true;
+      networking.networkmanager.wifi.backend = "iwd";
+
+      swapDevices = [
+        { 
+          device = "/var/lib/swapfile";
+          size = 64 * 1024;
+        }
+      ];
+      system.stateVersion = "25.11";
+    };
+  }
+#+end_src
+*** Server
+#+begin_src nix :tangle modules/hosts/server/configuraion.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.serverConfiguration = {
+      config,
+      pkgs,
+      ...
+    }: let
+      secretspath = builtins.toString inputs.secrets;
+    in {
+      imports = [
+        self.nixosModules.serverHardware
+        self.nixosModules.vim
+        self.nixosModules.nvf
+        self.nixosModules.tmux
+        self.nixosModules.searxng
+        self.nixosModules.nginx
+        self.nixosModules.qbittorrent
+        self.nixosModules.vaultwarden
+        self.nixosModules.komga
+        self.nixosModules.miniflux
+        self.nixosModules.nixflix
+        self.nixosModules.redlib
+        self.nixosModules.docker
+        self.nixosModules.fish
+        self.nixosModules.bash
+        self.nixosModules.stirlingpdf
+
+        inputs.sops-nix.nixosModules.sops
+      ];
+
+      boot.loader.systemd-boot.enable = true;
+      boot.loader.efi.canTouchEfiVariables = true;
+      #boot.kernelPackages = pkgs.linuxPackages_latest;
+      nix.settings.experimental-features = ["nix-command" "flakes"];
+      users.users.kin = {
+        isNormalUser = true;
+        description = "kin";
+        extraGroups = ["wheel"];
+        shell = pkgs.bash;
+        home = "/home/kin";
+      };
+      sops = {
+        defaultSopsFile = "${secretspath}/secrets/server.yaml";
+        age = {
+          sshKeyPaths = ["${config.users.users.kin.home}/.ssh/id_ed25519"];
+          keyFile = "/var/lib/sops-nix/key.txt";
+          generateKey = true;
+        };
+        secrets = {
+          lidarr_api_key = {};
+          lidarr_api_env = {};
+          radarr_api_key = {};
+          radarr_api_env = {};
+          sonarr_api_key = {};
+          sonarr_api_env = {};
+        };
+      };
+      boot.loader.grub.device = "/dev/nvme0n1p1";
+      environment.systemPackages = with pkgs; [
+        git
+        bat
+        htop
+        home-manager
+        ntfs3g
+        brightnessctl
+        gh
+        fastfetch
+        age
+        kitty
+        sops
+        compose2nix
+        unzip
+        zip
+      ];
+      networking = {
+        hostName = "server";
+        useDHCP = true;
+        firewall = {
+          enable = false;
+          allowedTCPPorts = [25575 25565 80 443 7878 8989 9696 42010];
+          allowedUDPPorts = [19132 5544 25565];
+          extraCommands = "  iptables -t mangle -A POSTROUTING -p tcp --tcp-flags SYN,RST SYN \
+          -j TCPMSS --clamp-mss-to-pmtu";
+        };
+        interfaces = {
+          eno1 = {
+            mtu = 1250;
+          };
+        };
+      };
+      swapDevices = [
+        {
+          device = "/.swapfile";
+          size = 16 * 1024; # Size in Megabytes
+        }
+      ];
+      time.timeZone = "Asia/Kolkata";
+      services.openssh.enable = true;
+      system.stateVersion = "25.11"; # Did you read the comment?
+    };
+  }
+#+end_src
+** Hardware
+*** Lenovo Laptop
+#+begin_src nix :tangle modules/hosts/lenovo/hardware.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.lenovoHardware = {
+      config,
+      lib,
+      pkgs,
+      modulesPath,
+      ...
+    }: {
+      imports = [
+        (modulesPath + "/installer/scan/not-detected.nix")
+      ];
+
+      boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
+      boot.initrd.kernelModules = [];
+      boot.kernelModules = ["kvm-amd"];
+      boot.extraModulePackages = [];
+
+      fileSystems."/" = {
+        device = "/dev/disk/by-uuid/63be889f-1491-47be-bc6c-820884e007b9";
+        fsType = "ext4";
+      };
+
+      fileSystems."/boot" = {
+        device = "/dev/disk/by-uuid/6728-D654";
+        fsType = "vfat";
+        options = ["fmask=0022" "dmask=0022"];
+      };
+
+      #swapDevices = [
+      #  {device = "/dev/disk/by-uuid/7f2a8bf2-2460-4446-bdec-327811c5be57";}
+      #];  
+
+      nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    };
+  }
+#+end_src
+*** Server
+#+begin_src nix :tangle modules/hosts/server/hardware.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.serverHardware = {
+      config,
+      lib,
+      pkgs,
+      modulesPath,
+      ...
+    }: {
+      imports = [
+        (modulesPath + "/installer/scan/not-detected.nix")
+      ];
+
+      boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
+      boot.initrd.kernelModules = [];
+      boot.kernelModules = ["kvm-amd"];
+      boot.extraModulePackages = [];
+
+      fileSystems."/" = {
+        device = "/dev/disk/by-label/NIXROOT";
+        fsType = "ext4";
+      };
+
+      fileSystems."/boot" = {
+        device = "/dev/disk/by-label/NIXBOOT";
+        fsType = "vfat";
+        options = ["fmask=0022" "dmask=0022"];
+      };
+      fileSystems."/mnt/external-hdd" = {
+        device = "/dev/disk/by-uuid/e6ab5a96-b8f5-4081-ba4a-5d2dca6f3bb5";
+        fsType = "ext4";
+        options = ["nofail"];
+      };
+
+      nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    };
+  }
+#+end_src
+** Features
+*** Applications
+**** Bash
+#+begin_src nix :tangle modules/features/apps/bash.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.bash = {
+      pkgs,
+      ...
+    }: let 
+      nixosDir = "/home/kin/nixos";
+    in {
+      programs.bash = {
+        enable = true;
+        shellAliases = {
+          nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$HOSTNAME";
+          hms = "home-manager switch --flake ${nixosDir}#$USER-$HOSTNAME";
+          y = "yazi";
+          l = "lsd -l";
+          la = "lsd -a";
+          lla = "lsd -la";
+          lt = "lsd --tree";
+        };
+        enableLsColors = true;
+      };
+    };
+  }
+#+end_src
+**** Fish
+#+begin_src nix :tangle modules/features/apps/fish.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.fish = {
+      pkgs,
+      ...
+    }: {
+      programs.fish = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
+      };
+    };
+    perSystem = {
+      pkgs,
+      config,
+      ...
+    }: let 
+      nixosDir = "/home/$USER/nixos/";
+    in { 
+      packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
+        inherit pkgs;
+        shellAliases = {
+          nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$hostname";
+          hms = "home-manager switch --flake ${nixosDir}#$USER-$hostname";
+        };
+        plugins = with pkgs.fishPlugins; [
+          pure
+        ];
+      };
+    };
+  }
+#+end_src
+**** Foot
+#+begin_src nix :tangle modules/features/apps/foot.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.foot = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      programs.foot = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myFoot;
+      };
+    };
+    perSystem = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      packages.myFoot = inputs.wrapper-modules.wrappers.foot.wrap {
+        inherit pkgs;
+        settings = {
+          main = {
+            font = "Iosevka Nerd Font Mono:size=12";
+          };
+          colors-dark = {
+            alpha = "1";
+            blur = "no";
+            background = "191724";
+            foreground = "e0def4";
+
+            regular0 = "26233a";
+            regular1 = "eb6f92";
+            regular2 = "9ccfd8";
+            regular3 = "f6c177";
+            regular4 = "31748f";
+            regular5 = "c4a7e7";
+            regular6 = "ebbcba";
+            regular7 = "e0def4";
+
+            bright0 = "47435d";
+            bright1 = "ff98ba";
+            bright2 = "c5f9ff";
+            bright3 = "ffeb9e";
+            bright4 = "5b9ab7";
+            bright5 = "eed0ff";
+            bright6 = "ffe5e3";
+            bright7 = "fefcff";
+
+            flash = "f6c177";
+
+            cursor = "191724 e0def4";
+          };
+        };
+      };
+    };
+  }
+#+end_src
+**** NVF
+#+begin_src nix :tangle modules/features/apps/nvf.nix 
+  { 
+    self,
+    inputs, 
+    ... 
+  }: {
+    flake.nixosModules.nvf = { 
+      pkgs,
+      ... 
+    }: {
+      environment.systemPackages = [
+        self.packages.${pkgs.stdenv.hostPlatform.system}.myNvf
+      ];
+    };
+    perSystem = {
+      pkgs,
+      ...
+    }: {
+      packages.myNvf = (inputs.nvf.lib.neovimConfiguration {
+        inherit pkgs;
+        modules = [
+          {
+            vim = {
+              viAlias = false;
+              vimAlias = false;
+
+              globals = {
+                mapLeader = " ";
+              };
+
+              keymaps = [
+                {
+                  key = "<leader>n";
+                  mode = "n";
+                  silent = true;
+                  action = ":Neotree toggle current reveal_force_cwd<cr>";
+                }
+                {
+                  key = "<leader>ff";
+                  mode = "n";
+                  action = "<cmd>Telescope find_files<CR>";
+                  desc = "Telescope find_files";
+                }
+              ];
+
+              opts = {
+                wrap = true;
+                number = true;
+                relativenumber = true;
+                cursorline = true;
+                scrolloff = 10;
+                sidescrolloff = 8;
+
+                tabstop = 2;
+                shiftwidth = 2;
+                softtabstop = 2;
+                expandtab = true;
+                smartindent = true;
+                autoindent = true;
+
+                ignorecase = true;
+                smartcase = true;
+                incsearch = true;
+                hlsearch = true;
+
+                termguicolors = true;
+                showmatch = true;
+                matchtime = 2;
+                cmdheight = 1;
+                completeopt = "menuone,noinsert,noselect";
+
+                backup = false;
+                writebackup = false;
+                swapfile = false;
+                updatetime = 300;
+                autoread =  true;
+                autowrite = true;
+
+                hidden = true;
+                errorbells = false;
+                backspace = "indent,eol,start";
+                autochdir = false;
+                selection = "exclusive";
+                mouse = "a";
+                encoding = "UTF-8";
+              };
+              clipboard = {
+                enable = true;
+                providers.wl-copy.enable = true;
+                registers = "unnamedplus";
+              };
+              languages = {
+                nix = {
+                  enable = true;
+                  lsp = {
+                    enable = true;
+                    servers = [
+                      "nixd"
+                    ];
+                  };
+                  treesitter.enable = true;
+                };
+              };
+              treesitter = {
+                indent.excludes = [ "nix" ];
+              };
+              telescope = {
+                enable = true;
+              };
+              statusline = {
+                lualine = {
+                  enable = true;
+                  icons.enable = true;
+                };
+              };
+              tabline = {
+                nvimBufferline = {
+                  enable = false;
+                };
+              };
+              filetree = {
+                neo-tree = {
+                  enable = true;
+                  setupOpts = {
+                    filesystem = {
+                      hijack_netrw_behavior = "disabled";
+                    };
+                  };
+                };
+              };
+              theme = {
+                enable = true;
+                name = "rose-pine";
+                style = "main";
+                transparent = true;
+              };
+              terminal = {
+                toggleterm = {
+                  enable = true;
+                };
+              };
+            };
+          }
+        ];
+      })
+      .neovim;
+    };
+  }
+#+end_src
+**** Tmux
+#+begin_src nix :tangle modules/features/apps/tmux.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.tmux = {
+      pkgs,
+      ...
+    }: { 
+      programs.tmux = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myTmux;
+      };
+    };
+    perSystem = {
+      pkgs,
+      ...
+    }: {
+      packages.myTmux = inputs.wrapper-modules.wrappers.tmux.wrap {
+        inherit pkgs;
+        configAfter = let 
+          thm_bg="#191724";
+          thm_fg="#e0def4";
+          thm_black="#16141f";
+          thm_gray="#403d52";
+          thm_black4="#524f67";
+          thm_red="#eb6f92";
+          thm_pink="#eb6f92";
+          thm_green="#9ccfd8";
+          thm_yellow="#f6c177";
+          thm_orange="#ea9a97";
+          thm_blue="#31748f";
+          thm_cyan="#9ccfd8";
+          thm_magenta="#c4a7e7";
+        in ''
+          set -g default-terminal "tmux-256color"
+          set -ga terminal-overrides ",*:RGB"
+          set -g mouse on
+          set -g set-clipboard on
+
+          unbind C-b 
+          set -g prefix C-a 
+          bind-key C-a send-prefix
+
+          unbind %
+          bind v split-window -h -c "#{pane_current_path}"
+          
+          unbind '"'
+          bind s split-window -v -c "#{pane_current_path}"
+          
+          set -g base-index 1
+          set -g pane-base-index 1
+          set-window-option -g pane-base-index 1
+          set-option -g renumber-windows on
+
+          set-window-option -g mode-keys vi 
+          bind-key -T copy-mode-vi v send-keys -X begin-selection
+          bind-key -T copy-mode-vi C-v send-keys -X rectangular-toggle
+          bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+          unbind -T copy-mode-vi MouseDragEnd1Pane
+
+          bind -n M-h select-pane -L 
+          bind -n M-j select-pane -D 
+          bind -n M-k select-pane -U 
+          bind -n M-l select-pane -R 
+          bind -n M-x kill-pane
+
+          bind -n M-q display-panes
+
+          bind -n M-1 select-window -t 1  
+          bind -n M-2 select-window -t 2        
+          bind -n M-3 select-window -t 3        
+          bind -n M-4 select-window -t 4        
+          bind -n M-5 select-window -t 5        
+          bind -n M-6 select-window -t 6        
+          bind -n M-7 select-window -t 7        
+          bind -n M-8 select-window -t 8        
+          bind -n M-9 select-window -t 9        
+          bind -n M-c new-window
+
+          bind -n S-Left previous-window
+          bind -n S-Right next-window 
+
+          # Status bar
+          set -g status "on"
+          set -g status-bg "${thm_bg}"
+          set -g status-justify "left"
+          set -g status-left-length "100"
+          set -g status-right-length "100"
+          set -g status-position "top"
+
+          # Messages
+          set -g message-style "fg=${thm_cyan},bg=${thm_gray},align=centre"
+          set -g message-command-style "fg=${thm_cyan},bg=${thm_gray},align=centre"
+
+          # Panes
+          set -g pane-border-style "fg=${thm_gray}"
+          set -g pane-active-border-style "fg=${thm_blue}"
+
+          # Windows
+          set -g window-status-activity-style "fg=${thm_fg},bg=${thm_bg},none"
+          set -g window-status-separator ""
+          set -g window-status-style "fg=${thm_fg},bg=${thm_bg},none"
+
+          # Statusline - current window
+          set -g window-status-current-format "#[fg=${thm_blue},bg=${thm_bg}] #I: #[fg=${thm_magenta},bg=${thm_bg}](✓) #[fg=${thm_cyan},bg=${thm_bg}]#(echo '#{pane_current_path}' | rev | cut -d'/' -f-2 | rev) #[fg=${thm_magenta},bg=${thm_bg}]"
+
+          # Statusline - other windows
+          set -g window-status-format "#[fg=${thm_blue},bg=${thm_bg}] #I: #[fg=${thm_fg},bg=${thm_bg}]#W"
+
+          # Statusline - right side
+          set -g status-right "#[fg=${thm_blue},bg=${thm_bg},nobold,nounderscore,noitalics]#[fg=${thm_bg},bg=${thm_blue},nobold,nounderscore,noitalics] #[fg=${thm_fg},bg=${thm_gray}] #W #{?client_prefix,#[fg=${thm_magenta}],#[fg=${thm_cyan}]}#[bg=${thm_gray}]#{?client_prefix,#[bg=${thm_magenta}],#[bg=${thm_cyan}]}#[fg=${thm_bg}] #[fg=${thm_fg},bg=${thm_gray}] #S "
+
+          # Statusline - left side (empty)
+          set -g status-left ""
+
+          # Modes
+          set -g clock-mode-colour "${thm_blue}"
+          set -g mode-style "fg=${thm_blue} bg=${thm_black4} bold"
+        '';
+      };
+    };
+  }
+#+end_src
+**** Vim
+#+begin_src nix :tangle modules/features/apps/vim.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.vim = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      programs.vim = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myVim;
+      };
+      environment.systemPackages = [
+        pkgs.fzf
+        pkgs.fd
+        pkgs.ripgrep
+      ];
+    };
+    perSystem = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      packages.myVim = inputs.wrapper-modules.wrappers.vim.wrap {
+        inherit pkgs;
+        plugins = with pkgs; [
+          vimPlugins.fzf-vim
+          vimPlugins.lightline-vim         
+        ];
+        vimrc = '' 
+          set number
+          set cursorline
+          set relativenumber
+          set termguicolors
+          syntax on
+          
+          set wrap
+          set scrolloff=10
+          set sidescrolloff=8
+          
+          filetype plugin indent on
+          set tabstop=2
+          set shiftwidth=2
+          set softtabstop=2
+          set expandtab
+          set smartindent
+          set autoindent
+          
+          set ignorecase
+          set smartcase
+          set incsearch
+          set hlsearch
+          
+          set showmatch
+          set matchtime=2
+          set cmdheight=1
+          set completeopt=menuone,noinsert,noselect
+          
+          set nobackup
+          set nowritebackup
+          set noswapfile
+          set undofile
+          set undodir=~/.vim/undodir
+          set updatetime=300
+          set autoread
+          set noautowrite
+          
+          set hidden
+          set noerrorbells
+          set backspace=indent,eol,start
+          set noautochdir
+          set selection=exclusive
+          set mouse=a
+          set clipboard=unnamedplus
+          set modifiable
+          set encoding=utf-8
+
+          let mapleader = " " 
+          nnoremap <leader>cd :Ex<CR>
+          nnoremap <leader>ff :Files<CR>
+          nnoremap <leader>fo :History<CR>
+          nnoremap <leader>fb :Buffers<CR>
+
+          nnoremap <leader>fg :Rg<Space>
+
+          set laststatus=2
+          set background=dark
+          let g:lightline = {'colorscheme' : 'rosepine'}
+        '';
+      };
+    };
+  }
+#+end_src
+**** Yazi
+#+begin_src nix :tangle modules/features/apps/yazi.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.yazi = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      programs.yazi = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myYazi;
+      };
+    };
+    perSystem = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      packages.myYazi = inputs.wrapper-modules.wrappers.yazi.wrap {
+        inherit pkgs;
+        plugins = with pkgs.yaziPlugins; {
+          drag = drag;
+          git = git;
+          gvfs = gvfs;
+          smart-enter = smart-enter;
+        };
+      };
+    };
+  }
+#+end_src
+*** Audio
+**** Pipewire
+#+begin_src nix :tangle modules/features/audio/pipewire.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.pipewire = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      environment.systemPackages = [
+        pkgs.playerctl 
+      ];
+      security.rtkit.enable = true;
+      services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
+
+  #      extraConfig = {
+  #        pipewire = {
+  #          "50-bitperfect-dac.conf" = {
+  #            "context.objects" = [
+  #              {
+  #                "factory" = "adapter";
+  #                "args" = {
+  #                  "factory.name" = "api.alsa.pcm.sink";
+  #                  "node.name" = "DAC_Bit_Perfect";
+  #                  "node.description" = "USB DAC (Bit-Perfect Mode)";
+  #                  "media.class" = "Audio/Sink";
+  #                  "api.alsa.path" = "hw:Pro";
+  #                  "api.alsa.period-alsa" = "1024";
+  #                  "api.alsa.headroom" = "0";
+  #                  "audio.format" = "S32LE";
+  #                  "audio.channels" = "2";
+  #                  "node.suspend-on-idle" = "false";
+  #                  "priority.driver" = "9000";
+  #                  "priority.session" = "9000";
+  #                  "resample.disable" = "true";
+  #                  "monitor.channel-volumes" = "false";
+  #                };
+  #              }
+  #            ];
+  #            "context.properties" = {
+  #              "default.clock.rate" = "44100";
+  #              "default.clock.allowed-rates" = ["44100"];
+  #              "default.clock.quantum" = "1024";
+  #              "default.clock.max-quantum" = "8192";
+  #              "default.clock.min-quantum" = "32";
+  #            };
+  #          };
+  #        };
+  #        pipewire-pulse = {
+  #          "92-low-latency" = {
+  #            "pulse.properties" = {
+  #              "pulse.default.format" = "F32";
+  #            };
+  #            "stream.properties" = {
+  #              "resample.quality" = "15";
+  #              "channel.normalize" = "false";
+  #              "channel.upmix" = "false";
+  #              "channel.upmix-method" = "none";
+  #              "channel.mix-life" = "false";
+  #            };
+  #          };
+  #        };
+  #      };
+      };
+    };
+  }
+#+end_src
+*** Login
+**** Ly
+#+begin_src nix :tangle modules/features/login/ly.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.ly = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      services.displayManager.ly = {
+        enable = true;
+      };
+    };
+  }
+#+end_src
+*** Miscellaneous
+**** Fonts
+#+begin_src nix :tangle modules/features/misc/custom-fonts.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.customFonts = {
+      pkgs,
+      ...
+    }: {
+      fonts = {
+        packages = [
+          pkgs.nerd-fonts.iosevka
+          self.packages.${pkgs.stdenv.hostPlatform.system}.san-francisco-pro
+        ];
+        fontconfig = {
+          enable = true;
+          defaultFonts = {
+            serif = ["SF Pro"];
+            sansSerif = ["SF Pro"];
+            monospace = ["Iosevka Nerd Font Mono"];
+          };
+        };
+      };
+    };
+    flake.homeModules.gtk-fonts = {
+      pkgs,
+      ...
+    }: {
+      gtk = {
+        font = {
+          name = "SF Pro";
+          size = 12;
+        };
+      };
+    };
+    perSystem = {
+      config,
+      pkgs,
+      lib,
+      ...
+    }: let 
+      customFontsDir = builtins.toString inputs.custom-fonts;
+    in { 
+      packages.futura = pkgs.stdenv.mkDerivation {
+        name = "Futura";
+        pname = "futura";
+        src = "${customFontsDir}";
+        installPhase = ''
+          mkdir -p $out/share/fonts/truetype
+          cp futura.ttf -t $out/share/fonts/truetype/
+        '';
+      };
+      packages.san-francisco-pro = pkgs.stdenv.mkDerivation {
+        name = "San Francico Pro";
+        pname = "san-francisco-pro";
+        src = "${customFontsDir}";
+        installPhase = ''
+          mkdir -p $out/share/fonts/truetype
+          cp SF-Pro.ttf -t $out/share/fonts/truetype/
+        '';
+      };
+
+      packages.illinois-mono = pkgs.stdenv.mkDerivation {
+        name = "Illinois Mono";
+        pname = "illinois-mono";
+        src = "${customFontsDir}";
+        nativeBuildInputs = [ pkgs.nerd-font-patcher ];
+        installPhase = ''
+          mkdir -p $out/share/fonts/truetype
+          cp IllinoisMono-Regular.ttf -t $out/share/fonts/truetype/
+
+          mkdir -p $out/share/fonts/truetype/{illinois-mono,illinois-mono-nerd}
+          mv $out/share/fonts/truetype/*.ttf $out/share/fonts/truetype/illinois-mono/
+          for f in $out/share/fonts/truetype/illinois-mono/*.ttf; do
+            nerd-font-patcher --complete --variable-width-glyphs --outputdir $out/share/fonts/truetype/illinois-mono-nerd/ $f
+            nerd-font-patcher --complete --single-width-glyphs --outputdir $out/share/fonts/truetype/futura-nerd/ $f
+          done
+        '';
+      };
+    };
+  }
+#+end_src
+**** Docker
+#+begin_src nix :tangle modules/features/misc/docker-compose.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.docker = {
+      pkgs,
+      lib,
+      config,
+      ...
+    }: {
+      # Runtime
+      virtualisation.podman = {
+          enable = true;
+          autoPrune.enable = true;
+          dockerCompat = true;
+      };
+
+      # Enable container name DNS for all Podman networks.
+      networking.firewall.interfaces = let
+          matchAll = if !config.networking.nftables.enable then "podman+" else "podman*";
+      in {
+          "${matchAll}".allowedUDPPorts = [ 53 ];
+      };
+
+      virtualisation.oci-containers.backend = "podman";
+
+      # Containers
+      virtualisation.oci-containers.containers."TFG" = {
+          image = "itzg/minecraft-server:latest";
+          environment = {
+          "ENABLE_RCON" = "false";
+          "EULA" = "true";
+          "FORGE_VERSION" = "47.4.13";
+          "GENERIC_PACKS" = "TerraFirmaGreg-Modern-0.12.8-serverpack";
+          "GENERIC_PACKS_PREFIX" = "https://github.com/TerraFirmaGreg-Team/Modpack-Modern/releases/download/0.12.8/";
+          "GENERIC_PACKS_SUFFIX" = ".zip";
+          "GUI" = "false";
+          "MEMORY" = "6G";
+          "OVERRIDE_SERVER_PROPERTIES" = "false";
+          "SKIP_GENERIC_PACK_UPDATE_CHECK" = "true";
+          "TYPE" = "forge";
+          "VERSION" = "1.20.1";
+          };
+          volumes = [
+          "/home/kin/data/minecraft/TFG:/data:rw"
+          "/home/kin/data/minecraft/TFG/backups:/backups:rw"
+          ];
+          ports = [
+          "6789:25565/tcp"
+          "24454:24454/udp"
+          ];
+          log-driver = "journald";
+          extraOptions = [
+          "--network-alias=terrafirmagreg-modern"
+          "--network=services_default"
+          ];
+      };
+      systemd.services."podman-TFG" = {
+          serviceConfig = {
+          Restart = lib.mkOverride 90 "no";
+          };
+          after = [
+          "podman-network-services_default.service"
+          ];
+          requires = [
+          "podman-network-services_default.service"
+          ];
+          partOf = [
+          "podman-compose-services-root.target"
+          ];
+          wantedBy = [
+          "podman-compose-services-root.target"
+          ];
+      };
+      virtualisation.oci-containers.containers."multi-scrobbler" = {
+          image = "foxxmd/multi-scrobbler:latest";
+          environment = {
+          "BASE_URL" = "http://192.168.0.122:9078";
+          "PGID" = "100";
+          "PUID" = "1000";
+          "TZ" = "Asia/Kolkata";
+          };
+          volumes = [
+          "/home/kin/data/multi-scrobbler/config:/config:rw"
+          ];
+          ports = [
+          "9078:9078/tcp"
+          ];
+          log-driver = "journald";
+          extraOptions = [
+          "--network-alias=multi-scrobbler"
+          "--network=services_default"
+          ];
+      };
+      systemd.services."podman-multi-scrobbler" = {
+          serviceConfig = {
+          Restart = lib.mkOverride 90 "always";
+          };
+          after = [
+          "podman-network-services_default.service"
+          ];
+          requires = [
+          "podman-network-services_default.service"
+          ];
+          partOf = [
+          "podman-compose-services-root.target"
+          ];
+          wantedBy = [
+          "podman-compose-services-root.target"
+          ];
+      };
+      virtualisation.oci-containers.containers."recyclarr" = {
+          image = "ghcr.io/recyclarr/recyclarr:8";
+          environment = {
+          "PGID" = "100";
+          "PUID" = "1000";
+          "TZ" = "Asia/Kolkata";
+          };
+          volumes = [
+          "/home/kin/data/recyclarr:/config:rw"
+          ];
+          log-driver = "journald";
+          extraOptions = [
+          "--network-alias=recyclarr"
+          "--network=services_default"
+          ];
+      };
+      systemd.services."podman-recyclarr" = {
+          serviceConfig = {
+          Restart = lib.mkOverride 90 "no";
+          };
+          after = [
+          "podman-network-services_default.service"
+          ];
+          requires = [
+          "podman-network-services_default.service"
+          ];
+          partOf = [
+          "podman-compose-services-root.target"
+          ];
+          wantedBy = [
+          "podman-compose-services-root.target"
+          ];
+      };
+      virtualisation.oci-containers.containers."services-fourget" = {
+          image = "localhost/compose2nix/services-fourget";
+          environment = {
+          "FOURGET_PROTO" = "http";
+          "FOURGET_SERVER_NAME" = "4get.peanutbutter.quest";
+          };
+          ports = [
+          "10030:80/tcp"
+          ];
+          log-driver = "journald";
+          extraOptions = [
+          "--network-alias=fourget"
+          "--network=services_default"
+          ];
+      };
+      systemd.services."podman-services-fourget" = {
+          serviceConfig = {
+          Restart = lib.mkOverride 90 "always";
+          };
+          after = [
+          "podman-build-services-fourget.service"
+          "podman-network-services_default.service"
+          ];
+          requires = [
+          "podman-build-services-fourget.service"
+          "podman-network-services_default.service"
+          ];
+          partOf = [
+          "podman-compose-services-root.target"
+          ];
+          wantedBy = [
+          "podman-compose-services-root.target"
+          ];
+      };
+
+      # Networks
+      systemd.services."podman-network-services_default" = {
+          path = [ pkgs.podman ];
+          serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStop = "podman network rm -f services_default";
+          };
+          script = ''
+          podman network inspect services_default || podman network create services_default
+          '';
+          partOf = [ "podman-compose-services-root.target" ];
+          wantedBy = [ "podman-compose-services-root.target" ];
+      };
+
+      # Builds
+      systemd.services."podman-build-services-fourget" = {
+          path = [ pkgs.podman pkgs.git ];
+          serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          TimeoutSec = 300;
+          };
+          script = ''
+          podman build -t compose2nix/services-fourget https://codeberg.org/kinest/4get.git
+          '';
+          partOf = [ "podman-compose-services-root.target" ];
+          wantedBy = [ "podman-compose-services-root.target" ];
+      };
+
+      # Root service
+      # When started, this will automatically create all resources and start
+      # the containers. When stopped, this will teardown all resources.
+      systemd.targets."podman-compose-services-root" = {
+          unitConfig = {
+          Description = "Root target generated by compose2nix.";
+          };
+          wantedBy = [ "multi-user.target" ];
+      };
+    };
+  }
+#+end_src
+*** Web
+**** Komga
+#+begin_src nix :tangle modules/features/web/komga.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.komga = {
+      services.komga = {
+        enable = true;
+        settings = {
+          server = {
+            port = 10060;
+          };
+        };
+      };
+    };
+  }
+#+end_src
+**** Miniflux 
+#+begin_src nix :tangle modules/features/web/miniflux.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.miniflux = {
+      services.miniflux = {
+        enable = true;
+        config = {
+          CREATE_ADMIN = true;
+          PORT = 9090;
+        };
+        adminCredentialsFile = /home/kin/data/miniflux/admin-credentials;
+      };
+    };
+  }
+#+end_src
+**** Nginx
+#+begin_src nix :tangle modules/features/web/nginx.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.nginx = {
+      config,
+      ...
+    }: {
+      services.nginx = {
+        enable = true;
+
+        recommendedGzipSettings = true;
+        recommendedProxySettings = true;
+        recommendedTlsSettings = true;
+        recommendedOptimisation = true;
+
+        virtualHosts = {
+          "vault.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+          };
+          "search.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+          };
+          "4get.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:10030";
+              proxyWebsockets = true;
+            };
+          };
+          "redlib.server.lan" = {
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:5544";
+              proxyWebsockets = true;
+            };
+          };
+          "notes.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:10040";
+              proxyWebsockets = true;
+            };
+          };
+          "rss.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:9090";
+              proxyWebsockets = true;
+            };
+          };
+          "seerr.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:5055";
+              proxyWebsockets = true;
+            };
+          };
+          "scrobble.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:9078";
+              proxyWebsockets = true;
+            };
+          };
+          "piped.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:7070";
+              proxyWebsockets = true;
+            };
+          };
+          "pipedapi.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:7071";
+              proxyWebsockets = true;
+            };
+          };
+          "pipedproxy.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:7072";
+              proxyWebsockets = true;
+            };
+          };
+          "jellyfin.peanutbutter.quest" = {
+            enableACME = true;
+            forceSSL = true;
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:8096";
+              proxyWebsockets = true;
+            };
+          };
+        };
+      };
+      security.acme = {
+        defaults.email = "clovertight@gmail.com";
+        acceptTerms = true;
+      };
+
+      systemd.services.nginx.serviceConfig.ProtectHome = false;
+
+        #services.anubis.instances = {
+        #  redlib = {
+        #    enable = true;
+        #    settings = {
+        #      TARGET = "http://127.0.0.1:5544";
+        #    };
+        #  };
+        #};
+    };
+  }
+#+end_src
+**** Nixflix 
+#+begin_src nix :tangle modules/features/web/nixflix.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.nixflix = {
+      config,
+      lib,
+      ...
+    }: {
+      imports = [
+        inputs.nixflix.nixosModules.default
+      ];
+      sops.secrets = {
+        "radarr/api_key" = {};
+        "radarr/username" = {};
+        "radarr/password" = {};
+        "sonarr/api_key" = {};
+        "sonarr/username" = {};
+        "sonarr/password" = {};
+        "prowlarr/api_key" = {};
+        "prowlarr/username" = {};
+        "prowlarr/password" = {};
+        "lidarr/api_key" = {};
+        "lidarr/username" = {};
+        "lidarr/password" = {};
+        "qbittorrent/username" = {};
+        "qbittorrent/password" = {};
+        "jellyfin/api_key" = {};
+        "jellyfin/users/kin/password" = {};
+        "jellyfin/users/priyaa/password" = {};
+        "jellyfin/users/nattsu/password" = {};
+        "seerr/api_key" = {};
+      };
+
+      nixflix = {
+        enable = true;
+        mediaDir = "/mnt/external-hdd/stream";
+        stateDir = "/data/.state";
+        mediaUsers = ["users"];
+
+        postgres.enable = false;
+
+        downloadarr = {
+          enable = true;
+          qbittorrent = {
+            enable = true;
+            host = "127.0.0.1";
+            username = config.sops.secrets."qbittorrent/username".path;
+            password._secret = config.sops.secrets."qbittorrent/password".path;
+            port = 8888;
+
+            categories = {
+              lidarr = "lidarr";
+              radarr = "radarr";
+            };
+          };
+        };
+
+        lidarr = {
+          enable = true;
+          mediaDirs = [
+            "${config.nixflix.mediaDir}/music"
+          ];
+          config = {
+            apiKey._secret = config.sops.secrets."lidarr/api_key".path;
+            hostConfig = {
+              username._secret = config.sops.secrets."lidarr/username".path;
+              password._secret = config.sops.secrets."lidarr/password".path;
+            };
+          };
+          settings = {
+            server = {
+              port = 8686;
+              bindaddress = "*";
+            };
+          };
+        };
+
+        radarr = {
+          enable = true;
+          mediaDirs = [
+            "${config.nixflix.mediaDir}/movies"
+          ];
+          config = {
+            apiKey._secret = config.sops.secrets."radarr/api_key".path;
+            hostConfig = {
+              username._secret = config.sops.secrets."radarr/username".path;
+              password._secret = config.sops.secrets."radarr/password".path;
+            };
+          };
+          settings = {
+            server = {
+              port = 7878;
+              bindaddress = "*";
+            };
+          };
+        };
+
+        sonarr = {
+          enable = true;
+          mediaDirs = [
+            "${config.nixflix.mediaDir}/tv"
+          ];
+          config = {
+            apiKey._secret = config.sops.secrets."sonarr/api_key".path;
+            hostConfig = {
+              username._secret = config.sops.secrets."sonarr/username".path;
+              password._secret = config.sops.secrets."sonarr/password".path;
+            };
+          };
+          settings = {
+            server = {
+              port = 8989;
+              bindaddress = "*";
+            };
+          };
+        };
+
+        jellyfin = {
+          enable = true;
+          apiKey._secret = config.sops.secrets."jellyfin/api_key".path;
+          users = {
+            kin = {
+              password._secret = config.sops.secrets."jellyfin/users/kin/password".path;
+              policy = {
+                isAdministrator = true;
+              };
+            };
+            priyaa = {
+              password._secret = config.sops.secrets."jellyfin/users/priyaa/password".path;
+            };
+            nattsu = {
+              password._secret = config.sops.secrets."jellyfin/users/nattsu/password".path;
+            };
+          };
+        };
+
+        prowlarr = {
+          enable = true;
+          config = {
+            apiKey._secret = config.sops.secrets."prowlarr/api_key".path;
+            hostConfig = {
+              username._secret = config.sops.secrets."prowlarr/username".path;
+              password._secret = config.sops.secrets."prowlarr/password".path;
+            };
+          };
+          settings = {
+            server = {
+              port = 9696;
+              bindaddress = "*";
+            };
+          };
+        };
+
+        seerr = {
+          enable = true;
+          apiKey = config.sops.secrets."seerr/api_key".path;
+          jellyfin = {
+            libraryFilter.names = ["Movies" "Shows"];
+          };
+          radarr = {
+            Radarr = {
+              activeProfileName = "HD Bluray + WEB";
+              apiKey._secret = config.sops.secrets."radarr/api_key".path;
+            };
+          };
+          sonarr = {
+            Sonarr = {
+              activeDirectory = "/mnt/external-hdd/stream/tv";
+              activeProfileName = "[Anime] Remux-1080p";
+              apiKey._secret = config.sops.secrets."sonarr/api_key".path;
+            };
+          };
+        };
+      };
+    };
+  }
+#+end_src
+**** Qbittorrent 
+#+begin_src nix :tangle modules/features/web/qbittorrent.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.qbittorrent = {
+      services.qbittorrent = {
+        enable = true;
+        webuiPort = 8888;
+        extraArgs = [
+          "--confirm-legal-notice"
+        ];
+        torrentingPort = 5555;
+      };
+      users.users.qbittorrent.extraGroups = ["users"];
+      systemd.services.qbittorrent = {
+        serviceConfig = {
+          UMask = "000";
+        };
+      };
+    };
+  }
+#+end_src
+**** Redlib
+#+begin_src nix :tangle modules/features/web/redlib.nix
+  {
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.redlib = {
+      pkgs,
+      ...
+    }: {
+      services.redlib = { 
+        enable = true;
+        port = 5544;
+        package = inputs.redlib-fork.packages.${pkgs.system}.default;
+
+        settings = {
+          "REDLIB_DEFAULT_USE_HLS" = "on";
+          "REDLIB_DEFAULT_SHOW_NSFW" = "on";
+        };
+      };
+    };
+  }
+#+end_src
+**** SearXNG
+#+begin_src nix :tangle modules/features/web/searxng.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.searxng = {config, ...}: {
+      sops.secrets = {
+        "searxng/secret_key" = {};
+      };
+
+      services.searx = {
+        enable = true;
+        settings = {
+          server = {
+            port = 8080;
+            secret_key = config.sops.secrets."searxng/secret_key".path;
+          };
+          search = {
+            autocomplete = "google";
+          };
+          ui = {
+            url_formatting = "host";
+            center_alignment = true;
+            results_on_new_tab = true;
+          };
+        };
+        domain = "search.peanutbutter.quest";
+        configureNginx = true;
+      };
+    };
+  }
+#+end_src
+**** StirlingPDF
+#+begin_src nix :tangle modules/features/web/stirlingpdf.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.stirlingpdf = {
+      services.stirling-pdf = {
+        enable = true;
+        environment = {
+          SERVER_PORT = 8877;
+          SECURITY_ENABLELOGIN = false;
+        };
+      };
+    };
+  }
+          
+#+end_src
+**** Vaultwarden
+#+begin_src nix :tangle modules/features/web/vaultwarden.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.vaultwarden = {
+      services.vaultwarden = {
+        enable = true;
+        domain = "vault.peanutbutter.quest";
+        configureNginx = true;
+        environmentFile = "/var/lib/vaultwarden.env";
+      };
+    };
+  }
+#+end_src
+*** Window Manager 
+**** Niri
+#+begin_src nix :tangle modules/features/wm/niri.nix 
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.niri = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      programs.niri = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myNiri;
+      };
+    };
+    perSystem = {
+      config,
+      pkgs,
+      lib,
+      ...
+    }: let 
+      wallspath = builtins.toString inputs.walls;
+    in {
+      packages.myNiri = inputs.wrapper-modules.wrappers.niri.wrap {
+        inherit pkgs;
+        settings = {
+          hotkey-overlay = {
+            skip-at-startup = _: {};
+          };
+          prefer-no-csd = _: {};
+          input = {
+            keyboard = {
+              xkb.layout = "us";
+            };
+            touchpad = {
+              #off = _: {};
+              tap = _: {};
+              natural-scroll = _: {};
+              accel-speed = 0.2;
+            };
+            mouse = {
+              accel-speed = 0;
+            };
+          };
+          layout = {
+            gaps = 1;
+            center-focused-column = "never";
+            focus-ring = {
+              active-color = "#907aa9";
+              inactive-color = "#907aa9";
+              width = 1;
+            };
+          };
+          outputs = {
+            "eDP-1" = {
+              # off = _: {};
+              mode = "1920x1080@165.002";
+              scale = 1;
+              position = _: {
+                props = {
+                  x = 0;
+                  y = 1080;
+                };
+              };
+            };
+            "eDP-2" = {
+              off = _: {};
+              mode = "1920x1080@165.000";
+              scale = 1;
+              position = _: {
+                props = {
+                  x = 0;
+                  y = 1080;
+                };
+              };
+            };
+            "HDMI-A-1" = {
+              mode = "3840x2160@143.988";
+              scale = 2;
+              position = _: {
+                props = {
+                  x = 0;
+                  y = 0;
+                };
+              };
+            };
+          };
+          window-rules = [
+            {
+              matches = [
+                {app-id = "firefox";}
+                {app-id = "helium";}
+                {app-id = "spotify";}
+                {app-id = "Spotify";}
+                {app-id = "equibop";}
+                {app-id = "chromium-browser";}
+                {app-id = "io.github.tdesktop_x64.TDesktop";}
+              ];
+              open-maximized = true;
+            }
+            {
+              matches = [
+                { 
+                  app-id = "firefox$";
+                  title = "^Picture-in-Picture$";
+                }
+              ];
+              open-floating = true;
+              default-column-width = [ { fixed = 480; } ];
+              default-window-height = [ { fixed = 270; } ];
+            }
+          ];
+          layer-rules = [
+            {
+              matches = [
+                {namespace = "^launcher$";}
+              ];
+              background-effect = {
+                blur = false;
+              };
+            }
+          ];
+          binds = {
+            "Mod+Return".spawn-sh = "foot";
+            "Mod+D".spawn-sh = "fuzzel";
+            "Mod+B".spawn-sh = "firefox";
+            "Mod+P".spawn-sh = "spotify";
+            "Mod+U".spawn-sh = "emacs";
+
+            "Mod+F".maximize-column = _: {};
+            "Mod+Shift+F".fullscreen-window = _: {};
+
+            "Mod+Space".toggle-overview = _: {};
+            "Mod+Q".close-window = _: {};
+
+            "Mod+BracketLeft".consume-or-expel-window-left = _: {};
+            "Mod+BracketRight".consume-or-expel-window-right = _: {};
+
+            "Mod+H".focus-column-left = _: {};
+            "Mod+J".focus-window-down = _: {};
+            "Mod+K".focus-window-up = _: {};
+            "Mod+L".focus-column-right = _: {};
+
+            "Mod+Ctrl+H".move-column-left = _: {};
+            "Mod+Ctrl+J".move-window-down = _: {};
+            "Mod+Ctrl+K".move-window-up = _: {};
+            "Mod+Ctrl+L".move-column-right = _: {};
+
+            "Mod+1".focus-workspace = 1;
+            "Mod+2".focus-workspace = 2;
+            "Mod+3".focus-workspace = 3;
+            "Mod+4".focus-workspace = 4;
+            "Mod+5".focus-workspace = 5;
+            "Mod+6".focus-workspace = 6;
+            "Mod+7".focus-workspace = 7;
+            "Mod+8".focus-workspace = 8;
+            "Mod+9".focus-workspace = 9;
+
+            "Mod+Ctrl+1".move-column-to-workspace = 1;
+            "Mod+Ctrl+2".move-column-to-workspace = 2;
+            "Mod+Ctrl+3".move-column-to-workspace = 3;
+            "Mod+Ctrl+4".move-column-to-workspace = 4;
+            "Mod+Ctrl+5".move-column-to-workspace = 5;
+            "Mod+Ctrl+6".move-column-to-workspace = 6;
+            "Mod+Ctrl+7".move-column-to-workspace = 7;
+            "Mod+Ctrl+8".move-column-to-workspace = 8;
+            "Mod+Ctrl+9".move-column-to-workspace = 9;
+
+            "Mod+Shift+H".focus-monitor-left = _: {};
+            "Mod+Shift+J".focus-monitor-down = _: {};
+            "Mod+Shift+K".focus-monitor-up = _: {};
+            "Mod+Shift+L".focus-monitor-right = _: {};
+
+            "Mod+Shift+Ctrl+H".move-column-to-monitor-left = _: {};
+            "Mod+Shift+Ctrl+J".move-column-to-monitor-down = _: {};
+            "Mod+Shift+Ctrl+K".move-column-to-monitor-up = _: {};
+            "Mod+Shift+Ctrl+L".move-column-to-monitor-right = _: {};
+
+            "Mod+WheelScrollDown".focus-workspace-down = _: {};
+            "Mod+WheelScrollUp".focus-workspace-up = _: {};
+            "Mod+Ctrl+WheelScrollDown".move-column-to-workspace-down = _: {};
+            "Mod+Ctrl+WheelScrollUp".move-column-to-workspace-up = _: {};
+            "Mod+Shift+WheelScrollDown".focus-column-left = _: {};
+            "Mod+Shift+WheelScrollUp".focus-column-right = _: {};
+
+            "Mod+C".center-column = _: {};
+            "Mod+V".toggle-window-floating = _: {};
+            "Mod+Shift+V".switch-focus-between-floating-and-tiling = _: {};
+            "Mod+W".toggle-column-tabbed-display = _: {};
+            "Print".screenshot = _: {};
+            "Ctrl+Print".screenshot-screen = _: {};
+            "Alt+Print".screenshot-window = _: {};
+
+            "Mod+Shift+E".quit = _: {};
+
+            "Mod+Minus".set-column-width = "-10%";
+            "Mod+Equal".set-column-width = "+10%";
+            "Mod+Shift+Minus".set-window-height = "-10%";
+            "Mod+Shift+Equal".set-window-height = "+10%";
+
+            "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0";
+            "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
+            "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+            "Mod+M".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+            "XF86MonBrightnessUp".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
+            "XF86MonBrightnessDown".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
+
+
+            "Mod+F2".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+            "Mod+F3".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
+            "Mod+F4".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0";
+            "Mod+F6".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
+            "Mod+F5".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
+
+            "Mod+T".spawn-sh = ''notify-send "Current Time" "$(date +"%I:%M %p")"'';
+          };
+          spawn-sh-at-startup = [
+            "${lib.getExe pkgs.swaybg} -i ${wallspath}/uwp5003040.jpeg"
+            "waybar"
+          ];
+        };
+      };
+    };
+  }
+#+end_src
+** Home
+*** Home Users
+**** Lenovo
+***** kin
+****** Default
+#+begin_src nix :tangle modules/home/kin-lenovo/home.nix 
+  {
+    withSystem,
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeConfigurations.kin-lenovo = inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = import inputs.nixpkgs {
+        system = "x86_64-linux";
+        overlays = [
+          inputs.nur.overlays.default
+          inputs.helium.overlays.default
+          inputs.emacs-overlay.overlays.default
+        ];
+      };
+      modules = [
+        self.homeModules.kinConfiguration
+        ({pkgs, ...}: {
+          nixpkgs.config.allowUnfree = true;
+        })
+      ];
+    };
+  }
+#+end_src
+****** Configuration
+#+begin_src nix :tangle modules/home/kin-lenovo/homeConfiguration.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeModules.kinConfiguration = {
+      pkgs, 
+      ...
+    }: {
+      imports = [
+        self.homeModules.mako
+        self.homeModules.alacritty
+        self.homeModules.gtk
+        self.homeModules.fuzzel
+        self.homeModules.waybar
+        self.homeModules.firefox
+        self.homeModules.helix
+        self.homeModules.chromium
+        self.homeModules.gtk-fonts
+        self.homeModules.emacs
+      ];
+      home = {
+        username = "kin";
+        homeDirectory = "/home/kin";
+        stateVersion = "25.11";
+        packages = with pkgs; [
+          swappy
+          libreoffice
+          fastfetch
+          qbittorrent-nox
+          mpv
+          nautilus
+          _64gram
+          helium
+          btop
+          lutris
+          android-tools
+          protonup-qt
+          tree
+          htop
+          p7zip
+          blanket
+          nwg-look
+          lsd
+
+          inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
+        ];
+      };
+    };
+  }
+#+end_src
+*** Home Modules
+**** Alacritty
+#+begin_src nix :tangle modules/home/home-modules/alacritty.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeModules.alacritty = {
+      pkgs,
+      ...
+    }: {
+      programs.alacritty = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myAlacritty;
+      };
+    };
+    perSystem = {
+      pkgs,
+      ...
+    }: {
+      packages.myAlacritty = inputs.wrapper-modules.wrappers.alacritty.wrap {
+        inherit pkgs;
+        settings = {
+          font = {
+            size = 12;
+          };
+          window = {
+            opacity = 1;
+          };
+          colors = {
+            primary = {
+              background = "#191724";
+              foreground = "#e0def4";
+            };
+            cursor = {
+              text = "#e0def4";
+              cursor = "#524f67";
+            };
+            vi_mode_cursor = {
+              text = "#e0def4";
+              cursor = "#524f67";
+            };
+            selection = {
+              text = "#e0def4";
+              background = "#403d52";
+            };
+            normal = {
+              black = "#26233a";
+              red = "#eb6f92";
+              green = "#31748f";
+              yellow = "#f6c177";
+              blue = "#9ccfd8";
+              magenta = "#c4a7e7";
+              cyan = "#ebbcba";
+              white = "#e0def4";
+            };
+            bright = {
+              black = "#6e6a86";
+              red = "#eb6f92";
+              green = "#31748f";
+              yellow = "#f6c177";
+              blue = "#9ccfd8";
+              magenta = "#c4a7e7";
+              cyan = "#ebbcba";
+              white = "#e0def4";
+            };
+            hints = {
+              start = {
+                foreground = "#908caa";
+                background = "#1f1d2e";
+              };
+              end = {
+                foreground = "#6e6a86";
+                background = "#1f1d2e";
+              };
+            };
+          };
+        };
+      };
+    };
+  }
+#+end_src
+**** Chromium
+#+begin_src nix :tangle modules/home/home-modules/chromium.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeModules.chromium = {
+      pkgs,
+      ...
+    }: {
+      programs.chromium = {
+        enable = true;
+        package = pkgs.ungoogled-chromium;
+      };
+    };
+  }
+#+end_src
+**** Firefox
+#+begin_src nix :tangle modules/home/home-modules/firefox.nix
+  {
+    ...
+  }: {
+    flake.homeModules.firefox = { 
+      config,
+      pkgs,
+      ...
+    }: {
+      programs.firefox = {
+        enable = true;
+        configPath = "${config.xdg.configHome}/mozilla/firefox";
+        policies = {
+          DNSOverHTTPS = {
+            Enabled = true;
+            ProviderURL = "https://freedns.controld.com/p0";
+            Locked = true;
+          };
+          DisableFirefoxStudies = true;
+          DisableFirefoxAccounts = true;
+          DisableTelemetry = true;
+          DisableFeedbackCommands = true;
+          DisableSetDesktopBackground = true;
+          ShowHomeButton = true;
+          FirefoxHome = {
+            SponsoredStories = false;
+            SponsoredTopSites = false;
+            SponsoredPocket = false;
+            Stories = false;
+            Search = true;
+            Shortcuts = false;
+            TopSites = false;
+            Highlights = false;
+            Pocket = false;
+            Snippets = false;
+            Locked = true;
+          };
+          GenerativeAI = {
+            Enabled = false;
+          };
+          SearchEngines = {
+            Remove = [
+              "Google"
+              "Bing"
+              "Perplexity"
+            ];
+            Default = "4get";
+            Add = [
+              {
+                Name = "SearXNG";
+                Description = "A privacy-respecting, hackable metasearch engine";
+                Alias = "sng";
+                Method = "POST";
+                URLTemplate = "https://search.peanutbutter.quest/search?q={searchTerms}";
+              }
+              {
+                Name = "Searchix";
+                Description = "NixOS Module/Option search";
+                Alias = "six";
+                Method = "POST";
+                URLTemplate = "https://searchix.ovh?query={searchTerms}";
+              }
+              {
+                Name = "4get";
+                Description = "4get is a proxy search engine that doesn't suck";
+                Alias = "4g";
+                Method = "POST";
+                URLTemplate = "https://4get.peanutbutter.quest/web?s={searchTerms}&scraper=google_cse&nsfw=yes";
+              }
+            ];
+          };
+        };
+        profiles = {
+          default = {
+            id = 0;
+            name = "default";
+            isDefault = true;
+            extensions = {
+              force = true;
+              packages = with pkgs.nur.repos.rycee.firefox-addons; [
+                ublock-origin
+                bitwarden
+                darkreader
+                sponsorblock
+                stylus
+                youtube-enhancer-vc
+              ];
+            };
+            userChrome = ''
+              #TabsToolbar { display: none !important; }
+              #sidebar-box #sidebar-header { display: none !important; }
+
+              ,* { border-radius: 0px; }
+            '';
+            settings = {
+              "sidebar.verticalTabs" = true;
+              "browser.sessionstore.resume_from_crash" = false;
+
+              "browser.startup.homepage" = "https://4get.peanutbutter.quest";
+              "extensions.autoDisableScopes" = 0;
+              "browser.contentblocking.category" = "strict";
+              "browser.download.start_downloads_in_tmp_dir" = true;
+              "browser.uitour.enabled" = false;
+              "privacy.globalprivacycontrol.enabled" = true;
+
+              "security.OCSP.enabled" = 0;
+              "privacy.antitracking.isolateContentScriptResources" = true;
+              "security.csp.reporting.enabled" = false;
+
+              "security.ssl.treat_unsafe_negotiation_as_broken" = true;
+              "browser.xul.error_pages.expert_bad_cert" = true;
+              "security.tls.enable_0rtt_data" = false;
+
+              "browser.cache.disk.enable" = false;
+              "browser.privatebrowsing.forceMediaMemoryCache" = true;
+              "media.memory_cache_max_size" = 65536;
+              "browser.sessionstore.interval" = 60000;
+
+              "privacy.history.custom" = true;
+              "browser.privatebrowsing.resetPBM.enabled" = true;
+
+              "network.http.speculative-parallel-limit" = 0;
+              "network.dns.disablePrefetch" = true;
+              "network.dns.disablePrefetchFromHTTPS" = true;
+              "browser.urlbar.speculativeConnect.enabled" = false;
+              "browser.places.speculativeConnect.enabled" = false;
+              "network.prefetch-next" = false;
+
+              "browser.urlbar.trimHttps" = true;
+              "browser.urlbar.untrimOnUserInteraction.featureGate" = true;
+              "browser.search.separatePrivateDefault.ui.enabled" = true;
+              "browser.search.suggest.enabled" = false;
+              "browser.urlbar.quicksuggest.enabled" = false;
+              "browser.urlbar.groupLabels.enabled" = false;
+              "browser.formfill.enable" = false;
+              "network.IDN_show_punycode" = true;
+
+              "dom.security.https_only_mode" = true;
+              "dom.security.https_only_mode_error_page_user_suggestions" = true;
+
+              "signon.formlessCapture.enabled" = false;
+              "signon.privateBrowsingCapture.enabled" = false;
+              "network.auth.subresource-http-auth-allow" = 1;
+              "editor.truncate_user_pastes" = false;
+
+              "extensions.enabledScopes" = 5;
+
+              "network.http.referer.XOriginTrimmingPolicy" = 2;
+
+              "privacy.userContext.ui.enabled" = true;
+
+              "pdfjs.enableScripting" = false;
+
+              "browser.safebrowsing.downloads.remote.enabled" = false;
+
+              "permissions.default.desktop-notification" = 2;
+              "permissions.default.geo" = 2;
+              "geo.provider.network.url" = "https://beacondb.net/v1/geolocate";
+              "browser.search.update" = false;
+              "permissions.manager.defaultsUrl" = "";
+              "extensions.getAddons.cache.enabled" = false;
+
+              "datareporting.policy.dataSubmissionEnabled" = false;
+              "datareporting.healthreport.uploadEnabled" = false;
+              "toolkit.telemetry.unified" = false;
+              "toolkit.telemetry.enabled" = false;
+              "toolkit.telemetry.server" = "data:,";
+              "toolkit.telemetry.archive.enabled" = false;
+              "toolkit.telemetry.newProfilePing.enabled" = false;
+              "toolkit.telemetry.shutdownPingSender.enabled" = false;
+              "toolkit.telemetry.updatePing.enabled" = false;
+              "toolkit.telemetry.bhrPing.enabled" = false;
+              "toolkit.telemetry.firstShutdownPing.enabled" = false;
+              "toolkit.telemetry.coverage.opt-out" = true;
+              "toolkit.coverage.opt-out" = true;
+              "toolkit.coverage.endpoint.base" = "";
+              "browser.newtabpage.activity-stream.feeds.telemetry" = false;
+              "browser.newtabpage.activity-stream.telemetry" = false;
+              "datareporting.usage.uploadEnabled" = false;
+
+              "app.shield.optoutstudies.enabled" = false;
+              "app.normandy.enabled" = false;
+              "app.normandy.api_url" = "";
+
+              "breakpad.reportURL" = "";
+              "browser.tabs.crashReporting.sendReport" = false;
+
+              "extensions.getAddons.showPane" = false;
+              "extensions.htmlaboutaddons.recommendations.enabled" = false;
+              "browser.discovery.enabled" = false;
+              "browser.shell.checkDefaultBrowser" = false;
+              "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+              "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+              "browser.preferences.moreFromMozilla" = false;
+              "browser.aboutConfig.showWarning" = false;
+              "browser.startup.homepage_override.mstone" = "ignore";
+              "browser.aboutwelcome.enabled" = false;
+              "browser.profiles.enabled" = true;
+
+              "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+              "browser.compactmode.show" = true;
+              "browser.privateWindowSeparation.enabled" = false;
+
+              "browser.ai.control.default" = "blocked";
+              "browser.ml.enable" = false;
+              "browser.ml.chat.enabled" = false;
+              "browser.ml.chat.menu" = false;
+              "browser.tabs.groups.smart.enabled" = false;
+              "browser.ml.linkPreview.enabled" = false;
+
+              "full-screen-api.transition-duration.enter" = "0 0";
+              "full-screen-api.transition-duration.leave" = "0 0";
+              "full-screen-api.warning.timeout" = 0;
+
+              "browser.urlbar.trending.featureGate" = false;
+
+              "browser.newtabpage.activity-stream.default.sites" = "";
+              "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+              "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+              "browser.newtabpage.activity-stream.showSponsored" = false;
+              "browser.newtabpage.activity-stream.showSponsoredCheckboxes" = false;
+
+              "browser.download.manager.addToRecentDocs" = false;
+
+              "browser.download.open_pdf_attachments_inline" = true;
+
+              "browser.bookmarks.openInTabClosesMenu" = false;
+              "browser.menu.showViewImageInfo" = true;
+              "findbar.highlightAll" = true;
+              "layout.word_select.eat_space_to_next_word" = false;
+
+              "apz.overscroll.enabled" = true;
+
+              "general.smoothScroll" = true;
+              "general.smoothScroll.msdPhysics.continuousMotionMaxDeltaMS" = 12;
+              "general.smoothScroll.msdPhysics.enabled" = true;
+              "general.smoothScroll.msdPhysics.motionBeginSpringConstant" = 600;
+              "general.smoothScroll.msdPhysics.regularSpringConstant" = 650;
+              "general.smoothScroll.msdPhysics.slowdownMinDeltaMS" = 25;
+              "general.smoothScroll.msdPhysics.slowdownMinDeltaRatio" = "2";
+              "general.smoothScroll.msdPhysics.slowdownSpringConstant" = 250;
+              "general.smoothScroll.currentVelocityWeighting" = "1";
+              "general.smoothScroll.stopDecelerationWeighting" = "1";
+
+              "mousewheel.default.delta_multiplier_y" = 250;
+              "mousewheel.min_line_scroll_amount" = 35;
+
+              "widget.gtk.overlay-scrollbars.enabled" = true;
+            };
+          };
+        };
+      };
+    };
+  }
+        
+
+#+end_src
+**** Fuzzel
+#+begin_src nix :tangle modules/home/home-modules/fuzzel.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeModules.fuzzel = {
+      pkgs,
+      ...
+    }: {
+      programs.fuzzel = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myFuzzel;
+      };
+    };
+    perSystem = {
+      pkgs,
+      ...
+    }: {
+      packages.myFuzzel = inputs.wrapper-modules.wrappers.fuzzel.wrap {
+        inherit pkgs;
+        settings = {
+          main = {
+            #font = "Futura:size=12";
+          };
+          colors = {
+            background = "#191724b3";
+            text = "#e0def4ff";
+            prompt = "#e0def4ff";
+            placeholder = "#6e6a86ff";
+            input = "#e0def4ff";
+            match = "#ebbcbaff";
+            selection = "#403d52ff";
+            selection-text = "#e0def4ff";
+            selection-match = "#ebbcbaff";
+            counter = "#f6c177ff";
+            border = "#ebbcbaff";
+          };
+        };
+      };
+    };
+  }
+#+end_src
+**** GTK
+#+begin_src nix :tangle modules/home/home-modules/gtk.nix
+  {
+    self,
+    ...
+  }: {
+    flake.homeModules.gtk = {
+      pkgs,
+      ...
+    }: {
+      gtk = {
+        enable = true;
+      };
+      dconf = {
+        enable = true;
+        settings = {
+          "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+        };
+      };
+      home.pointerCursor = {
+        gtk.enable = true;
+        x11.enable = true;
+        name = "Bibata-Modern-Ice";
+        package = pkgs.bibata-cursors;
+      };
+    };
+  }
+#+end_src
+
+**** Helix
+#+begin_src nix :tangle modules/home/home-modules/helix.nix
+  { 
+    ...
+  }: {
+    flake.homeModules.helix = {
+      pkgs,
+      ...
+    }: {
+      programs.helix = {
+        enable = true;
+        package = pkgs.evil-helix;
+        settings = {
+          theme =  "rose_pine_transparent";
+        };
+        themes."rose_pine_transparent" = {
+          inherits = "rose_pine";
+          "ui.background" = {};
+        };
+      };
+    };
+  }
+#+end_src
+**** Mako
+#+begin_src nix :tangle modules/home/home-modules/mako.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeModules.mako = {
+      pkgs,
+      ...
+    }: {
+      services.mako = {
+        enable = true;
+        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myMako;
+      };
+    };
+    perSystem = {
+      pkgs,
+      ...
+    }: {
+      packages.myMako = inputs.wrapper-modules.wrappers.mako.wrap {
+        inherit pkgs;
+        settings = {
+          sort = "-time";
+          font = "Iosevka Nerd Font Mono";
+          layer = "overlay";
+          anchor = "top-right";
+          default-timeout = 5000;
+          width = 300;
+          height = 110;
+          padding = "0,15,20";
+          background-color = "#191724";
+          "urgency=normal" = {
+            border-color = "#ebbcba";
+          };
+          "urgency=high" = {
+            border-color = "#d7827e";
+            default-timeout = 0;
+          };
+        };
+      };
+    };
+  }
+#+end_src
+**** Waybar
+#+begin_src nix :tangle modules/home/home-modules/waybar.nix
+  {
+    ...
+  }: {
+    flake.homeModules.waybar = {
+      ...
+    }: {
+      programs.waybar = {
+        enable = true;
+        settings = {
+          mainBar = {
+            layer = "top";
+            position = "top";
+            height = 30;
+            spacing = 10;
+            modules-center = ["niri/window"];
+            modules-left = ["niri/workspaces"];
+            modules-right = ["tray" "cpu" "memory" "battery" "clock#date" "clock#time"];
+            "cpu" = {
+              interval = 10;
+              format = "Cpu:{usage}%";
+            };
+            "memory" = {
+              interval = 30;
+              format = "Ram:{}%";
+            };
+            "battery" = {
+              format = "Battery:{capacity}%";
+            };
+            "clock#date" = {
+              format = "Date:{:%d/%m(%a)}";
+            };
+            "clock#time" = {
+              format = "Time:{:%I:%M %p} ";
+              interval = 1;
+            };
+            "custom/seperator" = {
+              format = " | ";
+              tooltip = false;
+            };
+          };
+        };
+        style = "
+          #waybar {
+          font-family: 'Iosevka Nerd Font Propo';
+            font-size: 16px;
+            font-weight: normal;
+            background-color: rgba(25, 23, 36, 1);
+          }
+          #cpu {
+            color: #c4a7e7;
+          }
+          #memory {
+            color: #9ccfd8;
+          }
+          #battery {
+            color: #ebbcba;
+          }
+          #clock.date {
+            color: #f6c177;
+          }
+          #clock.time {
+            color: #eb6f92;
+          }
+          #window {
+            color: #6e6a86;
+          }
+          #workspaces button {
+            all: initial;
+            color: #6e6a86;
+            padding: 0 8px;
+            margin: 0;
+          }
+          #workspaces button.active {
+            color: #c4a7e7;
+          }
+          #workspaces button:hover {
+            color: #908caa;
+          }
+          #custom-seperator {
+            color: #9893a5;
+            padding: 0px;
+          }
+        ";
+      };
+    };
+  }
+#+end_src
+** Logic
+*** homeModules
+#+begin_src nix :tangle logic/homeModules.nix
+  {
+    lib,
+    moduleLocation,
+    flake-parts-lib,
+    ...
+  }: let
+    inherit
+      (lib)
+      mapAttrs
+      mkOption
+      types
+      ;
+    inherit
+      (flake-parts-lib)
+      mkSubmoduleOptions
+      ;
+  in {
+    options = {
+      flake = mkSubmoduleOptions {
+        homeModules = mkOption {
+          type = types.lazyAttrsOf types.deferredModule;
+          default = {};
+          apply = mapAttrs (k: v: {
+            _class = "homeManager";
+            _file = "${toString moduleLocation}#homeModules.${k}";
+            imports = [v];
+          });
+          description = ''
+            Home-Manager modules.
+
+            You may use this for reusable pieces of configuration, service modules, etc.
+          '';
+        };
+      };
+    };
+  }
+#+end_src
+** Emacs configuration
+*** Emacs Managed by nix
+#+begin_src nix :tangle modules/home/home-modules/emacs/emacs.nix
+  {
+    ...
+  }: {
+    flake.homeModules.emacs = {
+      pkgs,
+      ...
+    }: { 
+      programs.emacs = {
+        enable = true;
+        package = (pkgs.emacs-git-pgtk.override { withTreeSitter = true; });
+
+        extraPackages = epkgs: [
+          epkgs.evil
+          epkgs.nerd-icons
+  				epkgs.vterm
+  				epkgs.autothemer
+  				epkgs.nix-mode
+          epkgs.rainbow-mode
+          epkgs.pdf-tools
+        ];
+      };
+
+      home.file = {
+        emacs = {
+          source = ./init.el;
+          target = ".emacs.d/init.el";
+        };
+        emacs-init = {
+          source = ./early-init.el;
+          target = ".emacs.d/early-init.el";
+        };
+  			emacs-custom = {
+  				source = ./custom;
+  				target = ".emacs.d/custom";
+  				recursive = true;
+  			};
+      };
+    };
+  }
+#+end_src
+*** early-init.el
+#+begin_src emacs-lisp :tangle modules/home/home-modules/emacs/early-init.el
+  ;;; early-init.el --- Early emacs configuration -*- lexical-binding: t; -*-
+
+  (set-language-environment "UTF-8")
+
+  (setq inhibit-startup-message 1)
+  (setq-default
+   default-frame-alist
+   '((bottom-divider-width . 1)
+     (horizontal-scroll-bars . nil)
+     (menu-bar-lines . 0)
+     (tool-bar-lines . 0)
+     (set-fringe-mode 10)
+     (vertical-scroll-bars . nil))
+   tab-width 2 
+   indent-tabs-mode nil
+  )
+#+end_src
+*** init.el
+#+begin_src emacs-lisp :tangle modules/home/home-modules/emacs/init.el
+  ;;; init.el --- Emacs configuration -*- lexical-binding: t; -*-
+
+  ;; Keybinds
+  (global-set-key (kbd "C-x a") #'org-agenda)
+  (global-set-key (kbd "C-x c") #'org-capture)
+
+  ;; Font 
+  (set-frame-font "Iosevka Nerd Font Mono 12" nil t)
+
+  ;; qol customizations
+  (global-display-line-numbers-mode 1)
+  (setq display-line-numbers-type 'relative)
+  (global-hl-line-mode 0)
+  (column-number-mode 1)
+  (show-paren-mode 1)
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
+
+  ;; Custom folder which contains .el files that can be loaded by the load command
+  (add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
+  (load "rose-pine-color-theme")
+  (load-theme 'rose-pine-color t)
+
+  ;; Evil Mode
+  (use-package evil
+    :config
+    (evil-mode 1))
+
+  ;; Binding vterm
+  (use-package vterm
+  	:bind ("C-x C-t" . vterm))
+
+  ;; Nix Mode for syntax highlighting
+  (use-package nix-mode
+  	:mode "\\.nix\\'")
+
+  ;; Nerd Icons
+  (use-package nerd-icons
+  	:custom
+  	(nerd-icons-color-icons nil))
+
+  ;; Rainbow Mode
+  (use-package rainbow-mode
+    :hook (after-change-major-mode . rainbow-mode))
+
+  ;; pdf-tools
+  (use-package pdf-tools
+    :defer t
+    :mode "\\.pdf\\'"
+    :commands (pdf-loader-install)
+    :bind (:map pdf-view-mode-map
+                ("j" . pdf-view-next-line-or-next-page)
+                ("k" . pdf-view-previous-line-or-previous-page)
+                ("C-=" . pdf-view-enlarge)
+                ("C--" . pdf-view-shrink))
+    :init (pdf-loader-install)
+    :config (add-to-list 'revert-without-query ".pdf"))
+  (add-hook 'pdf-view-mode-hook #'(lambda () (interactive) (display-line-numbers-mode -1)))
+  (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
+#+end_src
+*** Custom files
+**** Rose Pine Theme for Emacs
+#+begin_src emacs-lisp :tangle modules/home/home-modules/emacs/custom/rose-pine-color-theme.el
+  ;;; rose-pine-color-theme.el --- All natural pine, faux fur and a bit of soho vibes for the classy minimalist. -*- lexical-binding: t; -*-
+
+  ;; Authors: Israel Romero <@caelie>
+  ;; URL: http://github.com/caelie/rose-pine-emacs
+  ;; Version: 0.2
+  ;; Package-Requires: ((autothemer "0.2"))
+
+  ;;; Commentary:
+  ;;  All natural pine, faux fur and a bit of soho vibes for the classy minimalist
+
+  ;;; Uses Autothemer from 0.2 and is based on nano-emacs for the syntax highlighting
+
+  ;;; Code:
+  (require 'autothemer)
+
+  (unless (>= emacs-major-version 26)
+    (error "Requires Emacs 26 or later"))
+
+  (autothemer-deftheme
+   rose-pine-color "All natural pine,  faux fur and a bit of soho vibes for the classy minimalist."
+
+   ((((class color) (min-colors #xFFFFFF)))                        ;; GUI mode
+
+    ;; Rose Pine
+    (text       "#e0def4")  ;; foreground
+    (base       "#191724")  ;; background
+    (high       "#6e6a86")  ;; highlight
+    (gold       "#f6c177")  ;; critical
+    (iris       "#c4a7e7")  ;; salient
+    (surface    "#b4637a")  ;; strong
+    (love       "#eb6f92")  ;; popout
+    (subtle     "#6e6a86")  ;; subtle
+    (faded      "#cecaed")  ;; faded
+    (cursor     "#e0def4")) ;; cursor
+
+    ;; Faces
+   ((default                   (:background base :foreground text))
+
+    ;; Structural
+    (bold                      (:foreground surface))
+    (italic                    (:foreground faded))
+    (bold-italic               (:foreground surface))
+    (region                    (:background subtle))
+    (highlight                 (:background subtle))
+    (fixed-pitch-serif         (:foregrund surface))
+    (variable-pitch            (:foregroud surface))
+    (cursor                    (:background cursor))
+
+    ;; Modeline
+    (mode-line                 (:background surface :foreground text))
+    (mode-line-inactive        (:background surface :foreground faded))
+
+    ;; Windows
+    (window-divider (:background surface))
+    (window-divider-first-pixel  (:foreground high))
+    (window-divider-last-pixel   (:foreground high))
+
+    ;; Semantic
+    (shadow                                    (:foreground faded))
+    (success                                   (:foreground iris))
+    (warning                                   (:foreground love))
+    (error                                     (:foreground gold))
+    (match                                     (:foreground love))
+
+    ;; General
+    (buffer-menu-buffer                        (:foreground surface))
+    (minibuffer-prompt                         (:foreground surface))
+    (link                                      (:foreground iris))
+    (fringe                                    (:foreground faded))
+
+    (isearch                                   (:foreground surface))
+    (isearch-fail                              (:foreground faded))
+    (lazy-highlight                            (:foreground subtle))
+    (trailing-whitespace                       (:foreground subtle))
+    (show-paren-match                          (:foreground love))
+    (tooltip                                   (:height 0.85))
+    (secondary-selection                       (:foreground subtle))
+    (completions-common-part                   (:foreground faded))
+    (completions-first-difference              (:foreground love))
+
+
+    ;; Programmation mode
+    (font-lock-comment-face                    (:foreground faded))
+    (font-lock-doc-face                        (:foreground faded))
+    (font-lock-string-face                     (:foreground love))
+    (font-lock-constant-face                   (:foreground iris))
+    (font-lock-warning-face                    (:foreground love))
+    (font-lock-function-name-face              (:foreground surface))
+    (font-lock-variable-name-face              (:foreground surface))
+    (font-lock-builtin-face                    (:foreground iris))
+    (font-lock-type-face                       (:foreground iris))
+    (font-lock-keyword-face                    (:foreground iris))
+
+    ;; Highlight line mode
+    (with-eval-after-load "hl-line"
+    (set-face-attribute 'hl-line nil
+                                            :background high))
+
+    ;; Buttons
+    (with-eval-after-load "cus-edit"
+    (set-face-attribute 'custom-button nil
+                                            :foreground (face-foreground 'faded)
+                                            :background (face-background 'default)
+                                            :box `(:line-width 1
+                                                           :color ,(face-foreground 'faded)
+                                                           :style nil))
+    (set-face-attribute 'custom-button-mouse nil
+                                            :foreground (face-foreground 'faded)
+                                            :background (face-background 'subtle)
+                                            :box `(:line-width 1
+                                                           :color ,(face-foreground 'faded)
+                                                           :style nil))
+    (set-face-attribute 'custom-button-pressed nil
+                                            :foreground (face-background 'default)
+                                            :background (face-foreground 'iris)
+                                            :inherit 'iris
+                                            :box `(:line-width 1
+                                                           :color ,(face-foreground 'iris)
+                                                           :style nil)
+                                            :inverse-video nil))
+
+    ;; Documentation
+    (with-eval-after-load "info"
+      (info-menu-header                      (:foreground surface))
+      (info-header-node                      (:foreground text))
+      (info-index-match                      (:foreground iris))
+      (Info-quoted                           (:foreground faded))
+      (info-title-1                          (:foreground surface))
+      (info-title-2                          (:foreground surface))
+      (info-title-3                          (:foreground surface))
+      (info-title-4                          (:foreground surface)))
+
+   ;; Bookmarks
+    (with-eval-after-load "bookmark"
+      (bookmark-menu-heading              (:foreground surface))
+      (bookmark-menu-bookmark             (:foreground iris)))
+
+    ;; Message
+    (with-eval-after-load "message"
+      (message-cited-text                    (:foreground faded))
+      (message-cited-text-1                  (:foreground faded))
+      (message-cited-text-2                  (:foreground faded))
+      (message-cited-text-3                  (:foreground faded))
+      (message-cited-text-4                  (:foreground faded))
+      (message-header-cc                     (:foreground text))
+      (message-header-name                   (:foreground surface))
+      (message-header-newsgroups             (:foreground text))
+      (message-header-other                  (:foreground text))
+      (message-header-subject                (:foreground iris))
+      (message-header-to                     (:foreground iris))
+      (message-header-xheader                (:foreground text))
+      (message-mml                           (:foreground love))
+      (message-separator                     (:foreground faded)))
+
+    ;; Outline
+    (with-eval-after-load "outline"
+      (outline-1                              (:foreground surface))
+      (outline-2                              (:foreground surface))
+      (outline-3                              (:foreground surface))
+      (outline-4                              (:foreground surface))
+      (outline-5                              (:foreground surface))
+      (outline-6                              (:foreground surface))
+      (outline-7                              (:foreground surface))
+      (outline-8                              (:foreground surface)))
+
+    ;; Interface
+    (with-eval-after-load "cus-edit"
+      (widget-field                        (:foreground subtle))
+      (widget-button                       (:foreground surface))
+      (widget-single-line-field            (:foreground subtle))
+      (custom-group-subtitle               (:foreground surface))
+      (custom-group-tag                    (:foreground surface))
+      (custom-group-tag-1                  (:foreground surface))
+      (custom-comment                      (:foreground faded))
+      (custom-comment-tag                  (:foreground faded))
+      (custom-changed                      (:foreground iris))
+      (custom-modified                     (:foreground iris))
+      (custom-face-tag                     (:foreground surface))
+      (custom-variable-tag                 (:foreground text))
+      (custom-invalid                      (:foreground love))
+      (custom-visibility                   (:foreground iris))
+      (custom-state                        (:foreground iris))
+      (custom-link                         (:foreground iris)))
+
+    ;;Package
+    (with-eval-after-load "package"
+      (package-description                   (:foreground text))
+      (package-help-section-name             (:foreground text))
+      (package-name                          (:foreground iris))
+      (package-status-avail-obso             (:foreground faded))
+      (package-status-available              (:foreground text))
+      (package-status-built-in               (:foreground iris))
+      (package-status-dependency             (:foreground iris))
+      (package-status-disabled               (:foreground faded))
+      (package-status-external               (:foreground text))
+      (package-status-held                   (:foreground text))
+      (package-status-incompat               (:foreground faded))
+      (package-status-installed              (:foreground iris))
+      (package-status-new                    (:foreground text))
+      (package-status-unsigned               (:foreground text)))
+
+
+    ;; Flyspell
+    (with-eval-after-load "flyspell"
+      (flyspell-duplicate                     (:foreground love))
+      (flyspell-incorrect                     (:foreground love)))
+
+    ;; Ido
+    (with-eval-after-load "ido"
+      (ido-first-match                        (:foreground iris))
+      (ido-only-match                         (:foreground faded))
+      (ido-subdir                             (:foreground surface))
+
+    ;; Eros and Rainbow-delimiters
+    (eros-result-overlay-face                 (:foreground  text :background base))
+    (rainbow-delimiters-base-error-face       (:foreground  love :background base))
+    (rainbow-delimiters-depth-1-face          (:foreground  gold))
+    (rainbow-delimiters-depth-2-face          (:foreground  text))
+    (rainbow-delimiters-depth-3-face          (:foreground  text))
+    (rainbow-delimiters-depth-4-face          (:foreground  text))
+    (rainbow-delimiters-depth-5-face          (:foreground  text))
+    (rainbow-delimiters-depth-6-face          (:foreground  text))
+    (rainbow-delimiters-depth-7-face          (:foreground  text))
+    (rainbow-delimiters-depth-8-face          (:foreground  text))
+    (rainbow-delimiters-depth-9-face          (:foreground  text))
+
+
+    ;; Diff
+    (with-eval-after-load "diff-mode"
+      (diff-header                                      (:foreground faded))
+      (diff-file-header                                 (:foreground surface))
+      (diff-context                                     (:foreground text)))
+      (diff-removed                                     (:foreground faded))
+      (diff-changed                                     (:foreground love))
+      (diff-added                                       (:foreground iris))
+      (diff-refine-added                                (:background iris :foreground surface))
+      (diff-refine-changed                    (:foreground love))
+      (diff-refine-removed                    (:foreground faded))
+      (set-face-attribute     'diff-refine-removed nil :strike-through t))
+
+  ;; Term
+  (with-eval-after-load "term"
+    (term-bold                                   (:foreground surface))
+    (set-face-attribute 'term-color-black nil
+                                            :foreground (face-foreground 'text)
+                                            :background (face-foreground 'text))
+    (set-face-attribute 'term-color-white nil
+                                            :foreground (face-background 'text)
+                                            :background (face-background 'text))
+    (set-face-attribute 'term-color-blue nil
+                                            :foreground "#31748f"
+                                            :background "#3783a1")
+    (set-face-attribute 'term-color-cyan nil
+                                            :foreground "#9ccfd8"
+                                            :background "#89c6d0")
+    (set-face-attribute 'term-color-green nil
+                                            :foreground "#706e86"
+                                            :background "#7c7a92")
+    (set-face-attribute 'term-color-magenta nil
+                                            :foreground "#c4a7e7"
+                                            :background "#b692e1")
+    (set-face-attribute 'term-color-red nil
+                                            :foreground "#eb6f92"
+                                            :background "#ee85a2")
+    (set-face-attribute 'term-color-yellow nil
+                                            :foreground "#f6c177"
+                                            :background "#f4b65f"))
+
+  (with-eval-after-load "calendar"
+    (calendar-today                         (:foreground surface)))
+
+
+
+    ;; org-agenda
+    (with-eval-after-load "org-agenda"
+      (org-agenda-calendar-event              (:foreground text))
+      (org-agenda-calendar-sexp               (:foreground iris))
+      (org-agenda-clocking                    (:foreground faded))
+      (org-agenda-column-dateline             (:foreground faded))
+      (org-agenda-current-time                (:foreground surface))
+      (org-agenda-date                        (:foreground iris))
+      (org-agenda-date-today                  (:background surface :foreground iris))
+      (org-agenda-date-weekend                (:foreground faded))
+      (org-agenda-diary                       (:foreground faded))
+      (org-agenda-dimmed-todo-face            (:foreground faded))
+      (org-agenda-done                        (:foreground faded))
+      (org-agenda-filter-category             (:foreground faded))
+      (org-agenda-filter-effort               (:foreground faded))
+      (org-agenda-filter-regexp               (:foreground faded))
+      (org-agenda-filter-tags                 (:foreground faded))
+      (org-agenda-restriction-lock            (:foreground faded))
+      (org-agenda-structure                   (:foreground surface)))
+
+    ;; org mode
+    (with-eval-after-load "org"
+      (org-archived                            (:foreground faded))
+      (org-block                               (:foreground faded))
+      (org-block-begin-line                    (:foreground faded))
+      (org-block-end-line                      (:foreground faded))
+      (org-checkbox                            (:foreground faded))
+      (org-checkbox-statistics-done            (:foreground faded))
+      (org-checkbox-statistics-todo            (:foreground faded))
+      (org-clock-overlay                       (:foreground faded))
+      (org-code                                (:foreground faded))
+      (org-column                              (:foreground faded))
+      (org-column-title                        (:foreground faded))
+      (org-date                                (:foreground faded))
+      (org-date-selected                       (:foreground faded))
+      (org-default                             (:foreground faded))
+      (org-document-info                       (:foreground faded))
+      (org-document-info-keyword               (:foreground faded))
+      (org-document-title                      (:foreground faded))
+      (org-done                                (:foreground text))
+      (org-drawer                              (:foreground faded))
+      (org-ellipsis                            (:foreground faded))
+      (org-footnote                            (:foreground faded))
+      (org-formula                             (:foreground faded))
+      (org-headline-done                       (:foreground faded))
+      (org-latex-and-related                   (:foreground faded))
+      (org-level-1                             (:foreground surface))
+      (org-level-2                             (:foreground surface))
+      (org-level-3                             (:foreground iris))
+      (org-level-4                             (:foreground text))
+      (org-level-5                             (:foreground text))
+      (org-level-6                             (:foreground text))
+      (org-level-7                             (:foreground text))
+      (org-level-8                             (:foreground text))
+      (org-link                                (:foreground iris))
+      (org-list-dt                             (:foreground faded))
+      (org-macro                               (:foreground faded))
+      (org-meta-line                           (:foreground faded))
+      (org-mode-line-clock                     (:foreground faded))
+      (org-mode-line-clock-overrun             (:foreground faded))
+      (org-priority                            (:foreground faded))
+      (org-property-value                      (:foreground faded))
+      (org-quote                               (:foreground faded))
+      (org-scheduled                           (:foreground faded))
+      (org-scheduled-previously                (:foreground faded))
+      (org-scheduled-today                     (:foreground faded))
+      (org-sexp-date                           (:foreground faded))
+      (org-special-keyword                     (:foreground faded))
+      (org-table                               (:foreground faded))
+      (org-tag                                 (:foreground faded))
+      (org-tag-group                           (:foreground faded))
+      (org-target                              (:foreground faded))
+      (org-time-grid                           (:foreground faded))
+      (org-todo                                (:foreground iris))
+      (org-upcoming-deadline                   (:foreground faded))
+      (org-verbatim                            (:foreground faded))
+      (org-verse                               (:foreground faded))
+      (org-warning                             (:foreground love)))
+
+    ;; Mu4e
+    (with-eval-after-load "mu4e"
+      (mu4e-attach-number-face                 (:foreground surface))
+      (mu4e-cited-1-face                       (:foreground faded))
+      (mu4e-cited-2-face                       (:foreground faded))
+      (mu4e-cited-3-face                       (:foreground faded))
+      (mu4e-cited-4-face                       (:foreground faded))
+      (mu4e-cited-5-face                       (:foreground faded))
+      (mu4e-cited-6-face                       (:foreground faded))
+      (mu4e-cited-7-face                       (:foreground faded))
+      (mu4e-compose-header-face                (:foreground faded))
+      (mu4e-compose-separator-face             (:foreground faded))
+      (mu4e-contact-face                       (:foreground iris))
+      (mu4e-context-face                       (:foreground faded))
+      (mu4e-draft-face                         (:foreground faded))
+      (mu4e-flagged-face                       (:foreground love))
+      (mu4e-footer-face                        (:foreground faded))
+      (mu4e-forwarded-face                     (:foreground faded))
+      (mu4e-header-face                        (:foreground text))
+      (mu4e-header-highlight-face              (:inherit  'hl-line))
+      (mu4e-header-key-face                    (:foreground surface))
+      (mu4e-header-marks-face                  (:foreground faded))
+      (mu4e-header-title-face                  (:foreground surface))
+      (mu4e-header-value-face                  (:foreground text))
+      (mu4e-highlight-face                     (:foreground love))
+      (mu4e-link-face                          (:foreground iris))
+      (mu4e-modeline-face                      (:foreground faded))
+      (mu4e-moved-face                         (:foreground faded))
+      (mu4e-ok-face                            (:foreground faded))
+      (mu4e-region-code                        (:foreground faded))
+      (mu4e-replied-face                       (:foreground text))
+      (mu4e-special-header-value-face          (:foreground text))
+      (mu4e-system-face                        (:foreground faded))
+      (mu4e-title-face                         (:foreground surface))
+      (mu4e-trashed-face                       (:foreground faded))
+      (mu4e-unread-face                        (:foreground surface))
+      (mu4e-url-number-face                    (:foreground faded))
+      (mu4e-view-body-face                     (:foreground text))
+      (mu4e-warning-face                       (:foreground love)))
+
+    ;; Elfeed
+    (with-eval-after-load "elfeed"
+      (elfeed-log-date-face                              (:foreground faded))
+      (elfeed-log-info-level-face                        (:foreground text))
+      (elfeed-log-debug-level-face                       (:foreground text))
+      (elfeed-log-warn-level-face                        (:foreground love))
+      (elfeed-log-error-level-face                       (:foreground love))
+      (elfeed-search-tag-face                            (:foreground faded))
+      (elfeed-search-date-face                           (:foreground faded))
+      (elfeed-search-feed-face                           (:foreground iris))
+      (elfeed-search-filter-face                         (:foreground faded))
+      (elfeed-search-last-update-face                    (:foreground iris))
+      (elfeed-search-title-face                          (:foreground text))
+      (elfeed-search-tag-face                            (:foreground faded))
+      (elfeed-search-unread-count-face                   (:foreground surface))
+      (elfeed-search-unread-title-face                   (:foreground surface)))
+
+
+    ;; RST mode
+    (with-eval-after-load "rst"
+      (rst-adornment                                    (:foreground faded))
+      (rst-block                                        (:foreground text))
+      (rst-comment                                      (:foreground faded))
+      (rst-definition                                   (:foreground iris))
+      (rst-directive                                    (:foreground iris))
+      (rst-emphasis1                                    (:foreground faded))
+      (rst-emphasis2                                    (:foreground surface))
+      (rst-external                                     (:foreground iris))
+      (rst-level-1                                      (:foreground surface))
+      (rst-level-2                                      (:foreground surface))
+      (rst-level-3                                      (:foreground surface))
+      (rst-level-4                                      (:foreground surface))
+      (rst-level-5                                      (:foreground surface))
+      (rst-level-6                                      (:foreground surface))
+      (rst-literal                                      (:foreground iris))
+      (rst-reference                                    (:foreground iris))
+      (rst-transition                                   (:foreground text)))
+
+    ;; Markdown mode
+    (with-eval-after-load "markdown-mode"
+      (markdown-blockquote-face              (:foreground text))
+      (markdown-bold-face                    (:foreground surface))
+      (markdown-code-face                    (:foreground text))
+      (markdown-comment-face                 (:foreground faded))
+      (markdown-footnote-marker-face         (:foreground text))
+      (markdown-footnote-text-face           (:foreground text))
+      (markdown-gfm-checkbox-face            (:foreground text))
+      (markdown-header-delimiter-face        (:foreground faded))
+      (markdown-header-face                  (:foreground surface))
+      (markdown-header-face-1                (:foreground surface))
+      (markdown-header-face-2                (:foreground surface))
+      (markdown-header-face-3                (:foreground surface))
+      (markdown-header-face-4                (:foreground surface))
+      (markdown-header-face-5                (:foreground surface))
+      (markdown-header-face-6                (:foreground surface))
+      (markdown-header-rule-face             (:foreground text))
+      (markdown-highlight-face               (:foreground text))
+      (markdown-hr-face                      (:foreground text))
+      (markdown-html-attr-name-face          (:foreground text))
+      (markdown-html-attr-value-face         (:foreground text))
+      (markdown-html-entity-face             (:foreground text))
+      (markdown-html-tag-delimiter-face      (:foreground text))
+      (markdown-html-tag-name-face           (:foreground text))
+      (markdown-inline-code-face             (:foreground love))
+      (markdown-italic-face                  (:foreground faded))
+      (markdown-language-info-face           (:foreground text))
+      (markdown-language-keyword-face        (:foreground text))
+      (markdown-line-break-face              (:foreground text))
+      (markdown-link-face                    (:foreground iris))
+      (markdown-link-title-face              (:foreground text))
+      (markdown-list-face                    (:foreground faded))
+      (markdown-markup-face                  (:foreground faded))
+      (markdown-math-face                    (:foreground text))
+      (markdown-metadata-key-face            (:foreground faded))
+      (markdown-metadata-value-face          (:foreground faded))
+      (markdown-missing-link-face            (:foreground text))
+      (markdown-plain-url-face               (:foreground text))
+      (markdown-pre-face                     (:foreground text))
+      (markdown-reference-face               (:foreground iris))
+      (markdown-strike-through-face          (:foreground faded))
+      (markdown-table-face                   (:foreground text))
+      (markdown-url-face                     (:foreground iris)))
+
+    ;; Ivy
+    (with-eval-after-load "ivy"
+      (ivy-action                              (:foreground faded))
+      (ivy-completions-annotations             (:foreground faded))
+      (ivy-confirm-face                        (:foreground faded))
+      (ivy-current-match                       (:background surface :foreground subtle))
+      (ivy-cursor                              (:foreground surface))
+      (ivy-grep-info                           (:foreground surface))
+      (ivy-grep-line-number                    (:foreground faded))
+      (ivy-highlight-face                      (:foreground surface))
+      (ivy-match-required-face                 (:foreground faded))
+      (ivy-minibuffer-match-face-1             (:foreground iris))
+      (ivy-minibuffer-match-face-2             (:foreground iris))
+      (ivy-minibuffer-match-face-3             (:foreground iris))
+      (ivy-minibuffer-match-face-4             (:foreground iris))
+      (ivy-minibuffer-match-highlight          (:foreground surface))
+      (ivy-modified-buffer                     (:foreground faded))
+      (ivy-modified-outside-buffer             (:foreground faded))
+      (ivy-org                                 (:foreground faded))
+      (ivy-prompt-match                        (:foreground faded))
+      (ivy-remote                              (:foreground text))
+      (ivy-separator                           (:foreground faded))
+      (ivy-subdir                              (:foreground faded))
+      (ivy-virtual                             (:foreground faded))
+      (ivy-yanked-word                         (:foreground faded)))
+
+
+
+    ))
+
+  ;;;###autoload
+  (and load-file-name
+       (boundp 'custom-theme-load-path)
+       (add-to-list 'custom-theme-load-path
+                    (file-name-as-directory
+                     (file-name-directory load-file-name))))
+
+  (provide-theme 'rose-pine-color)
+
+  ;; End:
+
+  ;;; rose-pine-color-theme.el ends here
+#+end_src
