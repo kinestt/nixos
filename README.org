@@ -10,7 +10,7 @@ The machines:
 
 I use [[https://orgmode.org/][org-mode]] in [[https://www.gnu.org/software//emacs/][emacs]] to manage my NixOS configuration.
 
-To use this repo
+To use this repo:
 - First clone the repo
 - Assuming you've emacs installed in your nixos system, run the command below
 #+begin_src bash :tangle no
