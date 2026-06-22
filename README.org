@@ -11,17 +11,17 @@ The machines:
 I use [[https://orgmode.org/][org-mode]] in [[https://www.gnu.org/software//emacs/][emacs]] to manage my NixOS configuration.
 
 To use this repo
-1. First clone the repo
-2. Assuming you've emacs installed in your nixos system, run the command below
+- First clone the repo
+- Assuming you've emacs installed in your nixos system, run the command below
 #+begin_src bash :tangle no
    emacs README.org --batch -f org-babel-tangle
 #+end_src
    The above will generate all the .nix files.
-3. Then run the nixos-rebuild command
+- Then run the nixos-rebuild command
 #+begin_src bash :tangle no
    sudo nixos-rebuild switch --flake .#<lenovo/server>
 #+end_src
-4. For [[https://github.com/nix-community/home-manager][Home-Manager]] configuration, run the following while being in the repo directory.
+- For [[https://github.com/nix-community/home-manager][Home-Manager]] configuration, run the following while being in the repo directory.
 #+begin_src bash :tangle no
    home-manager switch --flake .#kin-lenovo
 #+end_src
