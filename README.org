@@ -3,9 +3,10 @@
 #+PROPERTY: header-args  :noweb tangle :results silent :mkdirp yes
 
 Hello! This is my NixOS configuration that I use to maintain my systems.
+
 The machines:
-1. ~lenovo~
-2. ~server~
+- ~lenovo~
+- ~server~
 
 
 * The Flake File
