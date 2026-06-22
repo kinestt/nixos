@@ -1,4 +1,5 @@
 #+TITLE: My NixOS Configuration
+#+OPTIONS: toc:nil broken-links: t
 #+PROPERTY: header-args  :noweb tangle :results silent :mkdirp yes
 
 Hello! This is my NixOS configuration that I use to maintain my systems.
