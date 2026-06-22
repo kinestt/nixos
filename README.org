@@ -12,7 +12,7 @@ The machines:
 * The Flake File
 In NixOS flakes are used to package and manage Nix projects, flakes are used as a way to produce reproducible builds as well as controlling multiple systems.
 
-I also use flakes as a way to import my non-flake files and use it to import files within the various non-flake git repositories, examples of this last statment is the input named ~walls~ that fetches from my repo that stores wallpapers, this is later used in [[file:modules/features/wm/niri.nix]]
+I also use flakes as a way to import my non-flake files and use it to import files within the various non-flake git repositories, examples of this last statment is the input named ~walls~ that fetches from my repo that stores wallpapers, this is later used in [[file:modules/features/wm/niri.nix][Niri]].
 
 #+begin_src nix :tangle flake.nix
   {
