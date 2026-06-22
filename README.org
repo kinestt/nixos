@@ -1,9 +1,14 @@
 #+TITLE: My NixOS Configuration
 #+PROPERTY: header-args  :noweb tangle :results silent :mkdirp yes
 
+Hello! This is my NixOS configuration that I use to maintain my systems.
+The machines:
+1. ~lenovo~
+2. ~server~
+
+
 * The Flake File
-In NixOS flakes are used to package and manage Nix projects, I and many others use flakes as a means
-to 
+In NixOS flakes are used to package and manage Nix projects, flakes are used as a way to produce reproducible builds as well as controlling multiple systems.
 
 #+begin_src nix :tangle flake.nix
   {
