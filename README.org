@@ -2740,7 +2740,7 @@ The default hosts structure goes as follows
 #+end_src
 ** Logic
 *** homeModules
-#+begin_src nix :tangle logic/homeModules.nix
+#+begin_src nix :tangle modules/logic/homeModules.nix
   {
     lib,
     moduleLocation,
