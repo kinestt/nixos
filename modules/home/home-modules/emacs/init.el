@@ -24,6 +24,8 @@
 
 ;; Evil Mode
 (use-package evil
+  :init
+  (setq evil-want-C-u-scroll t)
   :config
   (evil-mode 1))
 

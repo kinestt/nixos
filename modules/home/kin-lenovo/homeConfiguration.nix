@@ -42,6 +42,7 @@
         blanket
         nwg-look
         lsd
+        via
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];

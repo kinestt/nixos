@@ -203,7 +203,6 @@ The default hosts structure goes as follows
           zip
           spotify
 
-          #inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
         ];
       };
 
@@ -230,6 +229,8 @@ The default hosts structure goes as follows
       environment = { 
         systemPackages = with pkgs; [
           git
+          inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
+
           #(pkgs.spotify.overrideAttrs (old: {
           #  nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
           #    pkgs.makeWrapper
@@ -2170,6 +2171,7 @@ The default hosts structure goes as follows
           blanket
           nwg-look
           lsd
+          via
 
           inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
         ];
@@ -2364,7 +2366,6 @@ The default hosts structure goes as follows
                 darkreader
                 sponsorblock
                 stylus
-                youtube-enhancer-vc
               ];
             };
             userChrome = ''
@@ -2895,6 +2896,8 @@ The default hosts structure goes as follows
 
   ;; Evil Mode
   (use-package evil
+    :init
+    (setq evil-want-C-u-scroll t)
     :config
     (evil-mode 1))
 

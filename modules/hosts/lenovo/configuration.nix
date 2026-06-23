@@ -55,7 +55,6 @@
         zip
         spotify
 
-        #inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
       ];
     };
 
@@ -82,6 +81,8 @@
     environment = { 
       systemPackages = with pkgs; [
         git
+        inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
+
         #(pkgs.spotify.overrideAttrs (old: {
         #  nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
         #    pkgs.makeWrapper
