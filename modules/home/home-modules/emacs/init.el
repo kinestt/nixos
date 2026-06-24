@@ -20,7 +20,13 @@
 ;; Custom folder which contains .el files that can be loaded by the load command
 (add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
 (load "rose-pine-color-theme")
-(load-theme 'rose-pine-color t)
+;; (load-theme 'rose-pine-color t)
+
+;; Base16 Theme
+(use-package base16-theme
+  :ensure t
+  :config
+  (load-theme 'base16-rose-pine t))
 
 ;; Evil Mode
 (use-package evil
@@ -46,7 +52,7 @@
 (use-package rainbow-mode
   :hook (after-change-major-mode . rainbow-mode))
 
-;; pdf-tools
+;; Pdf-tools
 (use-package pdf-tools
   :defer t
   :mode "\\.pdf\\'"
@@ -60,3 +66,12 @@
   :config (add-to-list 'revert-without-query ".pdf"))
 (add-hook 'pdf-view-mode-hook #'(lambda () (interactive) (display-line-numbers-mode -1)))
 (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode)
+
+;; Emms
+(use-package emms
+  :ensure t
+  :config
+  (require 'emms-setup)
+  (emms-all)
+  (emms-default-players)
+  (setq emms-player-list '(emms-player-mpv)))

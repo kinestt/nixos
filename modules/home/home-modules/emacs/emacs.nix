@@ -9,14 +9,16 @@
       enable = true;
       package = (pkgs.emacs-git-pgtk.override { withTreeSitter = true; });
 
-      extraPackages = epkgs: [
-        epkgs.evil
-        epkgs.nerd-icons
-				epkgs.vterm
-				epkgs.autothemer
-				epkgs.nix-mode
-        epkgs.rainbow-mode
-        epkgs.pdf-tools
+      extraPackages = epkgs: with epkgs; [
+        evil
+        nerd-icons
+				vterm
+				autothemer
+				nix-mode
+        rainbow-mode
+        pdf-tools
+        emms
+        base16-theme
       ];
     };
 

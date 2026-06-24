@@ -43,6 +43,7 @@
         nwg-look
         lsd
         via
+        streamrip
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];

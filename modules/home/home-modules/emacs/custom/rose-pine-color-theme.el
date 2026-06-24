@@ -27,7 +27,7 @@
   (high       "#6e6a86")  ;; highlight
   (gold       "#f6c177")  ;; critical
   (iris       "#c4a7e7")  ;; salient
-  (surface    "#b4637a")  ;; strong
+  (surface    "#555169")  ;; strong
   (love       "#eb6f92")  ;; popout
   (subtle     "#6e6a86")  ;; subtle
   (faded      "#cecaed")  ;; faded
