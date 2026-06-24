@@ -1,6 +1,7 @@
 #+TITLE: My NixOS Configuration
 #+OPTIONS: toc:nil broken-links: t
 #+PROPERTY: header-args  :noweb tangle :results silent :mkdirp yes
+#+STARTUP: content
 
 Hello! This is my [[https://nixos.org/][NixOS]] configuration that I use to maintain my machines. 
 
