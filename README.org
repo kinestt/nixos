@@ -230,6 +230,8 @@ The default hosts structure goes as follows
       environment = { 
         systemPackages = with pkgs; [
           git
+          mullvad
+          mullvad-vpn
           inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
 
           #(pkgs.spotify.overrideAttrs (old: {
@@ -260,6 +262,10 @@ The default hosts structure goes as follows
       networking.wireless.iwd.enable = true;
       networking.networkmanager.wifi.backend = "iwd";
 
+      services.mullvad-vpn = {
+        enable = true;
+      };
+      
       swapDevices = [
         { 
           device = "/var/lib/swapfile";
@@ -1023,6 +1029,17 @@ The default hosts structure goes as follows
         alsa.support32Bit = true;
         pulse.enable = true;
         jack.enable = true;
+
+        extraConfig = {
+          pipewire = {
+            "65-hires-audio.conf" = {
+              "context.properties" = {
+                "default.clock.rate" = "192000";
+                "default.clock.allowed.rates" = [ "44100" "48000" "88200" "96000" "176400" "192000" ];
+              };
+            };
+          }; 
+        };
 
   #      extraConfig = {
   #        pipewire = {
@@ -1966,6 +1983,7 @@ The default hosts structure goes as follows
                 {app-id = "spotify";}
                 {app-id = "Spotify";}
                 {app-id = "equibop";}
+                {app-id = "tidal-hifi";}
                 {app-id = "chromium-browser";}
                 {app-id = "io.github.tdesktop_x64.TDesktop";}
               ];
@@ -2174,6 +2192,7 @@ The default hosts structure goes as follows
           lsd
           via
           streamrip
+          tidal-hifi
 
           inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
         ];

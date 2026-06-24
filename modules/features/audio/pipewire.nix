@@ -19,6 +19,17 @@
       pulse.enable = true;
       jack.enable = true;
 
+      extraConfig = {
+        pipewire = {
+          "65-hires-audio.conf" = {
+            "context.properties" = {
+              "default.clock.rate" = "192000";
+              "default.clock.allowed.rates" = [ "44100" "48000" "88200" "96000" "176400" "192000" ];
+            };
+          };
+        }; 
+      };
+
 #      extraConfig = {
 #        pipewire = {
 #          "50-bitperfect-dac.conf" = {

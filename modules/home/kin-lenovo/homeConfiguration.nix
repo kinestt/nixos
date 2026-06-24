@@ -44,6 +44,7 @@
         lsd
         via
         streamrip
+        tidal-hifi
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];

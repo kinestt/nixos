@@ -81,6 +81,8 @@
     environment = { 
       systemPackages = with pkgs; [
         git
+        mullvad
+        mullvad-vpn
         inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
 
         #(pkgs.spotify.overrideAttrs (old: {
@@ -111,6 +113,10 @@
     networking.wireless.iwd.enable = true;
     networking.networkmanager.wifi.backend = "iwd";
 
+    services.mullvad-vpn = {
+      enable = true;
+    };
+    
     swapDevices = [
       { 
         device = "/var/lib/swapfile";
