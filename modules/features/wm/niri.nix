@@ -43,19 +43,19 @@
           };
         };
         layout = {
-          gaps = 1;
+          gaps = 6;
           center-focused-column = "never";
           focus-ring = {
             active-color = "#907aa9";
             inactive-color = "#907aa9";
-            width = 1;
+            width = 2;
           };
         };
         outputs = {
           "eDP-1" = {
             # off = _: {};
             mode = "1920x1080@165.002";
-            scale = 1;
+            scale = 1.25;
             position = _: {
               props = {
                 x = 0;
