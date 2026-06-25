@@ -74,6 +74,8 @@
       compose2nix
       unzip
       zip
+      streamrip
+      ffmpeg
     ];
     networking = {
       hostName = "server";

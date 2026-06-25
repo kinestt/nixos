@@ -354,6 +354,8 @@ The default hosts structure goes as follows
         compose2nix
         unzip
         zip
+        streamrip
+        ffmpeg
       ];
       networking = {
         hostName = "server";
