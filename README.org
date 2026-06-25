@@ -1791,6 +1791,7 @@ The default hosts structure goes as follows
       systemd.services.qbittorrent = {
         serviceConfig = {
           UMask = "000";
+          ProtectHome = false;
         };
       };
     };

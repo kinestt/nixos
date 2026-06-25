@@ -16,6 +16,7 @@
     systemd.services.qbittorrent = {
       serviceConfig = {
         UMask = "000";
+        ProtectHome = false;
       };
     };
   };
