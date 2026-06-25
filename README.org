@@ -1437,7 +1437,7 @@ To use this program, after installing run this:
 #+end_src
 
 | Flag   | Action               |
-| ---    | ---                  |
+|--------+----------------------|
 | -r     | replaygain           |
 | -w     | overwrite            |
 | -z     | zeropad tracknumbers |
