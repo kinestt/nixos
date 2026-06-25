@@ -28,6 +28,7 @@
       self.nixosModules.bash
       self.nixosModules.yazi
       self.nixosModules.stirlingpdf
+      self.nixosModules.whatmp3
 
       inputs.sops-nix.nixosModules.sops
     ];
