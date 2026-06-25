@@ -124,7 +124,7 @@
         binds = {
           "Mod+Return".spawn-sh = "foot";
           "Mod+D".spawn-sh = "fuzzel";
-          "Mod+B".spawn-sh = "firefox";
+          "Mod+B".spawn-sh = "chromium-browser";
           "Mod+P".spawn-sh = "spotify";
           "Mod+U".spawn-sh = "emacs";
 
