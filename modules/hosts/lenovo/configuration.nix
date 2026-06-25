@@ -21,7 +21,6 @@
       self.nixosModules.fish
       self.nixosModules.bash
       self.nixosModules.customFonts
-      self.nixosModules.whatmp3
     ];
 
     #boot.loader.systemd-boot.enable = true;

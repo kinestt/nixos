@@ -170,7 +170,6 @@ The default hosts structure goes as follows
         self.nixosModules.fish
         self.nixosModules.bash
         self.nixosModules.customFonts
-        self.nixosModules.whatmp3
       ];
 
       #boot.loader.systemd-boot.enable = true;
@@ -1428,12 +1427,12 @@ The default hosts structure goes as follows
   }
 #+end_src
 **** Whatmp3
-I have packaged whatmp3 to be an executable in /nix/store.
+I have packaged whatmp3 as a nix package.
 This is used to transcode flac files to mp3 [320, V0], also used to downsample flac from 24 bit to 16 bit.
 
 To use this program, after installing run this:
 #+begin_src bash
-  whatmp3 -rwdz -o <outputdir> -t <tracker announce url> --FLAC --320 --V0 <flac dir>
+  whatmp3 -rwdz -o <outputdir> -s "RED" -t <tracker announce url> --FLAC --320 --V0 <flac dir>
 #+end_src
 
 | Flag   | Action               |
@@ -1442,6 +1441,7 @@ To use this program, after installing run this:
 | -w     | overwrite            |
 | -z     | zeropad tracknumbers |
 | -d     | dither to 16/44.1    |
+| -s     | Source              |
 | --320  | Convert to mp3 320   |
 | --V0   | Convert to mp3 V0    |
 | --FLAC | Convert to flac      |
@@ -1482,7 +1482,7 @@ To use this program, after installing run this:
           patchShebangs "$out/bin"
 
           wrapProgram "$out/bin/whatmp3" \
-            --prefix PATH : ${
+            --set PATH : ${
                 pkgs.lib.makeBinPath [
                     pkgs.flac
                     pkgs.lame
