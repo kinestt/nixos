@@ -4,6 +4,7 @@
   ...
 }: {
   flake.nixosModules.bash = {
+    lib,
     pkgs,
     ...
   }: let 
@@ -15,10 +16,10 @@
         nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$HOSTNAME";
         hms = "home-manager switch --flake ${nixosDir}#$USER-$HOSTNAME";
         y = "yazi";
-        l = "lsd -l";
-        la = "lsd -a";
-        lla = "lsd -la";
-        lt = "lsd --tree";
+        l = "${lib.getExe pkgs.lsd} -l";
+        la = "${lib.getExe pkgs.lsd} -a";
+        lla = "${lib.getExe pkgs.lsd}-la";
+        lt = "${lib.getExe pkgs.lsd} --tree";
       };
       enableLsColors = true;
     };

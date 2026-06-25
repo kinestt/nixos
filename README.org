@@ -306,6 +306,7 @@ The default hosts structure goes as follows
         self.nixosModules.docker
         self.nixosModules.fish
         self.nixosModules.bash
+        self.nixosModules.yazi
         self.nixosModules.stirlingpdf
 
         inputs.sops-nix.nixosModules.sops
@@ -483,6 +484,7 @@ The default hosts structure goes as follows
     ...
   }: {
     flake.nixosModules.bash = {
+      lib,
       pkgs,
       ...
     }: let 
@@ -494,10 +496,10 @@ The default hosts structure goes as follows
           nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$HOSTNAME";
           hms = "home-manager switch --flake ${nixosDir}#$USER-$HOSTNAME";
           y = "yazi";
-          l = "lsd -l";
-          la = "lsd -a";
-          lla = "lsd -la";
-          lt = "lsd --tree";
+          l = "${lib.getExe pkgs.lsd} -l";
+          la = "${lib.getExe pkgs.lsd} -a";
+          lla = "${lib.getExe pkgs.lsd}-la";
+          lt = "${lib.getExe pkgs.lsd} --tree";
         };
         enableLsColors = true;
       };
