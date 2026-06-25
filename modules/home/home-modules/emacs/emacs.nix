@@ -7,7 +7,7 @@
   }: { 
     programs.emacs = {
       enable = true;
-      package = (pkgs.emacs-git-pgtk.override { withTreeSitter = true; });
+      package = (pkgs.emacs-pgtk.override { withTreeSitter = true; });
 
       extraPackages = epkgs: with epkgs; [
         evil
