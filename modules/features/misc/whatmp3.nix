@@ -33,7 +33,7 @@
         patchShebangs "$out/bin"
 
         wrapProgram "$out/bin/whatmp3" \
-          --set PATH : ${
+          --prefix PATH : ${
               pkgs.lib.makeBinPath [
                   pkgs.flac
                   pkgs.lame
