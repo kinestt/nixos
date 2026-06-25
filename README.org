@@ -1428,6 +1428,23 @@ The default hosts structure goes as follows
   }
 #+end_src
 **** Whatmp3
+I have packaged whatmp3 to be an executable in /nix/store.
+This is used to transcode flac files to mp3 [320, V0], also used to downsample flac from 24 bit to 16 bit.
+
+To use this program, after installing run this:
+#+begin_src bash
+  whatmp3 -rwdz -o <outputdir> -t <tracker announce url> --FLAC --320 --V0 <flac dir>
+#+end_src
+
+| Flag   | Action               |
+| ---    | ---                  |
+| -r     | replaygain           |
+| -w     | overwrite            |
+| -z     | zeropad tracknumbers |
+| -d     | dither to 16/44.1    |
+| --320  | Convert to mp3 320   |
+| --V0   | Convert to mp3 V0    |
+| --FLAC | Convert to flac      |
 #+begin_src nix :tangle modules/features/misc/whatmp3.nix
   {
     self,
