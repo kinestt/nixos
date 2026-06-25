@@ -1,6 +1,7 @@
 {
   self,
   inputs,
+  lib,
   ...
 }: {
   flake.nixosModules.qbittorrent = {
@@ -16,7 +17,7 @@
     systemd.services.qbittorrent = {
       serviceConfig = {
         UMask = "000";
-        ProtectHome = false;
+        ProtectHome = lib.mkDefault false;
       };
     };
   };

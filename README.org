@@ -1776,6 +1776,7 @@ The default hosts structure goes as follows
   {
     self,
     inputs,
+    lib,
     ...
   }: {
     flake.nixosModules.qbittorrent = {
@@ -1791,7 +1792,7 @@ The default hosts structure goes as follows
       systemd.services.qbittorrent = {
         serviceConfig = {
           UMask = "000";
-          ProtectHome = false;
+          ProtectHome = lib.mkDefault false;
         };
       };
     };
