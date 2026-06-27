@@ -40,10 +40,15 @@
     users.users.kin = {
       isNormalUser = true;
       description = "kin";
-      extraGroups = ["wheel"];
+      extraGroups = ["wheel" "docker"];
       shell = pkgs.bash;
       home = "/home/kin";
     };
+
+    virtualisation.docker = {
+      enable = true;
+    };
+    
     sops = {
       defaultSopsFile = "${secretspath}/secrets/server.yaml";
       age = {
