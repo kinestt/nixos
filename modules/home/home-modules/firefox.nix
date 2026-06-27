@@ -82,6 +82,7 @@
               darkreader
               sponsorblock
               stylus
+              violentmonkey
             ];
           };
           userChrome = ''
