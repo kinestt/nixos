@@ -27,7 +27,6 @@
       inherit pkgs;
       plugins = with pkgs; [
         vimPlugins.fzf-vim
-        vimPlugins.lightline-vim         
       ];
       vimrc = '' 
         set number
@@ -87,7 +86,6 @@
 
         set laststatus=2
         set background=dark
-        let g:lightline = {'colorscheme' : 'rosepine'}
       '';
     };
   };

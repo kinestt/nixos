@@ -27,13 +27,15 @@
         width = 300;
         height = 110;
         padding = "0,15,20";
-        background-color = "#191724";
+        background-color = "#282828";
+
         "urgency=normal" = {
-          border-color = "#ebbcba";
+            border-color = "#458588"; # blue
         };
+
         "urgency=high" = {
-          border-color = "#d7827e";
-          default-timeout = 0;
+            border-color = "#cc241d"; # red
+            default-timeout = 0;
         };
       };
     };

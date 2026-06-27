@@ -9,10 +9,10 @@
       enable = true;
       package = pkgs.evil-helix;
       settings = {
-        theme =  "rose_pine_transparent";
+        theme =  "gruvbox_transparent";
       };
-      themes."rose_pine_transparent" = {
-        inherits = "rose_pine";
+      themes."gruvbox_transparent" = {
+        inherits = "gruvbox";
         "ui.background" = {};
       };
     };

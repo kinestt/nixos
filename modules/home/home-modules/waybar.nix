@@ -40,46 +40,56 @@
         };
       };
       style = "
-        #waybar {
-        font-family: 'Iosevka Nerd Font Propo';
-          font-size: 14px;
+      #waybar {
+          font-family: 'Iosevka Nerd Font Propo';
+          font-size: 16px;
           font-weight: normal;
-          background-color: rgba(25, 23, 36, 1);
-        }
-        #cpu {
-          color: #c4a7e7;
-        }
-        #memory {
-          color: #9ccfd8;
-        }
-        #battery {
-          color: #ebbcba;
-        }
-        #clock.date {
-          color: #f6c177;
-        }
-        #clock.time {
-          color: #eb6f92;
-        }
-        #window {
-          color: #6e6a86;
-        }
-        #workspaces button {
+          background-color: rgba(40, 40, 40, 1);
+      }
+
+      #cpu {
+          color: #d3869b;
+      }
+
+      #memory {
+          color: #8ec07c;
+      }
+
+      #battery {
+          color: #fabd2f;
+      }
+
+      #clock.date {
+          color: #fe8019;
+      }
+
+      #clock.time {
+          color: #fb4934;
+      }
+
+      #window {
+          color: #928374;
+      }
+
+      #workspaces button {
           all: initial;
-          color: #6e6a86;
+          color: #928374;
           padding: 0 8px;
           margin: 0;
-        }
-        #workspaces button.active {
-          color: #c4a7e7;
-        }
-        #workspaces button:hover {
-          color: #908caa;
-        }
-        #custom-seperator {
-          color: #9893a5;
+      }
+
+      #workspaces button.active {
+          color: #b8bb26;
+      }
+
+      #workspaces button:hover {
+          color: #ebdbb2;
+      }
+
+      #custom-seperator {
+          color: #7c6f64;
           padding: 0px;
-        }
+      }
       ";
     };
   };

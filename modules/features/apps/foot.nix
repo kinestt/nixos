@@ -22,35 +22,36 @@
       inherit pkgs;
       settings = {
         main = {
-          font = "Iosevka Nerd Font Mono:size=11";
+          font = "Iosevka Nerd Font Mono:size=12";
         };
         colors-dark = {
           alpha = "1";
           blur = "no";
-          background = "191724";
-          foreground = "e0def4";
+          background = "282828";
+          foreground = "ebdbb2";
 
-          regular0 = "26233a";
-          regular1 = "eb6f92";
-          regular2 = "9ccfd8";
-          regular3 = "f6c177";
-          regular4 = "31748f";
-          regular5 = "c4a7e7";
-          regular6 = "ebbcba";
-          regular7 = "e0def4";
+          regular0 = "282828";
+          regular1 = "cc241d";
+          regular2 = "98971a";
+          regular3 = "d79921";
+          regular4 = "458588";
+          regular5 = "b16286";
+          regular6 = "689d6a";
+          regular7 = "a89984";
 
-          bright0 = "47435d";
-          bright1 = "ff98ba";
-          bright2 = "c5f9ff";
-          bright3 = "ffeb9e";
-          bright4 = "5b9ab7";
-          bright5 = "eed0ff";
-          bright6 = "ffe5e3";
-          bright7 = "fefcff";
+          bright0 = "928374";
+          bright1 = "fb4934";
+          bright2 = "b8bb26";
+          bright3 = "fabd2f";
+          bright4 = "83a598";
+          bright5 = "d3869b";
+          bright6 = "8ec07c";
+          bright7 = "ebdbb2";
 
-          flash = "f6c177";
+          selection-background = "504945";
+          selection-foreground = "ebdbb2";
 
-          cursor = "191724 e0def4";
+          urls = "83a598";
         };
       };
     };

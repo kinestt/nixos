@@ -12,12 +12,12 @@
       self.homeModules.alacritty
       self.homeModules.gtk
       self.homeModules.fuzzel
-      self.homeModules.waybar
       self.homeModules.firefox
       self.homeModules.helix
       self.homeModules.chromium
       self.homeModules.gtk-fonts
       self.homeModules.emacs
+      self.homeModules.waybar
     ];
     home = {
       username = "kin";

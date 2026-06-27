@@ -26,7 +26,7 @@
 (use-package base16-theme
   :ensure t
   :config
-  (load-theme 'base16-rose-pine t))
+  (load-theme 'base16-gruvbox-dark t))
 
 ;; Evil Mode
 (use-package evil

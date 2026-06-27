@@ -480,9 +480,9 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-** Features
-*** Applications
-**** Bash
+* Features
+** Applications
+*** Bash
 #+begin_src nix :tangle modules/features/apps/bash.nix 
   {
     self,
@@ -512,7 +512,7 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-**** Fish
+*** Fish
 #+begin_src nix :tangle modules/features/apps/fish.nix 
   {
     self,
@@ -548,7 +548,7 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-**** Foot
+*** Foot
 #+begin_src nix :tangle modules/features/apps/foot.nix 
   {
     self,
@@ -574,42 +574,43 @@ The default hosts structure goes as follows
         inherit pkgs;
         settings = {
           main = {
-            font = "Iosevka Nerd Font Mono:size=11";
+            font = "Iosevka Nerd Font Mono:size=12";
           };
           colors-dark = {
             alpha = "1";
             blur = "no";
-            background = "191724";
-            foreground = "e0def4";
+            background = "282828";
+            foreground = "ebdbb2";
 
-            regular0 = "26233a";
-            regular1 = "eb6f92";
-            regular2 = "9ccfd8";
-            regular3 = "f6c177";
-            regular4 = "31748f";
-            regular5 = "c4a7e7";
-            regular6 = "ebbcba";
-            regular7 = "e0def4";
+            regular0 = "282828";
+            regular1 = "cc241d";
+            regular2 = "98971a";
+            regular3 = "d79921";
+            regular4 = "458588";
+            regular5 = "b16286";
+            regular6 = "689d6a";
+            regular7 = "a89984";
 
-            bright0 = "47435d";
-            bright1 = "ff98ba";
-            bright2 = "c5f9ff";
-            bright3 = "ffeb9e";
-            bright4 = "5b9ab7";
-            bright5 = "eed0ff";
-            bright6 = "ffe5e3";
-            bright7 = "fefcff";
+            bright0 = "928374";
+            bright1 = "fb4934";
+            bright2 = "b8bb26";
+            bright3 = "fabd2f";
+            bright4 = "83a598";
+            bright5 = "d3869b";
+            bright6 = "8ec07c";
+            bright7 = "ebdbb2";
 
-            flash = "f6c177";
+            selection-background = "504945";
+            selection-foreground = "ebdbb2";
 
-            cursor = "191724 e0def4";
+            urls = "83a598";
           };
         };
       };
     };
   }
 #+end_src
-**** NVF
+*** NVF
 #+begin_src nix :tangle modules/features/apps/nvf.nix 
   { 
     self,
@@ -742,8 +743,8 @@ The default hosts structure goes as follows
               };
               theme = {
                 enable = true;
-                name = "rose-pine";
-                style = "main";
+                name = "gruvbox";
+                style = "dark";
                 transparent = true;
               };
               terminal = {
@@ -759,7 +760,7 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-**** Tmux
+*** Tmux
 #+begin_src nix :tangle modules/features/apps/tmux.nix 
   {
     self,
@@ -781,21 +782,7 @@ The default hosts structure goes as follows
     }: {
       packages.myTmux = inputs.wrapper-modules.wrappers.tmux.wrap {
         inherit pkgs;
-        configAfter = let 
-          thm_bg="#191724";
-          thm_fg="#e0def4";
-          thm_black="#16141f";
-          thm_gray="#403d52";
-          thm_black4="#524f67";
-          thm_red="#eb6f92";
-          thm_pink="#eb6f92";
-          thm_green="#9ccfd8";
-          thm_yellow="#f6c177";
-          thm_orange="#ea9a97";
-          thm_blue="#31748f";
-          thm_cyan="#9ccfd8";
-          thm_magenta="#c4a7e7";
-        in ''
+        configAfter = ''
           set -g default-terminal "tmux-256color"
           set -ga terminal-overrides ",*:RGB"
           set -g mouse on
@@ -843,49 +830,12 @@ The default hosts structure goes as follows
 
           bind -n S-Left previous-window
           bind -n S-Right next-window 
-
-          # Status bar
-          set -g status "on"
-          set -g status-bg "${thm_bg}"
-          set -g status-justify "left"
-          set -g status-left-length "100"
-          set -g status-right-length "100"
-          set -g status-position "top"
-
-          # Messages
-          set -g message-style "fg=${thm_cyan},bg=${thm_gray},align=centre"
-          set -g message-command-style "fg=${thm_cyan},bg=${thm_gray},align=centre"
-
-          # Panes
-          set -g pane-border-style "fg=${thm_gray}"
-          set -g pane-active-border-style "fg=${thm_blue}"
-
-          # Windows
-          set -g window-status-activity-style "fg=${thm_fg},bg=${thm_bg},none"
-          set -g window-status-separator ""
-          set -g window-status-style "fg=${thm_fg},bg=${thm_bg},none"
-
-          # Statusline - current window
-          set -g window-status-current-format "#[fg=${thm_blue},bg=${thm_bg}] #I: #[fg=${thm_magenta},bg=${thm_bg}](✓) #[fg=${thm_cyan},bg=${thm_bg}]#(echo '#{pane_current_path}' | rev | cut -d'/' -f-2 | rev) #[fg=${thm_magenta},bg=${thm_bg}]"
-
-          # Statusline - other windows
-          set -g window-status-format "#[fg=${thm_blue},bg=${thm_bg}] #I: #[fg=${thm_fg},bg=${thm_bg}]#W"
-
-          # Statusline - right side
-          set -g status-right "#[fg=${thm_blue},bg=${thm_bg},nobold,nounderscore,noitalics]#[fg=${thm_bg},bg=${thm_blue},nobold,nounderscore,noitalics] #[fg=${thm_fg},bg=${thm_gray}] #W #{?client_prefix,#[fg=${thm_magenta}],#[fg=${thm_cyan}]}#[bg=${thm_gray}]#{?client_prefix,#[bg=${thm_magenta}],#[bg=${thm_cyan}]}#[fg=${thm_bg}] #[fg=${thm_fg},bg=${thm_gray}] #S "
-
-          # Statusline - left side (empty)
-          set -g status-left ""
-
-          # Modes
-          set -g clock-mode-colour "${thm_blue}"
-          set -g mode-style "fg=${thm_blue} bg=${thm_black4} bold"
         '';
       };
     };
   }
 #+end_src
-**** Vim
+*** Vim
 #+begin_src nix :tangle modules/features/apps/vim.nix 
   {
     self,
@@ -916,7 +866,6 @@ The default hosts structure goes as follows
         inherit pkgs;
         plugins = with pkgs; [
           vimPlugins.fzf-vim
-          vimPlugins.lightline-vim         
         ];
         vimrc = '' 
           set number
@@ -976,13 +925,12 @@ The default hosts structure goes as follows
 
           set laststatus=2
           set background=dark
-          let g:lightline = {'colorscheme' : 'rosepine'}
         '';
       };
     };
   }
 #+end_src
-**** Yazi
+*** Yazi
 #+begin_src nix :tangle modules/features/apps/yazi.nix 
   {
     self,
@@ -1016,8 +964,8 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-*** Audio
-**** Pipewire
+** Audio
+*** Pipewire
 #+begin_src nix :tangle modules/features/audio/pipewire.nix 
   {
     self,
@@ -1103,8 +1051,8 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-*** Login
-**** Ly
+** Login
+*** Ly
 #+begin_src nix :tangle modules/features/login/ly.nix 
   {
     self,
@@ -1122,8 +1070,8 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-*** Miscellaneous
-**** Fonts
+** Miscellaneous
+*** Fonts
 #+begin_src nix :tangle modules/features/misc/custom-fonts.nix 
   {
     self,
@@ -1207,7 +1155,7 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-**** Docker
+*** Docker
 #+begin_src nix :tangle modules/features/misc/docker-compose.nix
   {
     self,
@@ -1430,7 +1378,7 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-**** Whatmp3
+*** Whatmp3
 I have packaged whatmp3 as a nix package.
 This is used to transcode flac files to mp3 [320, V0], also used to downsample flac from 24 bit to 16 bit.
 
@@ -1517,8 +1465,8 @@ To use this program, after installing run this:
   }
       
 #+end_src
-*** Web
-**** Komga
+** Web
+*** Komga
 #+begin_src nix :tangle modules/features/web/komga.nix 
   {
     self,
@@ -1537,7 +1485,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-**** Miniflux 
+*** Miniflux 
 #+begin_src nix :tangle modules/features/web/miniflux.nix
   {
     self,
@@ -1556,7 +1504,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-**** Nginx
+*** Nginx
 #+begin_src nix :tangle modules/features/web/nginx.nix
   {
     self,
@@ -1682,7 +1630,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-**** Nixflix 
+*** Nixflix 
 #+begin_src nix :tangle modules/features/web/nixflix.nix
   {
     self,
@@ -1863,7 +1811,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-**** Qbittorrent 
+*** Qbittorrent 
 #+begin_src nix :tangle modules/features/web/qbittorrent.nix
   {
     self,
@@ -1890,7 +1838,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-**** Redlib
+*** Redlib
 #+begin_src nix :tangle modules/features/web/redlib.nix
   {
     inputs,
@@ -1913,7 +1861,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-**** SearXNG
+*** SearXNG
 #+begin_src nix :tangle modules/features/web/searxng.nix
   {
     self,
@@ -1947,7 +1895,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-**** StirlingPDF
+*** StirlingPDF
 #+begin_src nix :tangle modules/features/web/stirlingpdf.nix
   {
     self,
@@ -1966,7 +1914,7 @@ To use this program, after installing run this:
   }
           
 #+end_src
-**** Vaultwarden
+*** Vaultwarden
 #+begin_src nix :tangle modules/features/web/vaultwarden.nix
   {
     self,
@@ -1983,8 +1931,8 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-*** Window Manager 
-**** Niri
+** Window Manager 
+*** Niri
 #+begin_src nix :tangle modules/features/wm/niri.nix 
   {
     self,
@@ -2034,8 +1982,8 @@ To use this program, after installing run this:
             gaps = 6;
             center-focused-column = "never";
             focus-ring = {
-              active-color = "#907aa9";
-              inactive-color = "#907aa9";
+              active-color = "#a89984";
+              inactive-color = "#a89984";
               width = 2;
             };
           };
@@ -2112,7 +2060,7 @@ To use this program, after installing run this:
           binds = {
             "Mod+Return".spawn-sh = "foot";
             "Mod+D".spawn-sh = "fuzzel";
-            "Mod+B".spawn-sh = "firefox";
+            "Mod+B".spawn-sh = "chromium-browser";
             "Mod+P".spawn-sh = "spotify";
             "Mod+U".spawn-sh = "emacs";
 
@@ -2204,7 +2152,7 @@ To use this program, after installing run this:
             "Mod+T".spawn-sh = ''notify-send "Current Time" "$(date +"%I:%M %p")"'';
           };
           spawn-sh-at-startup = [
-            "${lib.getExe pkgs.swaybg} -i ${wallspath}/uwp5003040.jpeg"
+            "${lib.getExe pkgs.swaybg} -i ${wallspath}/railway.jpg"
             "waybar"
           ];
         };
@@ -2212,11 +2160,11 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-** Home
-*** Home Users
-**** Lenovo
-***** kin
-****** Default
+* Home
+** Home Users
+*** Lenovo
+**** kin
+***** Default
 #+begin_src nix :tangle modules/home/kin-lenovo/home.nix 
   {
     withSystem,
@@ -2242,7 +2190,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-****** Configuration
+***** Configuration
 #+begin_src nix :tangle modules/home/kin-lenovo/homeConfiguration.nix
   {
     self,
@@ -2258,12 +2206,12 @@ To use this program, after installing run this:
         self.homeModules.alacritty
         self.homeModules.gtk
         self.homeModules.fuzzel
-        self.homeModules.waybar
         self.homeModules.firefox
         self.homeModules.helix
         self.homeModules.chromium
         self.homeModules.gtk-fonts
         self.homeModules.emacs
+        self.homeModules.waybar
       ];
       home = {
         username = "kin";
@@ -2298,8 +2246,8 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-*** Home Modules
-**** Alacritty
+** Home Modules
+*** Alacritty
 #+begin_src nix :tangle modules/home/home-modules/alacritty.nix
   {
     self,
@@ -2381,7 +2329,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-**** Chromium
+*** Chromium
 #+begin_src nix :tangle modules/home/home-modules/chromium.nix
   {
     self,
@@ -2399,7 +2347,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-**** Firefox
+*** Firefox
 #+begin_src nix :tangle modules/home/home-modules/firefox.nix
   {
     ...
@@ -2657,7 +2605,7 @@ To use this program, after installing run this:
         
 
 #+end_src
-**** Fuzzel
+*** Fuzzel
 #+begin_src nix :tangle modules/home/home-modules/fuzzel.nix
   {
     self,
@@ -2684,24 +2632,20 @@ To use this program, after installing run this:
             #font = "Futura:size=12";
           };
           colors = {
-            background = "#191724b3";
-            text = "#e0def4ff";
-            prompt = "#e0def4ff";
-            placeholder = "#6e6a86ff";
-            input = "#e0def4ff";
-            match = "#ebbcbaff";
-            selection = "#403d52ff";
-            selection-text = "#e0def4ff";
-            selection-match = "#ebbcbaff";
-            counter = "#f6c177ff";
-            border = "#ebbcbaff";
+            background = "282828ff";
+            text = "ebdbb2ff";
+            match = "fe8019ff";
+            selection = "3c3836ff";
+            selection-match = "fabd2fff";
+            selection-text = "ebdbb2ff";
+            border = "504945ff";
           };
         };
       };
     };
   }
 #+end_src
-**** GTK
+*** GTK
 #+begin_src nix :tangle modules/home/home-modules/gtk.nix
   {
     self,
@@ -2730,7 +2674,7 @@ To use this program, after installing run this:
   }
 #+end_src
 
-**** Helix
+*** Helix
 #+begin_src nix :tangle modules/home/home-modules/helix.nix
   { 
     ...
@@ -2743,17 +2687,17 @@ To use this program, after installing run this:
         enable = true;
         package = pkgs.evil-helix;
         settings = {
-          theme =  "rose_pine_transparent";
+          theme =  "gruvbox_transparent";
         };
-        themes."rose_pine_transparent" = {
-          inherits = "rose_pine";
+        themes."gruvbox_transparent" = {
+          inherits = "gruvbox";
           "ui.background" = {};
         };
       };
     };
   }
 #+end_src
-**** Mako
+*** Mako
 #+begin_src nix :tangle modules/home/home-modules/mako.nix
   {
     self,
@@ -2784,20 +2728,22 @@ To use this program, after installing run this:
           width = 300;
           height = 110;
           padding = "0,15,20";
-          background-color = "#191724";
+          background-color = "#282828";
+
           "urgency=normal" = {
-            border-color = "#ebbcba";
+              border-color = "#458588"; # blue
           };
+
           "urgency=high" = {
-            border-color = "#d7827e";
-            default-timeout = 0;
+              border-color = "#cc241d"; # red
+              default-timeout = 0;
           };
         };
       };
     };
   }
 #+end_src
-**** Waybar
+*** Waybar
 #+begin_src nix :tangle modules/home/home-modules/waybar.nix
   {
     ...
@@ -2841,53 +2787,63 @@ To use this program, after installing run this:
           };
         };
         style = "
-          #waybar {
-          font-family: 'Iosevka Nerd Font Propo';
-            font-size: 14px;
+        #waybar {
+            font-family: 'Iosevka Nerd Font Propo';
+            font-size: 16px;
             font-weight: normal;
-            background-color: rgba(25, 23, 36, 1);
-          }
-          #cpu {
-            color: #c4a7e7;
-          }
-          #memory {
-            color: #9ccfd8;
-          }
-          #battery {
-            color: #ebbcba;
-          }
-          #clock.date {
-            color: #f6c177;
-          }
-          #clock.time {
-            color: #eb6f92;
-          }
-          #window {
-            color: #6e6a86;
-          }
-          #workspaces button {
+            background-color: rgba(40, 40, 40, 1);
+        }
+
+        #cpu {
+            color: #d3869b;
+        }
+
+        #memory {
+            color: #8ec07c;
+        }
+
+        #battery {
+            color: #fabd2f;
+        }
+
+        #clock.date {
+            color: #fe8019;
+        }
+
+        #clock.time {
+            color: #fb4934;
+        }
+
+        #window {
+            color: #928374;
+        }
+
+        #workspaces button {
             all: initial;
-            color: #6e6a86;
+            color: #928374;
             padding: 0 8px;
             margin: 0;
-          }
-          #workspaces button.active {
-            color: #c4a7e7;
-          }
-          #workspaces button:hover {
-            color: #908caa;
-          }
-          #custom-seperator {
-            color: #9893a5;
+        }
+
+        #workspaces button.active {
+            color: #b8bb26;
+        }
+
+        #workspaces button:hover {
+            color: #ebdbb2;
+        }
+
+        #custom-seperator {
+            color: #7c6f64;
             padding: 0px;
-          }
+        }
         ";
       };
     };
   }
 #+end_src
-** Logic
-*** homeModules
+* Logic
+** homeModules
 #+begin_src nix :tangle modules/logic/homeModules.nix
   {
     lib,
@@ -2926,8 +2882,8 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-** Emacs configuration
-*** Emacs Managed by nix
+* Emacs configuration
+** Emacs Managed by nix
 #+begin_src nix :tangle modules/home/home-modules/emacs/emacs.nix
   {
     ...
@@ -2971,7 +2927,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-*** early-init.el
+** early-init.el
 #+begin_src emacs-lisp :tangle modules/home/home-modules/emacs/early-init.el
   ;;; early-init.el --- Early emacs configuration -*- lexical-binding: t; -*-
 
@@ -2990,7 +2946,7 @@ To use this program, after installing run this:
    indent-tabs-mode nil
   )
 #+end_src
-*** init.el
+** init.el
 #+begin_src emacs-lisp :tangle modules/home/home-modules/emacs/init.el
   ;;; init.el --- Emacs configuration -*- lexical-binding: t; -*-
 
@@ -3020,7 +2976,7 @@ To use this program, after installing run this:
   (use-package base16-theme
     :ensure t
     :config
-    (load-theme 'base16-rose-pine t))
+    (load-theme 'base16-gruvbox-dark t))
 
   ;; Evil Mode
   (use-package evil
@@ -3070,8 +3026,8 @@ To use this program, after installing run this:
     (emms-default-players)
     (setq emms-player-list '(emms-player-mpv)))
 #+end_src
-*** Custom files
-**** Rose Pine Theme for Emacs
+** Custom files
+*** Rose Pine Theme for Emacs
 #+begin_src emacs-lisp :tangle modules/home/home-modules/emacs/custom/rose-pine-color-theme.el
   ;;; rose-pine-color-theme.el --- All natural pine, faux fur and a bit of soho vibes for the classy minimalist. -*- lexical-binding: t; -*-
 

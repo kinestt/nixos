@@ -129,8 +129,8 @@
             };
             theme = {
               enable = true;
-              name = "rose-pine";
-              style = "main";
+              name = "gruvbox";
+              style = "dark";
               transparent = true;
             };
             terminal = {

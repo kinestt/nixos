@@ -46,8 +46,8 @@
           gaps = 6;
           center-focused-column = "never";
           focus-ring = {
-            active-color = "#907aa9";
-            inactive-color = "#907aa9";
+            active-color = "#a89984";
+            inactive-color = "#a89984";
             width = 2;
           };
         };
@@ -124,7 +124,7 @@
         binds = {
           "Mod+Return".spawn-sh = "foot";
           "Mod+D".spawn-sh = "fuzzel";
-          "Mod+B".spawn-sh = "firefox";
+          "Mod+B".spawn-sh = "chromium-browser";
           "Mod+P".spawn-sh = "spotify";
           "Mod+U".spawn-sh = "emacs";
 
@@ -216,7 +216,7 @@
           "Mod+T".spawn-sh = ''notify-send "Current Time" "$(date +"%I:%M %p")"'';
         };
         spawn-sh-at-startup = [
-          "${lib.getExe pkgs.swaybg} -i ${wallspath}/uwp5003040.jpeg"
+          "${lib.getExe pkgs.swaybg} -i ${wallspath}/railway.jpg"
           "waybar"
         ];
       };

@@ -722,10 +722,10 @@
     "walls": {
       "flake": false,
       "locked": {
-        "lastModified": 1780803198,
-        "narHash": "sha256-82PFo8Q7n25T5Fy74iiNOpQcca1nhqLfciMWdUxNYL0=",
+        "lastModified": 1782587515,
+        "narHash": "sha256-vaS3EXEmN1JdNbPPw1RTQNlUwOETsXCtgBKue7rWR74=",
         "ref": "main",
-        "rev": "05c4448a60a6a1d75044c277f08526ad36d4f89f",
+        "rev": "249ed49e906d6ee82d2ac4a1edc7b3bdc2710675",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@codeberg.org/kinest/walls"
