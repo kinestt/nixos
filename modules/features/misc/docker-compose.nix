@@ -73,41 +73,6 @@
         "podman-compose-services-root.target"
         ];
     };
-    virtualisation.oci-containers.containers."caesura" = {
-        image = "ghcr.io/rogueoneecho/caesura:latest";
-        volumes = [
-        "/home/kin/caesura/config.red.yml:/config.red.yml:rw"
-        "/mnt/downloads/caesura/cache:/cache:rw"
-        "/mnt/downloads/caesura/shared:/srv/shared:rw"
-        "/mnt/downloads/redacted:/srv/shared/download/content:rw"
-        ];
-        user = "100:1000";
-        log-driver = "journald";
-        extraOptions = [
-        "--cap-drop=ALL"
-        "--network-alias=caesura"
-        "--network=services_default"
-        "--security-opt=no-new-privileges:true"
-        ];
-    };
-    systemd.services."podman-caesura" = {
-        serviceConfig = {
-        Restart = lib.mkOverride 90 "no";
-        };
-        after = [
-        "podman-network-services_default.service"
-        ];
-        requires = [
-        "podman-network-services_default.service"
-        ];
-        partOf = [
-        "podman-compose-services-root.target"
-        ];
-        wantedBy = [
-        "podman-compose-services-root.target"
-        ];
-    };
-
     virtualisation.oci-containers.containers."multi-scrobbler" = {
         image = "foxxmd/multi-scrobbler:latest";
         environment = {
