@@ -15,7 +15,7 @@
       host = "127.0.0.1";
       enableRegistration = true;
       secretFiles = {
-        NEXTAUTH_SECRET = config.sops.secrets."linkwarden/nextauth_secret".path;
+        NEXTAUTH_SECRET._secret = config.sops.secrets."linkwarden/nextauth_secret".path;
       };
     };
   };
