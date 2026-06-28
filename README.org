@@ -314,6 +314,7 @@ The default hosts structure goes as follows
         self.nixosModules.stirlingpdf
         self.nixosModules.whatmp3
         self.nixosModules.linkwarden
+        self.nixosModules.invidious
 
         inputs.sops-nix.nixosModules.sops
       ];
@@ -1973,6 +1974,21 @@ To use this program, after installing run this:
           NEXTAUTH_SECRET = config.sops.secrets."linkwarden/nextauth_secret".path;
           POSTGRES_PASSWORD = config.sops.secrets."linkwarden/postgres_password".path;
         };
+      };
+    };
+  }
+#+end_src
+*** Invidious
+#+begin_src nix :tangle modules/features/web/invidious.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.invidious = {
+      services.invidious = {
+        enable = true;
+        port = 3001;
       };
     };
   }
