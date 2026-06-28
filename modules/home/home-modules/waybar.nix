@@ -12,8 +12,8 @@
           position = "top";
           height = 25;
           spacing = 10;
-          modules-center = ["niri/window"];
-          modules-left = ["niri/workspaces"];
+          modules-left = ["niri/workspaces" "niri/window"];
+          modules-center = [];
           modules-right = ["tray" "cpu" "memory" "battery" "clock#date" "clock#time"];
           "cpu" = {
             interval = 10;

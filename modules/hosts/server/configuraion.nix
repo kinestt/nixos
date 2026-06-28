@@ -29,6 +29,7 @@
       self.nixosModules.yazi
       self.nixosModules.stirlingpdf
       self.nixosModules.whatmp3
+      self.nixosModules.linkwarden
 
       inputs.sops-nix.nixosModules.sops
     ];
