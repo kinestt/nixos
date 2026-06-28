@@ -38,6 +38,12 @@
             proxyWebsockets = true;
           };
         };
+        "linkwarden.server.lan" = {
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:3000";
+            proxyWebsockets = true;
+          };
+        };
         "notes.peanutbutter.quest" = {
           enableACME = true;
           forceSSL = true;
