@@ -84,6 +84,10 @@ I also use flakes as a way to import my non-flake files and use it to import fil
         url = "github:nix-community/NUR";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      omnisearch = {
+        url = "git+https://git.bwaaa.monster/omnisearch";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };    
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
@@ -1927,6 +1931,20 @@ To use this program, after installing run this:
         domain = "vault.peanutbutter.quest";
         configureNginx = true;
         environmentFile = "/var/lib/vaultwarden.env";
+      };
+    };
+  }
+#+end_src
+*** Omnisearch
+#+begin_src nix :tangle modules/features/web/omnisearch.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.omnisearch = {
+      services.omnisearch = {
+        enable = true;
       };
     };
   }
