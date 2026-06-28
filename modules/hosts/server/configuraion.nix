@@ -30,7 +30,6 @@
       self.nixosModules.stirlingpdf
       self.nixosModules.whatmp3
       self.nixosModules.linkwarden
-      self.nixosModules.invidious
 
       inputs.sops-nix.nixosModules.sops
     ];
