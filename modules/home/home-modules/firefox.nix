@@ -81,6 +81,7 @@
               bitwarden
               sponsorblock
               violentmonkey
+              floccus
             ];
           };
           settings = {

@@ -1957,6 +1957,8 @@ To use this program, after installing run this:
   }
 #+end_src
 *** Linkwarden
+Here the usage of sops varies a little, the ownership of the files in ~/run/secrets~ falls under ~root:root~ thus posing a problem for linkwarden in reading the files.
+So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user makes it readable by linkwarden after execution nixos rebuild execution.  
 #+begin_src nix :tangle modules/features/web/linkwarden.nix
   {
     self,
@@ -2488,6 +2490,7 @@ To use this program, after installing run this:
                 bitwarden
                 sponsorblock
                 violentmonkey
+                floccus
               ];
             };
             settings = {
