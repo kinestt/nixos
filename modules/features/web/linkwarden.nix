@@ -8,7 +8,9 @@
     ...
   }: {
     sops.secrets = {
-      "linkwarden/nextauth_secret" = {};
+      "linkwarden/nextauth_secret" = {
+        owner = config.services.linkwarden.user;
+      };
     };
     services.linkwarden = {
       enable = true;
