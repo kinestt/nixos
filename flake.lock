@@ -562,7 +562,8 @@
         "sops-nix": "sops-nix",
         "walls": "walls",
         "wrapper-modules": "wrapper-modules",
-        "xwayland-satellite-unscaled": "xwayland-satellite-unscaled"
+        "xwayland-satellite-unscaled": "xwayland-satellite-unscaled",
+        "zen-browser": "zen-browser"
       }
     },
     "rust-overlay": {
@@ -813,6 +814,29 @@
         "owner": "Supreeeme",
         "ref": "unscaled-dpi",
         "repo": "xwayland-satellite",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782623843,
+        "narHash": "sha256-zQdTvI8jcVfblsrWafw1ykTnCVoV94ttxb5e6drwVaI=",
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
+        "rev": "c59e57b9c6ea4c86f9f3b7efc92db3cbd305d078",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
         "type": "github"
       }
     }

@@ -88,6 +88,13 @@ I also use flakes as a way to import my non-flake files and use it to import fil
         url = "git+https://git.bwaaa.monster/omnisearch";
         inputs.nixpkgs.follows = "nixpkgs";
       };    
+      zen-browser = {
+        url = "github:0xc000022070/zen-browser-flake";
+        inputs = {
+          nixpkgs.follows = "nixpkgs";
+          home-manager.follows = "home-manager";
+        };
+      };
     };
 
     outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules);
@@ -2087,6 +2094,7 @@ So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user mak
                 {app-id = "spotify";}
                 {app-id = "Spotify";}
                 {app-id = "equibop";}
+                {app-id = "zen-beta";}
                 {app-id = "tidal-hifi";}
                 {app-id = "chromium-browser";}
                 {app-id = "io.github.tdesktop_x64.TDesktop";}
@@ -2270,6 +2278,7 @@ So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user mak
         self.homeModules.gtk-fonts
         self.homeModules.emacs
         self.homeModules.waybar
+        self.homeModules.zen-browser
       ];
       home = {
         username = "kin";
@@ -2506,6 +2515,80 @@ So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user mak
   }
         
 
+#+end_src
+*** Zen Browser
+#+begin_src nix :tangle modules/home/home-modules/zen-browser.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeModules.zen-browser = {
+      pkgs,
+      ...
+    }: {
+      imports = [
+        inputs.zen-browser.homeModules.default 
+      ];
+      programs.zen-browser = {
+        enable = true;
+        policies = {
+          AutofillAddressEnabled = true;
+          AutofillCreditCardEnabled = false;
+          DisableAppUpdate = true;
+          DisableFeedbackCommands = true;
+          DisableFirefoxStudies = true;
+          DisablePocket = true;
+          DisableTelemetry = true;
+          DontCheckDefaultBrowser = true;
+          NoDefaultBookmarks = true;
+          OfferToSaveLogins = false;
+          EnableTrackingProtection = {
+            Value = true;
+            Locked = true;
+            Cryptomining = true;
+            Fingerprinting = true;
+          };
+        };
+        profiles = {
+          default = {
+            isDefault = true;
+            id = 0;
+            search = {
+              force = true;
+              default = "4get";
+              engines = {
+                fourget = {
+                  name = "4get";
+                  urls = [
+                    {
+                      template = "https://4get.peanutbutter.quest/web?s={searchTerms}&scraper=google_cse&nsfw=yes";
+                      params = [
+                        {
+                          name = "query";
+                          value = "searchTerms";
+                        }
+                      ];
+                    }
+                  ];
+                  definedAliases = ["@4g"];
+                };
+              };
+            };
+            extensions = {
+              packages = with pkgs.nur.repos.rycee.firefox-addons; [
+                ublock-origin
+                bitwarden
+                sponsorblock
+                violentmonkey
+                floccus
+              ];
+            };
+          };
+        };
+      };
+    };
+  }
 #+end_src
 *** Fuzzel
 #+begin_src nix :tangle modules/home/home-modules/fuzzel.nix

@@ -18,6 +18,7 @@
       self.homeModules.gtk-fonts
       self.homeModules.emacs
       self.homeModules.waybar
+      self.homeModules.zen-browser
     ];
     home = {
       username = "kin";

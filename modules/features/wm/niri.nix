@@ -93,6 +93,7 @@
               {app-id = "spotify";}
               {app-id = "Spotify";}
               {app-id = "equibop";}
+              {app-id = "zen-beta";}
               {app-id = "tidal-hifi";}
               {app-id = "chromium-browser";}
               {app-id = "io.github.tdesktop_x64.TDesktop";}
