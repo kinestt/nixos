@@ -18,8 +18,8 @@
 (setq auto-save-default nil)
 
 ;; Custom folder which contains .el files that can be loaded by the load command
-(add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
-(load "rose-pine-color-theme")
+;;(add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
+;; (load "rose-pine-color-theme")
 ;; (load-theme 'rose-pine-color t)
 
 ;; Base16 Theme
