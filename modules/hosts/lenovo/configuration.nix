@@ -53,7 +53,6 @@
         bat
         unzip
         zip
-        spotify
 
       ];
     };

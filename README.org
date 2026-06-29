@@ -43,6 +43,7 @@ I also use flakes as a way to import my non-flake files and use it to import fil
       prismlauncher.url = "github:PrismLauncher/PrismLauncher?ref=release-9.x";
       xwayland-satellite-unscaled.url = "github:Supreeeme/xwayland-satellite?ref=unscaled-dpi";
       redlib-fork.url = "github:taglia/redlib?ref=dockerhub-redlib-0.36.0";
+      spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
       secrets = {
         url = "git+ssh://git@codeberg.org/kinest/secrets?ref=main&shallow=1";
@@ -213,7 +214,6 @@ The default hosts structure goes as follows
           bat
           unzip
           zip
-          spotify
 
         ];
       };
@@ -2278,6 +2278,7 @@ So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user mak
         self.homeModules.gtk-fonts
         self.homeModules.emacs
         self.homeModules.waybar
+        self.homeModules.spicetify
         self.homeModules.zen-browser
       ];
       home = {
@@ -2549,6 +2550,13 @@ So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user mak
             Cryptomining = true;
             Fingerprinting = true;
           };
+          SearchEngines = {
+            Remove = [
+              "Google"
+              "Bing"
+              "Perplexity"
+            ];
+          };
         };
         profiles = {
           default = {
@@ -2556,7 +2564,7 @@ So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user mak
             id = 0;
             search = {
               force = true;
-              default = "4get";
+              default = "fourget";
               engines = {
                 fourget = {
                   name = "4get";
@@ -2573,6 +2581,21 @@ So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user mak
                   ];
                   definedAliases = ["@4g"];
                 };
+                searxng = {
+                  name = "searxng";
+                  urls = [
+                    {
+                      template = "https://search.peanutbutter.quest/search?q={searchTerms}";
+                      params = [
+                        {
+                          name = "query";
+                          value = "searchTerms";
+                        }
+                      ];
+                    }
+                  ];
+                  definedAliases = ["sng"];
+                };
               };
             };
             extensions = {
@@ -2584,8 +2607,41 @@ So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user mak
                 floccus
               ];
             };
+            settings = {
+              "zen.workspaces.continue-where-left-off" = false;
+            };
           };
         };
+      };
+    };
+  }
+#+end_src
+*** Spicetify
+The flake installs spotify automatically based on the given spicetify configuration, therefore we don't need to install ~pkgs.spotify~ anywhere.
+
+#+begin_src nix :tangle modules/home/home-modules/spicetify.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeModules.spicetify = {
+      pkgs,
+      ...
+    }: {
+      imports = [
+        inputs.spicetify-nix.homeManagerModules.spicetify
+      ];
+
+      programs.spicetify = let
+        spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+      in {
+        enable = true;
+        enabledExtensions = with spicePkgs.extensions; [
+          shuffle
+        ];
+        theme = spicePkgs.themes.text;
+        colorScheme = "Gruvbox";
       };
     };
   }

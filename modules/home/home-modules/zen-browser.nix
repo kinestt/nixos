@@ -29,6 +29,13 @@
           Cryptomining = true;
           Fingerprinting = true;
         };
+        SearchEngines = {
+          Remove = [
+            "Google"
+            "Bing"
+            "Perplexity"
+          ];
+        };
       };
       profiles = {
         default = {
@@ -36,7 +43,7 @@
           id = 0;
           search = {
             force = true;
-            default = "4get";
+            default = "fourget";
             engines = {
               fourget = {
                 name = "4get";
@@ -53,6 +60,21 @@
                 ];
                 definedAliases = ["@4g"];
               };
+              searxng = {
+                name = "searxng";
+                urls = [
+                  {
+                    template = "https://search.peanutbutter.quest/search?q={searchTerms}";
+                    params = [
+                      {
+                        name = "query";
+                        value = "searchTerms";
+                      }
+                    ];
+                  }
+                ];
+                definedAliases = ["sng"];
+              };
             };
           };
           extensions = {
@@ -63,6 +85,9 @@
               violentmonkey
               floccus
             ];
+          };
+          settings = {
+            "zen.workspaces.continue-where-left-off" = false;
           };
         };
       };

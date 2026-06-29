@@ -7,6 +7,7 @@
     prismlauncher.url = "github:PrismLauncher/PrismLauncher?ref=release-9.x";
     xwayland-satellite-unscaled.url = "github:Supreeeme/xwayland-satellite?ref=unscaled-dpi";
     redlib-fork.url = "github:taglia/redlib?ref=dockerhub-redlib-0.36.0";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
     secrets = {
       url = "git+ssh://git@codeberg.org/kinest/secrets?ref=main&shallow=1";

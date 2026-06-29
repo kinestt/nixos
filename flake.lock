@@ -168,7 +168,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_4"
+        "systems": "systems_5"
       },
       "locked": {
         "lastModified": 1731533236,
@@ -407,6 +407,19 @@
     },
     "nixpkgs_5": {
       "locked": {
+        "lastModified": 1782467914,
+        "narHash": "sha256-inDx/w70OSJoJPqtKh0BrzAsbZZhpya7YgS43jHnhwg=",
+        "rev": "e73de5be04e0eff4190a1432b946d469c794e7b4",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1022855.e73de5be04e0/nixexprs.tar.xz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
+      }
+    },
+    "nixpkgs_6": {
+      "locked": {
         "lastModified": 1780336545,
         "narHash": "sha256-vhVhuXzFrIOfcssC/9hDHx7MHzDKjF3keHuREOQqQiQ=",
         "owner": "NixOS",
@@ -421,7 +434,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_7": {
       "locked": {
         "lastModified": 1759281824,
         "narHash": "sha256-FIBE1qXv9TKvSNwst6FumyHwCRH3BlWDpfsnqRDCll0=",
@@ -560,6 +573,7 @@
         "redlib-fork": "redlib-fork",
         "secrets": "secrets",
         "sops-nix": "sops-nix",
+        "spicetify-nix": "spicetify-nix",
         "walls": "walls",
         "wrapper-modules": "wrapper-modules",
         "xwayland-satellite-unscaled": "xwayland-satellite-unscaled",
@@ -646,6 +660,25 @@
         "type": "github"
       }
     },
+    "spicetify-nix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_5",
+        "systems": "systems_4"
+      },
+      "locked": {
+        "lastModified": 1782633406,
+        "narHash": "sha256-JOSMk12GgnTLVlUSCuKkqyUF6cw82wl7t7e1WuFfg5s=",
+        "owner": "Gerg-L",
+        "repo": "spicetify-nix",
+        "rev": "5ff9a6ca9dcbad7cccea2c97d30237468b16feda",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gerg-L",
+        "repo": "spicetify-nix",
+        "type": "github"
+      }
+    },
     "systems": {
       "locked": {
         "lastModified": 1681028828,
@@ -692,6 +725,21 @@
       }
     },
     "systems_4": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_5": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
@@ -780,7 +828,7 @@
     },
     "wrapper-modules": {
       "inputs": {
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
         "lastModified": 1782135443,
@@ -799,7 +847,7 @@
     "xwayland-satellite-unscaled": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_6",
+        "nixpkgs": "nixpkgs_7",
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
