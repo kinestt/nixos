@@ -12,7 +12,7 @@
           position = "top";
           height = 25;
           spacing = 10;
-          modules-left = ["niri/workspaces" "niri/window"];
+          modules-left = ["niri/workspaces" "mpris" ];
           modules-center = [];
           modules-right = ["tray" "cpu" "memory" "battery" "clock#date" "clock#time"];
           "cpu" = {
@@ -36,6 +36,20 @@
           "custom/seperator" = {
             format = " | ";
             tooltip = false;
+          };
+          "mpris" = {
+            format = "{player_icon} {title}";
+            format-paused = "{status_icon} <i>{title}</i>";
+            player-icons =  {
+              default = "▶";
+              spotify = "";
+              firefox = "󰈹";
+              chromium = "";
+            };
+            status-icons = {
+              paused =  "⏸";
+            };
+            interval = 1;
           };
         };
       };
