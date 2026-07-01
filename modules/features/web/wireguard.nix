@@ -17,7 +17,7 @@
     networking.nat = {
       enable = true;
       externalInterface = "eno1";
-      internalInterface = [ "wg0" ];
+      internalInterfaces = [ "wg0" ];
     };
     networking.wireguard = {
       enable = true;
