@@ -151,6 +151,11 @@
               name = "Redacted";
               apiKey._secret = config.sops.secrets."indexer-api/redacted".path;
             }
+            {
+              name = "PassThePopcorn";
+              apiKey._secret = config.sops.secrets."indexer-api/ptp/apikey".path;
+              username._secret = config.sops.secrets."indexer-api/ptp/apiuser".path;
+            }
           ];
         };
         settings = {
