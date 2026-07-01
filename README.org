@@ -75,8 +75,7 @@ I also use flakes as a way to import my non-flake files and use it to import fil
         inputs.nixpkgs.follows = "nixpkgs";
       };
       nixflix = {
-        url = "github:kinestt/nixflix";
-        ref = "indexer-options";
+        url = "github:kinestt/nixflix?ref=indexer-options";
         inputs.nixpkgs.follows = "nixpkgs";
       };
       nvf = {
