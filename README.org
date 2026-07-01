@@ -2005,8 +2005,8 @@ The main peers would be:
 1. ~lenovo~
 2. ~OnePlus 13~
 
--The server configuration will have server's private key and each of the client's pubic key listed.
--The client configuration will have client's private key and server's public key.
+- The server configuration will have server's private key and each of the client's pubic key listed.
+- The client configuration will have client's private key and server's public key.
 
 #+begin_src  nix :tangle modules/features/web/wireguard.nix
   {
