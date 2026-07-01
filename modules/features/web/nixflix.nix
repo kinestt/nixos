@@ -33,6 +33,8 @@
       "seerr/api_key" = {};
 
       "indexer-api/redacted" = {};
+      "indexer-api/ptp/apiuser" = {};
+      "indexer-api/ptp/apikey" = {};
     };
 
     nixflix = {
