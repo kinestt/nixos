@@ -39,7 +39,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixflix = {
-      url = "github:kiriwalawren/nixflix";
+      url = "github:kinestt/nixflix";
+      ref = "indexer-options";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvf = {
