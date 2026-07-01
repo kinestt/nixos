@@ -297,16 +297,15 @@
         "vpn-confinement": "vpn-confinement"
       },
       "locked": {
-        "lastModified": 1782927920,
-        "narHash": "sha256-cErSoaiV3UNoJZ2VrRyZZSuBUHRnh7R2YTTjSc4qAnw=",
-        "owner": "kinestt",
+        "lastModified": 1782921837,
+        "narHash": "sha256-Y8p4lFRZFpKyJy7NzTfe5IO2rvPZeWpXmXfYWD3/OWU=",
+        "owner": "kiriwalawren",
         "repo": "nixflix",
-        "rev": "6e630be89f36ac9ba4e7a0e4edac9b81604066d2",
+        "rev": "ad47448c7e12cbe134eae3db5c5c0c57092ef64c",
         "type": "github"
       },
       "original": {
-        "owner": "kinestt",
-        "ref": "indexer-options",
+        "owner": "kiriwalawren",
         "repo": "nixflix",
         "type": "github"
       }
