@@ -5,6 +5,7 @@
 }: {
   flake.nixosModules.wireguard = {
     config,
+    pkgs,
     ...
   }: {
     sops.secrets = {
