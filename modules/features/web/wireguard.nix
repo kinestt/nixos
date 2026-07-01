@@ -48,7 +48,7 @@
         wireguardPeers = [
           {
             #OnePlus 13
-            PublicKey = config.sops.secrets."wireguard/publickeys/op13".path;
+            PublicKey = "aE/U4NKAQf8R/eNh0oMziU5v7NyVIzef0Q2nlIyAUXU=";
             AllowedIPs = [
               "192.168.26.9/32"
             ];
