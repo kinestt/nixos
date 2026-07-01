@@ -2000,9 +2000,14 @@ So, assigning the ~sops.secrets.<variable>.owner~ to be of linkwarden's user mak
 *** Wireguard
 This will be a basic wireguard vpn setup that will use sops for secrets management.
 Mainly used to access ~server~ from outside the local interent.
+
 The main peers would be:
-- ~lenovo~
-- ~OnePlus 13~
+1. ~lenovo~
+2. ~OnePlus 13~
+
+-The server configuration will have server's private key and each of the client's pubic key listed.
+-The client configuration will have client's private key and server's public key.
+
 #+begin_src  nix :tangle modules/features/web/wireguard.nix
   {
     self,
