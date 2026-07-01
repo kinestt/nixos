@@ -13,12 +13,18 @@
     };
 
     networking.firewall.allowedUDPPorts = [ 51820 ];
-    
+
+    boot.kernel.sysctl = {
+      "net.ipv4.ip_forward" = 1;
+      "net.ipv6.conf.all.forwarding" = 1;
+    };   
+
     networking.nat = {
       enable = true;
       externalInterface = "eno1";
       internalInterfaces = [ "wg0" ];
     };
+
     networking.wireguard = {
       enable = true;
       interfaces = {
@@ -32,13 +38,13 @@
               allowedIPs = [ "10.0.0.2/32" ];
             }
           ];
-          postSetup = ''
+          postUp = ''
             ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
             ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -o eno1 -j MASQUERADE
           '';
 
       # Undo the above
-          postShutdown = ''
+          preDown = ''
             ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
             ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.0.0.0/24 -o eno1 -j MASQUERADE
           '';
