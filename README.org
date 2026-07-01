@@ -1808,8 +1808,8 @@ To use this program, after installing run this:
               }
               {
                 name = "PassThePopcorn";
-                aPIUser._secret = config.sops.secrets."indexer-api/ptp/apiuser".path;
-                aPIKey._secret = config.sops.secrets."indexer-api/ptp/apikey".path;
+                aPIUser = config.sops.secrets."indexer-api/ptp/apiuser".path;
+                aPIKey = config.sops.secrets."indexer-api/ptp/apikey".path;
                 tags = [ "movie" ];
               }
             ];
