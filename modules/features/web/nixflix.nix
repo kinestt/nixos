@@ -31,6 +31,8 @@
       "jellyfin/users/priyaa/password" = {};
       "jellyfin/users/nattsu/password" = {};
       "seerr/api_key" = {};
+
+      "indexer-api/redacted" = {};
     };
 
     nixflix = {
@@ -144,6 +146,12 @@
             username._secret = config.sops.secrets."prowlarr/username".path;
             password._secret = config.sops.secrets."prowlarr/password".path;
           };
+          indexers = [
+            {
+              name = "Redacted";
+              apiKey._secret = config.sops.secrets."indexer-api/redacted".path;
+            }
+          ];
         };
         settings = {
           server = {
