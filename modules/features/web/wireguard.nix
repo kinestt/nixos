@@ -23,7 +23,7 @@
           peers = [
             {
               name = "op13";
-              publicKey = "YJSmpyuD9hdgh4sieucEJI73r0g+BtdofetE0GOrnQk=";
+              publicKey = "aE/U4NKAQf8R/eNh0oMziU5v7NyVIzef0Q2nlIyAUXU=";
               allowedIPs = [ "10.100.0.0/24" ];
               endpoint = "192.168.0.122:51820";
               persistentKeepalive = 25;
