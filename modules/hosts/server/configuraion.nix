@@ -30,6 +30,7 @@
       self.nixosModules.stirlingpdf
       self.nixosModules.whatmp3
       self.nixosModules.linkwarden
+      self.nixosModules.wireguard
 
       inputs.sops-nix.nixosModules.sops
     ];
