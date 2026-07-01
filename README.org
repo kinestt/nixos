@@ -2063,8 +2063,8 @@ The main peers would be:
           ];
         };
       };
-    }
-
+    };
+  }
 #+end_src
 ** Window Manager 
 *** Niri
