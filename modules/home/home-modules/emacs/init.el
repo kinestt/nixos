@@ -17,6 +17,16 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
+;; Custom Fonts for org mode
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+(custom-theme-set-faces
+ 'user
+ '(variable-pitch ((t (:family "SF Pro" :height 120))))
+ '(fixed-pitch ((t (:family "Iosevka Nerd Font Mono" :height 120))))
+ '(org-table ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:inherit fixed-pitch))))
+ '(org-block ((t (:inherit fixed-pitch)))))
+
 ;; Custom folder which contains .el files that can be loaded by the load command
 ;;(add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
 ;; (load "rose-pine-color-theme")
@@ -47,6 +57,9 @@
 (use-package nerd-icons
 	:custom
 	(nerd-icons-color-icons nil))
+
+;; eat - terminal
+(use-package eat)
 
 ;; Rainbow Mode
 (use-package rainbow-mode

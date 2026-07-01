@@ -18,8 +18,8 @@
       enabledExtensions = with spicePkgs.extensions; [
         shuffle
       ];
-      theme = spicePkgs.themes.onepunch;
-      colorScheme = "dark";
+      theme = spicePkgs.themes.text;
+      colorScheme = "Gruvbox";
     };
   };
 }

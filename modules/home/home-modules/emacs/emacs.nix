@@ -19,6 +19,7 @@
         pdf-tools
         emms
         base16-theme
+        eat
       ];
     };
 
