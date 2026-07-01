@@ -29,7 +29,7 @@
           peers = [
             {
               publicKey = "YJSmpyuD9hdgh4sieucEJI73r0g+BtdofetE0GOrnQk=";
-              allowedIPs = [ "10.0.0.2/24" ];
+              allowedIPs = [ "10.0.0.2/32" ];
             }
           ];
           postSetup = ''
