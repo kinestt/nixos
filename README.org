@@ -2042,8 +2042,19 @@ The main peers would be:
 
             peers = [
               {
+                name = "op9r";
                 publicKey = "YJSmpyuD9hdgh4sieucEJI73r0g+BtdofetE0GOrnQk=";
                 allowedIPs = [ "10.0.0.2/32" ];
+              }
+              {
+                name = "op13";
+                publicKey = "az1SL4LLHRML8O7dTxsvmaY9b9ORXqi0mLCDPdO77hA=";
+                allowedIPs = [ "10.0.0.3/32" ];
+              }
+              {
+                name = "lenovo";
+                pulicKey = "r8ADjGqPjA35Istaxd8cm+1hcq2spc0QREvVuGdO2Fw=";
+                allowedIPs = [ "10.0.0.4/32" ];
               }
             ];
           };
