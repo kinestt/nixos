@@ -47,7 +47,7 @@
             }
             {
               name = "lenovo";
-              pulicKey = "r8ADjGqPjA35Istaxd8cm+1hcq2spc0QREvVuGdO2Fw=";
+              publicKey = "r8ADjGqPjA35Istaxd8cm+1hcq2spc0QREvVuGdO2Fw=";
               allowedIPs = [ "10.0.0.4/32" ];
             }
           ];
