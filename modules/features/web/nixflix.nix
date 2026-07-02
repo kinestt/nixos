@@ -155,8 +155,8 @@
             }
             {
               name = "PassThePopcorn";
-              aPIUserFile = "${config.sops.secrets."indexer-api/ptp/apiuser".path}";
-              aPIKeyFile = config.sops.secrets."indexer-api/ptp/apikey".path;
+              aPIUser = config.sops.secrets."indexer-api/ptp/apiuser".path;
+              aPIKey = config.sops.secrets."indexer-api/ptp/apikey".path;
               tags = [ "movie" ];
             }
           ];
