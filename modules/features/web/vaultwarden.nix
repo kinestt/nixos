@@ -6,7 +6,7 @@
   flake.nixosModules.vaultwarden = {
     services.vaultwarden = {
       enable = true;
-      domain = "vault.peanutbutter.quest";
+      domain = "vault.server.lan";
       configureNginx = true;
       environmentFile = "/var/lib/vaultwarden.env";
     };

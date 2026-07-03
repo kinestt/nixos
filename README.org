@@ -1590,17 +1590,20 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
         recommendedOptimisation = true;
 
         virtualHosts = {
-          "vault.peanutbutter.quest" = {
-            enableACME = true;
+          "vault.server.lan" = {
             forceSSL = true;
+            sslCertificate = "/etc/ssl/local/server-lan.pem";
+            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
           };
-          "search.peanutbutter.quest" = {
-            enableACME = true;
+          "search.server.lan" = {
             forceSSL = true;
+            sslCertificate = "/etc/ssl/local/server-lan.pem";
+            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
           };
           "4get.peanutbutter.quest" = {
-            enableACME = true;
             forceSSL = true;
+            sslCertificate = "/etc/ssl/local/server-lan.pem";
+            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:10030";
               proxyWebsockets = true;
@@ -2032,7 +2035,7 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
             results_on_new_tab = true;
           };
         };
-        domain = "search.peanutbutter.quest";
+        domain = "search.server.lan";
         configureNginx = true;
       };
     };
@@ -2067,7 +2070,7 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
     flake.nixosModules.vaultwarden = {
       services.vaultwarden = {
         enable = true;
-        domain = "vault.peanutbutter.quest";
+        domain = "vault.server.lan";
         configureNginx = true;
         environmentFile = "/var/lib/vaultwarden.env";
       };

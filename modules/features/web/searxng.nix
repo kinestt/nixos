@@ -24,7 +24,7 @@
           results_on_new_tab = true;
         };
       };
-      domain = "search.peanutbutter.quest";
+      domain = "search.server.lan";
       configureNginx = true;
     };
   };
