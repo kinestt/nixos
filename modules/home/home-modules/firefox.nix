@@ -11,7 +11,7 @@
       configPath = "${config.xdg.configHome}/mozilla/firefox";
       policies = {
         DNSOverHTTPS = {
-          Enabled = true;
+          Enabled = false;
           ProviderURL = "https://freedns.controld.com/p0";
           Locked = true;
         };
@@ -50,7 +50,7 @@
               Description = "A privacy-respecting, hackable metasearch engine";
               Alias = "sng";
               Method = "POST";
-              URLTemplate = "https://search.peanutbutter.quest/search?q={searchTerms}";
+              URLTemplate = "https://search.server.lan/search?q={searchTerms}";
             }
             {
               Name = "Searchix";
@@ -64,7 +64,7 @@
               Description = "4get is a proxy search engine that doesn't suck";
               Alias = "4g";
               Method = "POST";
-              URLTemplate = "https://4get.peanutbutter.quest/web?s={searchTerms}&scraper=google_cse&nsfw=yes";
+              URLTemplate = "https://4get.server.lan/web?s={searchTerms}&scraper=google_cse&nsfw=yes";
             }
           ];
         };
