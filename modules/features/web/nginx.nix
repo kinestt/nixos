@@ -8,7 +8,7 @@
     ...
   }: {
     security.pki.certificateFiles = [
-      "./certs/rootCA.pem"
+      ./certs/rootCA.pem
     ];
 
     services.nginx = {
