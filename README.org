@@ -1852,7 +1852,7 @@ To use this program, after installing run this:
   }: {
     flake.nixosModules.jellyfin = {
       services.jellyfin = {
-        enable = enable;
+        enable = true;
       };
     };
   }
