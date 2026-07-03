@@ -1553,14 +1553,6 @@ To use this program, after installing run this:
               proxyWebsockets = true;
             };
           };
-          "jellyfin.peanutbutter.quest" = {
-            enableACME = true;
-            forceSSL = true;
-            locations."/" = {
-              proxyPass = "http://127.0.0.1:8096";
-              proxyWebsockets = true;
-            };
-          };
         };
       };
       security.acme = {
@@ -1846,6 +1838,20 @@ To use this program, after installing run this:
             };
           };
         };
+      };
+    };
+  }
+#+end_src
+*** Jellyfin
+#+begin_src nix :tangle modules/features/web/jellyfin.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.jellyfin = {
+      services.jellyfin = {
+        enable = true;
       };
     };
   }
