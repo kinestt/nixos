@@ -47,6 +47,7 @@
         via
         streamrip
         tidal-hifi
+        jellyfin-mpv-shim
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];
