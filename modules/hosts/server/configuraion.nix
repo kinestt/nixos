@@ -30,6 +30,7 @@
       self.nixosModules.whatmp3
       self.nixosModules.linkwarden
       self.nixosModules.wireguard
+      self.nixosModules.arr
 
       inputs.sops-nix.nixosModules.sops
     ];
