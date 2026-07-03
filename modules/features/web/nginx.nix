@@ -115,14 +115,5 @@
     };
 
     systemd.services.nginx.serviceConfig.ProtectHome = false;
-
-      #services.anubis.instances = {
-      #  redlib = {
-      #    enable = true;
-      #    settings = {
-      #      TARGET = "http://127.0.0.1:5544";
-      #    };
-      #  };
-      #};
   };
 }
