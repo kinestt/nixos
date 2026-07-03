@@ -9,7 +9,7 @@
         enable = true;
         settings = {
           server = {
-            port = "7878";
+            port = 7878;
           };
         };
       };
