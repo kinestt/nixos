@@ -32,6 +32,16 @@
             proxyWebsockets = true;
           };
         };
+        "linkwarden.server.lan" = {
+          forceSSL = true;
+
+          sslCertificate = "/etc/ssl/local/server-lan.pem";
+          sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:3000";
+            proxyWebsockets = true;
+          };
+        };
       };
     };
     security.acme = {
