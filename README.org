@@ -1519,6 +1519,35 @@ To use this program, after installing run this:
   }
 #+end_src
 *** Nginx
+#+begin_src text :tangle modules/features/web/certs/rootCA.pem
+-----BEGIN CERTIFICATE-----
+MIIEcTCCAtmgAwIBAgIQM5wmHESsOEaBJq85R7PegTANBgkqhkiG9w0BAQsFADBR
+MR4wHAYDVQQKExVta2NlcnQgZGV2ZWxvcG1lbnQgQ0ExEzARBgNVBAsMCmtpbkBz
+ZXJ2ZXIxGjAYBgNVBAMMEW1rY2VydCBraW5Ac2VydmVyMB4XDTI2MDcwMzE5MjY0
+OFoXDTM2MDcwMzE5MjY0OFowUTEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50
+IENBMRMwEQYDVQQLDApraW5Ac2VydmVyMRowGAYDVQQDDBFta2NlcnQga2luQHNl
+cnZlcjCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAM1BE7VwziiSfH+u
+XwKA1lsY2rVKZYedq8fcRQSyUYFWwxKKyPZDpY/hUrgA/DlAEwY4CAxNJqtqdzrg
+DgZAbBseJ4NqYFN6h4DBLKzrXNK8ekgb3jlhFbMaG13mvdjvSNgHDo0IylmK4jmf
+5bLhzyuReaMXIRtIgdvhl8os1Z+TWf9uWItwB+f/2Oj+OeBdmRr/F36MwbuiHPN1
+9+go1hECE6ryo2mF1mAGFl48V8elDMIKs5BlTEtvNtk4x/UQaGXXZ3qfYITQF/aJ
+6Me5D8lEtu3R2YlLKh3FviayRq2pZlwFZF9TQ8DwSJL0od3dez/c473e6QvelO22
+HGZBCbfm8c9NU/VMdPnXyxrIuP23c3L41G7x3BtSoSb7O2WEvXroL7tX2C03dXZN
+r50MoJj5IoLX9HZbUEEgN6CSWyFW9Ob6+80MR1lXrBpFLpM335pPxHPyvFEfVFy9
+upJ6oRrbm10DIe2PL85LTU94RFkJe9firiQ9ibwVh86+AQFV4QIDAQABo0UwQzAO
+BgNVHQ8BAf8EBAMCAgQwEgYDVR0TAQH/BAgwBgEB/wIBADAdBgNVHQ4EFgQUDJpH
+/2VcSiLstryrK9ZC7cB3yNUwDQYJKoZIhvcNAQELBQADggGBAFUFKwqz8JxMyI1h
+UvBWptZNBTeSy4owJR38L4jT4K/NQmnCY6ZQTxin72a8a+xaODm/5XcvbkEUjqm4
++r57RADUu2XFPQWdgX8V0UM7uLIs5yUXo8A6JG0nQ0iCJudgeIY9ECGDekN6INrG
+0cWU9x55bsMseCAQ2u0L+ACtlx15Jy/enf00c6ajdbgISkR559WYCNDMpA/HZPfP
+yJYE17qL3CrNUBTCY7Lp+VwWA1azUqi0eBMUfGDMkpJ5KS+lIjYnkL50YJDcyGN6
+4wTsc/NKpAwmaYelv02YlNmvG5fswrVUV0CB9Nd9L3KLyjdhdJ9onR3sIqjxB2L+
+40vRmvrYWpWgDZVuDelni4v7Qvl3w05ng3UCvLFivGgC0y3Ws/8mnPv9ZSzL8G6V
+0P1GvlDoLnIjeP44MxXMrEGRv4hONKVzcQEzDwzsutdmJKndt5jA/IKtVPSX0FiJ
+qNB5chFq3iQBoJXJVpScPJgL/3LL54RbhPA3svuY6vuioyMSEg==
+-----END CERTIFICATE-----
+#+end_src
+
 #+begin_src nix :tangle modules/features/web/nginx.nix
   {
     self,
@@ -1530,7 +1559,7 @@ To use this program, after installing run this:
       ...
     }: {
       security.pki.certificateFiles = [
-        "../../../certs/rootCA.pem"
+        "./certs/rootCA.pem"
       ];
 
       services.nginx = {
