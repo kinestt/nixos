@@ -1885,7 +1885,9 @@ To use this program, after installing run this:
         radarr = {
           enable = true;
           settings = {
-            port = "7878";
+            server = {
+              port = "7878";
+            };
           };
         };
       };

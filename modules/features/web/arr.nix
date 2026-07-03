@@ -8,7 +8,9 @@
       radarr = {
         enable = true;
         settings = {
-          port = "7878";
+          server = {
+            port = "7878";
+          };
         };
       };
     };
