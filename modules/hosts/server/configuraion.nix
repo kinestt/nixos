@@ -31,6 +31,7 @@
       self.nixosModules.linkwarden
       self.nixosModules.wireguard
       self.nixosModules.arr
+      self.nixosModules.jellyfin
 
       inputs.sops-nix.nixosModules.sops
     ];
