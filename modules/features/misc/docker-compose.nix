@@ -143,7 +143,7 @@
         ];
     };
     virtualisation.oci-containers.containers."services-fourget" = {
-        image = "localhost/compose2nix/services-fourget";
+        image = "luuul/4get:latest";
         environment = {
         "FOURGET_PROTO" = "http";
         "FOURGET_SERVER_NAME" = "4get.peanutbutter.quest";
