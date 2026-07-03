@@ -1521,6 +1521,7 @@ To use this program, after installing run this:
   }
 #+end_src
 *** localCA
+Create a rootCA using ~mkcert -install~ command. Then copy the ~rootCA.pem~ to be within the repo by just copying it's content into the tangle block below.
 #+begin_src text :tangle modules/features/web/certs/rootCA.pem
 -----BEGIN CERTIFICATE-----
 MIIEcTCCAtmgAwIBAgIQM5wmHESsOEaBJq85R7PegTANBgkqhkiG9w0BAQsFADBR
@@ -1564,7 +1565,12 @@ qNB5chFq3iQBoJXJVpScPJgL/3LL54RbhPA3svuY6vuioyMSEg==
   }
 #+end_src
 *** Nginx
-
+For generating a certicate to domains ending with ~server.lan~ ,run the follow command
+#+begin_src bash
+ mkcert "*.server.lan" server.lan 
+#+end_src
+Copy both the files into ~/etc/ssl/local~ and give it ~root:nginx~ permissions with mode ~640~.
+By not doing the above nginx will fail which can be parsed using the ~journalctl~ or ~systemctl~ command.
 #+begin_src nix :tangle modules/features/web/nginx.nix
   {
     self,
