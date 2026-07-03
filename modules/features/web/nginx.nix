@@ -7,6 +7,9 @@
     config,
     ...
   }: {
+    security.pki.certificateFiles = [
+      "/home/kin/.local/share/mkcert/rootCA.pem"
+    ];
     services.nginx = {
       enable = true;
 

@@ -1529,6 +1529,9 @@ To use this program, after installing run this:
       config,
       ...
     }: {
+      security.pki.certificateFiles = [
+        "/home/kin/.local/share/mkcert/rootCA.pem"
+      ];
       services.nginx = {
         enable = true;
 
