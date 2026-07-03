@@ -26,7 +26,7 @@
           sslCertificate = "/etc/ssl/local/server-lan.pem";
           sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
         };
-        "4get.peanutbutter.quest" = {
+        "4get.server.lan" = {
           forceSSL = true;
           sslCertificate = "/etc/ssl/local/server-lan.pem";
           sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
