@@ -32,6 +32,7 @@
       self.nixosModules.wireguard
       self.nixosModules.arr
       self.nixosModules.jellyfin
+      self.nixosModules.localCA
 
       inputs.sops-nix.nixosModules.sops
     ];

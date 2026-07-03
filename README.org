@@ -181,6 +181,7 @@ The default hosts structure goes as follows
         self.nixosModules.bash
         self.nixosModules.fish
         self.nixosModules.bash
+        self.nixosModules.localCA
         self.nixosModules.customFonts
       ];
 
@@ -323,6 +324,7 @@ The default hosts structure goes as follows
         self.nixosModules.wireguard
         self.nixosModules.arr
         self.nixosModules.jellyfin
+        self.nixosModules.localCA
 
         inputs.sops-nix.nixosModules.sops
       ];
@@ -1518,7 +1520,7 @@ To use this program, after installing run this:
     };
   }
 #+end_src
-*** Nginx
+*** localCA
 #+begin_src text :tangle modules/features/web/certs/rootCA.pem
 -----BEGIN CERTIFICATE-----
 MIIEcTCCAtmgAwIBAgIQM5wmHESsOEaBJq85R7PegTANBgkqhkiG9w0BAQsFADBR
@@ -1548,6 +1550,21 @@ qNB5chFq3iQBoJXJVpScPJgL/3LL54RbhPA3svuY6vuioyMSEg==
 -----END CERTIFICATE-----
 #+end_src
 
+#+begin_src nix :tangle modules/features/web/localCA.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.localCA = {
+      security.pki.certificateFiles = [
+        ./certs/rootCA.pem
+      ];
+    };
+  }
+#+end_src
+*** Nginx
+
 #+begin_src nix :tangle modules/features/web/nginx.nix
   {
     self,
@@ -1558,10 +1575,6 @@ qNB5chFq3iQBoJXJVpScPJgL/3LL54RbhPA3svuY6vuioyMSEg==
       config,
       ...
     }: {
-      security.pki.certificateFiles = [
-        ./certs/rootCA.pem
-      ];
-
       services.nginx = {
         enable = true;
 

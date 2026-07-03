@@ -7,10 +7,6 @@
     config,
     ...
   }: {
-    security.pki.certificateFiles = [
-      ./certs/rootCA.pem
-    ];
-
     services.nginx = {
       enable = true;
 
