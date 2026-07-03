@@ -13,6 +13,30 @@
           };
         };
       };
+      sonarr = {
+        enable = true;
+        settings = {
+          server = {
+            port = 8989;
+          };
+        };
+      };
+      prowlarr = {
+        enable = true;
+        settings = {
+          server = {
+            port = 9696;
+          };
+        };
+      };
+      lidarr = {
+        enable = true;
+        settings = {
+          server = {
+            port = 8686;
+          };
+        };
+      };
     };
   };
 }
