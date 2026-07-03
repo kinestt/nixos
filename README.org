@@ -1872,6 +1872,25 @@ To use this program, after installing run this:
     };
   }
 #+end_src
+*** Arr
+#+begin_src nix :tangle modules/features/web/arr.nix
+  {
+    self,
+    input,
+    ...
+  }: {
+    flake.nixosModules.arr = {
+      services = {
+        radarr = {
+          enable = true;
+          settings = {
+            port = 7878;
+          };
+        };
+      };
+    };
+  }
+#+end_src
 *** Redlib
 #+begin_src nix :tangle modules/features/web/redlib.nix
   {

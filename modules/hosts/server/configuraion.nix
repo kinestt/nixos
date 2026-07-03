@@ -21,7 +21,6 @@
       self.nixosModules.vaultwarden
       self.nixosModules.komga
       self.nixosModules.miniflux
-      self.nixosModules.nixflix
       self.nixosModules.redlib
       self.nixosModules.docker
       self.nixosModules.fish
