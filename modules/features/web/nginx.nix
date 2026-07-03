@@ -34,11 +34,64 @@
         };
         "jellyfin.server.lan" = {
           forceSSL = true;
-
           sslCertificate = "/etc/ssl/local/server-lan.pem";
           sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
           locations."/" = {
             proxyPass = "http://127.0.0.1:8096";
+            proxyWebsockets = true;
+          };
+        };
+        "linkwarden.server.lan" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server-lan.pem";
+          sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:3000";
+            proxyWebsockets = true;
+          };
+        };
+        "komga.server.lan" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server-lan.pem";
+          sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:10060";
+            proxyWebsockets = true;
+          };
+        };
+        "radarr.server.lan" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server-lan.pem";
+          sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:7878";
+            proxyWebsockets = true;
+          };
+        };
+        "sonarr.server.lan" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server-lan.pem";
+          sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:8989";
+            proxyWebsockets = true;
+          };
+        };
+        "prowlarr.server.lan" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server-lan.pem";
+          sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:9696";
+            proxyWebsockets = true;
+          };
+        };
+        "lidarr.server.lan" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server-lan.pem";
+          sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:8686";
             proxyWebsockets = true;
           };
         };
