@@ -8,7 +8,7 @@
       radarr = {
         enable = true;
         settings = {
-          port = 7878;
+          port = "7878";
         };
       };
     };
