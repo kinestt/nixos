@@ -32,13 +32,13 @@
             proxyWebsockets = true;
           };
         };
-        "linkwarden.server.lan" = {
+        "jellyfin.server.lan" = {
           forceSSL = true;
 
           sslCertificate = "/etc/ssl/local/server-lan.pem";
           sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
           locations."/" = {
-            proxyPass = "http://127.0.0.1:3000";
+            proxyPass = "http://127.0.0.1:8096";
             proxyWebsockets = true;
           };
         };
