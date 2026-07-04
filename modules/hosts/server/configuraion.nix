@@ -33,6 +33,7 @@
       self.nixosModules.arr
       self.nixosModules.jellyfin
       self.nixosModules.localCA
+      self.nixosModules.omnisearch
 
       inputs.sops-nix.nixosModules.sops
     ];
