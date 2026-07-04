@@ -2029,6 +2029,9 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
     ...
   }: {
     flake.nixosModules.omnisearch = {
+      imports = [
+        inputs.omnisearch.nixosModules.default
+      ];
       services.omnisearch = {
         enable = true;
       };
