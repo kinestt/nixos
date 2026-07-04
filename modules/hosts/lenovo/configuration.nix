@@ -69,9 +69,9 @@
 
     hardware.graphics.enable = true;
     hardware.graphics.enable32Bit = true;
-    #services.xserver.videoDrivers = ["nvidia"];
-    #hardware.nvidia.open = true;
-    #hardware.nvidia.modesetting.enable = true;
+    services.xserver.videoDrivers = ["nvidia"];
+    hardware.nvidia.open = true;
+    hardware.nvidia.modesetting.enable = true;
     # hardware.nvidia.prime = {
     #   sync.enable = true;
     #   amdgpuBusId = "PCI:06:0:0";
@@ -83,18 +83,8 @@
         git
         mullvad
         mullvad-vpn
-        inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
 
-        #(pkgs.spotify.overrideAttrs (old: {
-        #  nativeBuildInputs = (old.nativeBuildInputs or []) ++ [
-        #    pkgs.makeWrapper
-        #  ];
-        #  postInstall = (old.postInstall or "") + ''
-        #    wrapProgram $out/bin/spotify \
-        #      --add-flags "--enable-features=UseOzonePlatform"\
-        #      --add-flags "--ozone-platform=wayland"
-        #  '';
-        #}))
+        inputs.xwayland-satellite-unscaled.packages.${pkgs.system}.xwayland-satellite
       ];
       variables = {
         EDITOR = "vim";

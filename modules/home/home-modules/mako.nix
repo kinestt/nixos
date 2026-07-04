@@ -20,7 +20,7 @@
       inherit pkgs;
       settings = {
         sort = "-time";
-        font = "Iosevka Nerd Font Mono";
+        font = "SF Pro";
         layer = "overlay";
         anchor = "top-right";
         default-timeout = 5000;
