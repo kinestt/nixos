@@ -106,6 +106,9 @@
                 app-id = "firefox$";
                 title = "^Picture-in-Picture$";
               }
+              {
+                title = "Picture in picture";
+              }
             ];
             open-floating = true;
             default-column-width = [ { fixed = 480; } ];
