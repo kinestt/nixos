@@ -24,23 +24,17 @@
         ];
         upstreams = ["1.1.1.1"];
       };
-      ntp = {
-        ipv4.active = false;
-        ipv6.active = false;
-        sync.active = false;
-      };
     };
-
-    pihole-web = {
+    services.pihole-web = {
       enable = true;
       ports = [80];
     };
-    
-    resolved = {
+
+    services.resolved = {
       settings = {
         Resolve = {
-          DNSStubListener = false;
-          MulticastDNS = false;
+            DNSStubListener = false;
+            MulticastDNS = false;
         };
       };
     };
