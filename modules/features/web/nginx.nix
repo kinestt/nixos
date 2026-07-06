@@ -35,10 +35,10 @@
             proxyWebsockets = true;
           };
         };
-        "jellyfin.server.lan" = {
+        "jellyfin.server.org" = {
           forceSSL = true;
-          sslCertificate = "/etc/ssl/local/server-lan.pem";
-          sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+          sslCertificate = "/etc/ssl/local/server.org.pem";
+          sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
           locations."/" = {
             proxyPass = "http://127.0.0.1:8096";
             proxyWebsockets = true;
