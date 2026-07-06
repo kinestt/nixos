@@ -1533,20 +1533,20 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
         recommendedOptimisation = true;
 
         virtualHosts = {
-          "vault.server.lan" = {
+          "vault.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
           };
-          "search.server.lan" = {
+          "search.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
           };
-          "4get.server.lan" = {
+          "4get.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:10030";
               proxyWebsockets = true;
@@ -1561,73 +1561,73 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
               proxyWebsockets = true;
             };
           };
-          "linkwarden.server.lan" = {
+          "linkwarden.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:3000";
               proxyWebsockets = true;
             };
           };
-          "komga.server.lan" = {
+          "komga.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:10060";
               proxyWebsockets = true;
             };
           };
-          "radarr.server.lan" = {
+          "radarr.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:7878";
               proxyWebsockets = true;
             };
           };
-          "sonarr.server.lan" = {
+          "sonarr.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:8989";
               proxyWebsockets = true;
             };
           };
-          "prowlarr.server.lan" = {
+          "prowlarr.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:9696";
               proxyWebsockets = true;
             };
           };
-          "lidarr.server.lan" = {
+          "lidarr.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:8686";
               proxyWebsockets = true;
             };
           };
-          "qb.server.lan" = {
+          "qb.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:8888";
               proxyWebsockets = true;
             };
           };
-          "redlib.server.lan" = {
+          "redlib.server.org" = {
             forceSSL = true;
-            sslCertificate = "/etc/ssl/local/server-lan.pem";
-            sslCertificateKey = "/etc/ssl/local/server-lan-key.pem";
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
             locations."/" = {
               proxyPass = "http://127.0.0.1:5544";
               proxyWebsockets = true;
