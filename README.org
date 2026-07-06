@@ -1978,7 +1978,7 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
             results_on_new_tab = true;
           };
         };
-        domain = "search.server.lan";
+        domain = "search.server.org";
         configureNginx = true;
       };
     };

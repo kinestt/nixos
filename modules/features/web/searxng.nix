@@ -24,7 +24,7 @@
           results_on_new_tab = true;
         };
       };
-      domain = "search.server.lan";
+      domain = "search.server.org";
       configureNginx = true;
     };
   };
