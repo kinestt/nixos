@@ -2013,7 +2013,7 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
     flake.nixosModules.vaultwarden = {
       services.vaultwarden = {
         enable = true;
-        domain = "vault.server.lan";
+        domain = "vault.server.org";
         configureNginx = true;
         environmentFile = "/var/lib/vaultwarden.env";
       };
