@@ -219,24 +219,6 @@
         "type": "github"
       }
     },
-    "invidious": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1783435197,
-        "narHash": "sha256-mfdg8H0cQw2BPude3Jfag5e9wvn2CinnLFq2IV44I40=",
-        "ref": "master",
-        "rev": "6373ac7814e7e5673a1640685e0338c7cb94e62b",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/iv-org/invidious"
-      },
-      "original": {
-        "ref": "master",
-        "shallow": true,
-        "type": "git",
-        "url": "ssh://git@github.com/iv-org/invidious"
-      }
-    },
     "libnbtplusplus": {
       "flake": false,
       "locked": {
@@ -452,11 +434,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783518605,
-        "narHash": "sha256-QVxNyLM7mOTeHehELPkDq6PS+Uziv8TKVbWt10X91FY=",
+        "lastModified": 1783521490,
+        "narHash": "sha256-lkqSc6UuBp77PRLDGbQjbv2COtqhxa9Pyc0hgiGBDAY=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "e9423d28116d4e917181bdee77b662af4ca39d38",
+        "rev": "fb2b62050a9ea226bfb7d209303d12e78d4298b6",
         "type": "github"
       },
       "original": {
@@ -556,7 +538,6 @@
         "helium": "helium",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
-        "invidious": "invidious",
         "nixflix": "nixflix",
         "nixpkgs": "nixpkgs",
         "nur": "nur",

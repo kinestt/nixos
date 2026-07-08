@@ -21,10 +21,6 @@
       url = "git+ssh://git@github.com/kinestt/custom-fonts?ref=main&shallow=1";
       flake = false;
     };
-    invidious = {
-      url = "git+ssh://git@github.com/iv-org/invidious?ref=master&shallow=1";
-      flake = false;
-    };
 
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
