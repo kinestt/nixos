@@ -205,8 +205,8 @@
         "POSTGRES_USER" = "kemal";
       };
       volumes = [
-        "${builtins.toString inputs.invidious}/config/sql:/config/sql:rw"
-        "${builtins.toString inputs.invidious}/docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh:rw"
+        "/home/kin/docker/invidious/config/sql:/config/sql:rw"
+        "/home/kin/docker/invidious/docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh:rw"
         "services_postgresdata:/var/lib/postgresql/data:rw"
       ];
       log-driver = "journald";
