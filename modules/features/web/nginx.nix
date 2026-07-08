@@ -44,6 +44,33 @@
             proxyWebsockets = true;
           };
         };
+        "piped.server.org" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server.org.pem";
+          sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:10100";
+            proxyWebsockets = true;
+          };
+        };
+        "pipedapi.server.org" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server.org.pem";
+          sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:10101";
+            proxyWebsockets = true;
+          };
+        };
+        "pipedproxy.server.org" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server.org.pem";
+          sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:10102";
+            proxyWebsockets = true;
+          };
+        };
         "linkwarden.server.org" = {
           forceSSL = true;
           sslCertificate = "/etc/ssl/local/server.org.pem";
