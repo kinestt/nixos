@@ -80,7 +80,7 @@
     };
     
     virtualisation.oci-containers.containers."piped-backend" = {
-     image = "1337kavin/piped:latest";
+     image = "nieveve/piped-backend:latest";
      volumes = [
        "/home/kin/Piped-Docker/config/config.properties:/app/config.properties:ro"
      ];
