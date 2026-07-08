@@ -78,6 +78,164 @@
         "--network=services_default"
         ];
     };
+    
+    virtualisation.oci-containers.containers."piped-backend" = {
+     image = "1337kavin/piped:latest";
+     volumes = [
+       "/home/kin/Piped-Docker/config/config.properties:/app/config.properties:ro"
+     ];
+     ports = [
+       "10101:8080/tcp"
+     ];
+     dependsOn = [
+       "piped-postgres"
+     ];
+     log-driver = "journald";
+     extraOptions = [
+       "--network-alias=piped"
+       "--network=services_default"
+     ];
+   };
+   systemd.services."podman-piped-backend" = {
+     serviceConfig = {
+       Restart = lib.mkOverride 90 "always";
+     };
+     after = [
+       "podman-network-services_default.service"
+     ];
+     requires = [
+       "podman-network-services_default.service"
+     ];
+     partOf = [
+       "podman-compose-services-root.target"
+     ];
+     wantedBy = [
+       "podman-compose-services-root.target"
+     ];
+   };
+   virtualisation.oci-containers.containers."piped-bg-helper" = {
+     image = "1337kavin/bg-helper-server:latest";
+     log-driver = "journald";
+     extraOptions = [
+       "--network-alias=bg-helper"
+       "--network=services_default"
+     ];
+   };
+   systemd.services."podman-piped-bg-helper" = {
+     serviceConfig = {
+       Restart = lib.mkOverride 90 "always";
+     };
+     after = [
+       "podman-network-services_default.service"
+     ];
+     requires = [
+       "podman-network-services_default.service"
+     ];
+     partOf = [
+       "podman-compose-services-root.target"
+     ];
+     wantedBy = [
+       "podman-compose-services-root.target"
+     ];
+   };
+   virtualisation.oci-containers.containers."piped-frontend" = {
+     image = "1337kavin/piped-frontend:latest";
+     environment = {
+       "BACKEND_HOSTNAME" = "pipedapi.server.org";
+       "HTTP_MODE" = "https";
+     };
+     ports = [
+       "10100:80/tcp"
+     ];
+     dependsOn = [
+       "piped-backend"
+     ];
+     log-driver = "journald";
+     extraOptions = [
+       "--network-alias=frontend"
+       "--network=services_default"
+     ];
+   };
+   systemd.services."podman-piped-frontend" = {
+     serviceConfig = {
+       Restart = lib.mkOverride 90 "always";
+     };
+     after = [
+       "podman-network-services_default.service"
+     ];
+     requires = [
+       "podman-network-services_default.service"
+     ];
+     partOf = [
+       "podman-compose-services-root.target"
+     ];
+     wantedBy = [
+       "podman-compose-services-root.target"
+     ];
+   };
+   virtualisation.oci-containers.containers."piped-postgres" = {
+     image = "pgautoupgrade/pgautoupgrade:16-alpine";
+     environment = {
+       "POSTGRES_DB" = "piped";
+       "POSTGRES_PASSWORD" = "changeme";
+       "POSTGRES_USER" = "piped";
+     };
+     volumes = [
+       "/home/kin/Piped-Docker/data/db:/var/lib/postgresql/data:rw"
+     ];
+     log-driver = "journald";
+     extraOptions = [
+       "--network-alias=postgres"
+       "--network=services_default"
+     ];
+   };
+   systemd.services."podman-piped-postgres" = {
+     serviceConfig = {
+       Restart = lib.mkOverride 90 "always";
+     };
+     after = [
+       "podman-network-services_default.service"
+     ];
+     requires = [
+       "podman-network-services_default.service"
+     ];
+     partOf = [
+       "podman-compose-services-root.target"
+     ];
+     wantedBy = [
+       "podman-compose-services-root.target"
+     ];
+   };
+   virtualisation.oci-containers.containers."piped-proxy" = {
+     image = "1337kavin/piped-proxy:latest";
+     ports = [
+       "10102:8080/tcp"
+     ];
+     log-driver = "journald";
+     extraOptions = [
+       "--network-alias=proxy"
+       "--network=services_default"
+     ];
+   };
+   systemd.services."podman-piped-proxy" = {
+     serviceConfig = {
+       Restart = lib.mkOverride 90 "always";
+     };
+     after = [
+       "podman-network-services_default.service"
+     ];
+     requires = [
+       "podman-network-services_default.service"
+     ];
+     partOf = [
+       "podman-compose-services-root.target"
+     ];
+     wantedBy = [
+       "podman-compose-services-root.target"
+     ];
+   };
+      
+
     systemd.services."podman-recyclarr" = {
         serviceConfig = {
         Restart = lib.mkOverride 90 "no";
