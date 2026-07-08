@@ -50,7 +50,7 @@
               Description = "A privacy-respecting, hackable metasearch engine";
               Alias = "sng";
               Method = "POST";
-              URLTemplate = "https://search.server.lan/search?q={searchTerms}";
+              URLTemplate = "https://search.server.org/search?q={searchTerms}";
             }
             {
               Name = "Searchix";
@@ -64,7 +64,7 @@
               Description = "4get is a proxy search engine that doesn't suck";
               Alias = "4g";
               Method = "POST";
-              URLTemplate = "https://4get.server.lan/web?s={searchTerms}";
+              URLTemplate = "https://4get.server.org/web?s={searchTerms}";
             }
           ];
         };
