@@ -23,7 +23,7 @@
           center_alignment = true;
           results_on_new_tab = true;
         };
-        hostname = {
+        hostnames = {
           replace = {
             "(.*\.)?reddit\.com$" = "redlib.server.org";
           };
