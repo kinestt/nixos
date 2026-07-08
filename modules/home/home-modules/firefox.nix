@@ -43,7 +43,7 @@
             "Bing"
             "Perplexity"
           ];
-          Default = "4get";
+          Default = "SearXNG";
           Add = [
             {
               Name = "SearXNG";

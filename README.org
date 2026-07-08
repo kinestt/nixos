@@ -1977,6 +1977,11 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
             center_alignment = true;
             results_on_new_tab = true;
           };
+          hostname = {
+            replace = {
+              "(.*\.)?reddit\.com$" = "redlib.server.org";
+            };
+          };
         };
         domain = "search.server.org";
         configureNginx = true;
@@ -2608,7 +2613,7 @@ The main peers would be:
               "Bing"
               "Perplexity"
             ];
-            Default = "4get";
+            Default = "SearXNG";
             Add = [
               {
                 Name = "SearXNG";

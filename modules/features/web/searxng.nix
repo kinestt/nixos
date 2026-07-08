@@ -23,6 +23,11 @@
           center_alignment = true;
           results_on_new_tab = true;
         };
+        hostname = {
+          replace = {
+            "(.*\.)?reddit\.com$" = "redlib.server.org";
+          };
+        };
       };
       domain = "search.server.org";
       configureNginx = true;
