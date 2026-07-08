@@ -174,10 +174,6 @@
         "services-invidious-db"
       ];
       extraOptions = [
-        "--health-cmd=wget -nv --tries=1 --spider http://127.0.0.1:3001/api/v1/stats || exit 1"
-        "--health-interval=30s"
-        "--health-retries=2"
-        "--health-timeout=5s"
         "--log-opt=max-file=4"
         "--log-opt=max-size=1G"
         "--network-alias=invidious"
