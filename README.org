@@ -2166,6 +2166,8 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
           hostnames = {
             replace = {
               "(.*\.)?reddit\.com$" = "redlib.server.org";
+              "(.*\.)?youtube\.com$" = "piped.server.org";
+              "(.*\.)?youtu\.be$" = "piped.server.org";
             };
           };
         };

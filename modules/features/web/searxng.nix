@@ -26,6 +26,8 @@
         hostnames = {
           replace = {
             "(.*\.)?reddit\.com$" = "redlib.server.org";
+            "(.*\.)?youtube\.com$" = "piped.server.org";
+            "(.*\.)?youtu\.be$" = "piped.server.org";
           };
         };
       };
