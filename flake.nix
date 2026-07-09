@@ -50,7 +50,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     omnisearch = {
-      url = "git+https://git.bwaaa.monster/omnisearch?shallow=0";
+      url = "git+https://git.bwaaa.monster/omnisearch?shallow=0&&rev=36a7cabc3b59e66342e68f400cfb25f720073703";
       inputs.nixpkgs.follows = "nixpkgs";
     };    
     zen-browser = {
