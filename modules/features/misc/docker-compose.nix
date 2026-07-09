@@ -289,6 +289,60 @@
         ];
     };
 
+    virtualisation.oci-containers.containers."kittygram" = {
+      image = "localhost/kittygram:latest";
+      ports = [
+        "10200:80/tcp"
+      ];
+      log-driver = "journald";
+      extraOptions = [
+        "--network-alias=kittygram"
+        "--network=services_default"
+      ];
+    };
+    systemd.services."podman-kittygram" = {
+      serviceConfig = {
+        Restart = lib.mkOverride 90 "always";
+      };
+      after = [
+        "podman-network-services_default.service"
+      ];
+      requires = [
+        "podman-network-services_default.service"
+      ];
+      partOf = [
+        "podman-compose-services-root.target"
+      ];
+      wantedBy = [
+        "podman-compose-services-root.target"
+      ];
+    };
+    virtualisation.oci-containers.containers."valkey" = {
+      image = "valkey/valkey:latest";
+      log-driver = "journald";
+      extraOptions = [
+        "--network-alias=redis"
+        "--network=services_default"
+      ];
+    };
+    systemd.services."podman-valkey" = {
+      serviceConfig = {
+        Restart = lib.mkOverride 90 "always";
+      };
+      after = [
+        "podman-network-services_default.service"
+      ];
+      requires = [
+        "podman-network-services_default.service"
+      ];
+      partOf = [
+        "podman-compose-services-root.target"
+      ];
+      wantedBy = [
+        "podman-compose-services-root.target"
+      ];
+    };
+
     # Networks
     systemd.services."podman-network-services_default" = {
         path = [ pkgs.podman ];
@@ -305,20 +359,17 @@
     };
 
     # Builds
-    systemd.services."podman-build-services-fourget" = {
-        path = [ pkgs.podman pkgs.git ];
-        serviceConfig = {
+    systemd.services."podman-build-kittygram" = {
+      path = [ pkgs.podman pkgs.git ];
+      serviceConfig = {
         Type = "oneshot";
-        RemainAfterExit = true;
         TimeoutSec = 300;
-        };
-        script = ''
-        podman build -t compose2nix/services-fourget https://codeberg.org/kinest/4get.git
-        '';
-        partOf = [ "podman-compose-services-root.target" ];
-        wantedBy = [ "podman-compose-services-root.target" ];
+      };
+      script = ''
+        cd /home/kin/data/kittygram
+        podman build -t kittygram:latest .
+      '';
     };
-
     # Root service
     # When started, this will automatically create all resources and start
     # the containers. When stopped, this will teardown all resources.
