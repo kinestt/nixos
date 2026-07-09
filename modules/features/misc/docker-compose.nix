@@ -342,21 +342,6 @@
         "podman-compose-services-root.target"
       ];
     };
-
-    # Networks
-    systemd.services."podman-network-services_default" = {
-        path = [ pkgs.podman ];
-        serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStop = "podman network rm -f services_default";
-        };
-        script = ''
-        podman network inspect services_default || podman network create services_default
-        '';
-        partOf = [ "podman-compose-services-root.target" ];
-        wantedBy = [ "podman-compose-services-root.target" ];
-    };
     virtualisation.oci-containers.containers."services-omnisearch" = {
       image = "localhost/compose2nix/services-omnisearch";
       volumes = [
@@ -364,7 +349,7 @@
         "/home/kin/data/omnisearch/locales:/app/locales:rw"
       ];
       ports = [
-        "8087:8087/tcp"
+        "5000:5000/tcp"
       ];
       log-driver = "journald";
       extraOptions = [
@@ -390,6 +375,20 @@
       ];
     };
 
+    # Networks
+    systemd.services."podman-network-services_default" = {
+        path = [ pkgs.podman ];
+        serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStop = "podman network rm -f services_default";
+        };
+        script = ''
+        podman network inspect services_default || podman network create services_default
+        '';
+        partOf = [ "podman-compose-services-root.target" ];
+        wantedBy = [ "podman-compose-services-root.target" ];
+    };
     # Builds
     systemd.services."podman-build-kittygram" = {
       path = [ pkgs.podman pkgs.git ];
