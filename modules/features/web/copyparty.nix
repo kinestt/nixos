@@ -11,7 +11,9 @@
       inputs.copyparty.nixosModules.default
     ];
     sops.secrets = {
-      "copyparty/kin/password" = {};
+      "copyparty/kin/password" = {
+        owner = config.services.copyparty.user;
+      };
     };
     services.copyparty = {
       enable = true;

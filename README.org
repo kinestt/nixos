@@ -2270,7 +2270,9 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
         inputs.copyparty.nixosModules.default
       ];
       sops.secrets = {
-        "copyparty/kin/password" = {};
+        "copyparty/kin/password" = {
+          owner = config.services.copyparty.user;
+        };
       };
       services.copyparty = {
         enable = true;
