@@ -22,6 +22,19 @@
       accounts = {
         kin.passwordFile = config.sops.secrets."copyparty/kin/password".path;
       };
+      volumes = {
+        "/" = {
+          path = "/home/kin";
+          access = {
+            r = "*";
+            rw = [ "kin" ];
+          };
+          flags = {
+            scan = 60;
+            e2d = true;
+          };
+        };
+      };
     };
   };
 }
