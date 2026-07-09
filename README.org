@@ -85,10 +85,6 @@ I also use flakes as a way to import my non-flake files and use it to import fil
         url = "github:nix-community/NUR";
         inputs.nixpkgs.follows = "nixpkgs";
       };
-      omnisearch = {
-        url = "git+https://git.bwaaa.monster/omnisearch?shallow=0";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };    
       zen-browser = {
         url = "github:0xc000022070/zen-browser-flake";
         inputs = {
@@ -294,7 +290,6 @@ The default hosts structure goes as follows
     in {
       imports = [
         self.nixosModules.serverHardware
-        self.nixosModules.omnisearch
         self.nixosModules.vim
         self.nixosModules.nvf
         self.nixosModules.tmux
@@ -2271,23 +2266,6 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
         domain = "vault.server.org";
         configureNginx = true;
         environmentFile = "/var/lib/vaultwarden.env";
-      };
-    };
-  }
-#+end_src
-*** Omnisearch
-#+begin_src nix :tangle modules/features/web/omnisearch.nix
-  {
-    self,
-    inputs,
-    ...
-  }: {
-    flake.nixosModules.omnisearch = {
-      imports = [
-        inputs.omnisearch.nixosModules.default
-      ];
-      services.omnisearch = {
-        enable = true;
       };
     };
   }
