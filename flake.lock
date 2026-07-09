@@ -475,17 +475,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1780851762,
-        "narHash": "sha256-cx6ChdOEi6KYL1qxLtavKaiqP7t2jDJyh3hsqXmMAkA=",
+        "lastModified": 1783357409,
+        "narHash": "sha256-eolp0Msb3ACNatbenEJftjFlUoh/RfZDizv3GdetEsM=",
         "ref": "refs/heads/master",
-        "rev": "36a7cabc3b59e66342e68f400cfb25f720073703",
-        "revCount": 131,
+        "rev": "9c68a8ae6fb32f8a1660da392b9985a4ab3e7cb4",
+        "revCount": 135,
         "shallow": false,
         "type": "git",
         "url": "https://git.bwaaa.monster/omnisearch"
       },
       "original": {
-        "rev": "36a7cabc3b59e66342e68f400cfb25f720073703",
         "shallow": false,
         "type": "git",
         "url": "https://git.bwaaa.monster/omnisearch"
