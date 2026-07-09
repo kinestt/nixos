@@ -35,6 +35,15 @@
             proxyWebsockets = true;
           };
         };
+        "omni.server.org" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server.org.pem";
+          sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:5000";
+            proxyWebsockets = true;
+          };
+        };
         "jellyfin.server.org" = {
           forceSSL = true;
           sslCertificate = "/etc/ssl/local/server.org.pem";
