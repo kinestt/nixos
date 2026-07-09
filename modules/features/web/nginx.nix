@@ -35,6 +35,15 @@
             proxyWebsockets = true;
           };
         };
+        "party.server.org" = {
+          forceSSL = true;
+          sslCertificate = "/etc/ssl/local/server.org.pem";
+          sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:3923";
+            proxyWebsockets = true;
+          };
+        };
         "omni.server.org" = {
           forceSSL = true;
           sslCertificate = "/etc/ssl/local/server.org.pem";
