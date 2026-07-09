@@ -86,7 +86,7 @@ I also use flakes as a way to import my non-flake files and use it to import fil
         inputs.nixpkgs.follows = "nixpkgs";
       };
       omnisearch = {
-        url = "git+https://git.bwaaa.monster/omnisearch?shallow=0&&rev=36a7cabc3b59e66342e68f400cfb25f720073703";
+        url = "git+https://git.bwaaa.monster/omnisearch?shallow=0";
         inputs.nixpkgs.follows = "nixpkgs";
       };    
       zen-browser = {
