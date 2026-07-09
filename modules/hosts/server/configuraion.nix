@@ -72,6 +72,7 @@
     boot.loader.grub.device = "/dev/nvme0n1p1";
     environment.systemPackages = with pkgs; [
       git
+      git-lfs
       bat
       htop
       home-manager
