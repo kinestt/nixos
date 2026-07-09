@@ -2293,6 +2293,17 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
               e2d = true;
             };
           };
+          "/mnt" = {
+            path = "/mnt";
+            access = {
+              r = "*";
+              rw = [ "kin" ];
+            };
+            flags = {
+              scan = 60;
+              e2d = true;
+            };
+          };
         };
       };
     };

@@ -34,6 +34,17 @@
             e2d = true;
           };
         };
+        "/mnt" = {
+          path = "/mnt";
+          access = {
+            r = "*";
+            rw = [ "kin" ];
+          };
+          flags = {
+            scan = 60;
+            e2d = true;
+          };
+        };
       };
     };
   };
