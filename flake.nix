@@ -8,6 +8,7 @@
     xwayland-satellite-unscaled.url = "github:Supreeeme/xwayland-satellite?ref=unscaled-dpi";
     redlib-fork.url = "github:taglia/redlib?ref=dockerhub-redlib-0.36.0";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    inputs.copyparty.url = "github:9001/copyparty";
 
     secrets = {
       url = "git+ssh://git@codeberg.org/kinest/secrets?ref=main&shallow=1";

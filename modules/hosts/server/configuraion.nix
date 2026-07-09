@@ -12,6 +12,7 @@
   in {
     imports = [
       self.nixosModules.serverHardware
+      self.nixosModules.localCA
       self.nixosModules.vim
       self.nixosModules.nvf
       self.nixosModules.tmux
@@ -32,7 +33,7 @@
       self.nixosModules.wireguard
       self.nixosModules.arr
       self.nixosModules.jellyfin
-      self.nixosModules.localCA
+      self.nixosModules.copyparty
 
       inputs.sops-nix.nixosModules.sops
     ];
