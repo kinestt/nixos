@@ -23,11 +23,28 @@
         pipewire = {
           "65-hires-audio.conf" = {
             "context.properties" = {
-              "default.clock.rate" = "192000";
-              "default.clock.allowed.rates" = [ "44100" "48000" "88200" "96000" "176400" "192000" ];
+              "default.clock.rate" = "44100";
+              "default.clock.allowed.rates" = [ "44100" ];
+              "default.clock.quantum" = "1024";
+              "default.clock.max-quantum" = "8192";
+              "default.clock.min-quantum" = "32";
             };
           };
         }; 
+        pipewire-pulse = {
+          "92-low-latency" = {
+            "pulse.properties" = {
+              "pulse.default.format" = "F32";
+            };
+            "stream.properties" = {
+              "resample.quality" = "15";
+              "channel.normalize" = "false";
+              "channel.upmix" = "false";
+              "channel.upmix-method" = "none";
+              "channel.mix-life" = "false";
+            };
+          };
+        };
       };
 
 #      extraConfig = {
@@ -60,20 +77,6 @@
 #              "default.clock.quantum" = "1024";
 #              "default.clock.max-quantum" = "8192";
 #              "default.clock.min-quantum" = "32";
-#            };
-#          };
-#        };
-#        pipewire-pulse = {
-#          "92-low-latency" = {
-#            "pulse.properties" = {
-#              "pulse.default.format" = "F32";
-#            };
-#            "stream.properties" = {
-#              "resample.quality" = "15";
-#              "channel.normalize" = "false";
-#              "channel.upmix" = "false";
-#              "channel.upmix-method" = "none";
-#              "channel.mix-life" = "false";
 #            };
 #          };
 #        };

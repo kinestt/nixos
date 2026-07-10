@@ -18,7 +18,6 @@
       self.homeModules.gtk-fonts
       self.homeModules.emacs
       self.homeModules.waybar
-      self.homeModules.spicetify
       self.homeModules.zen-browser
     ];
     home = {
@@ -26,6 +25,7 @@
       homeDirectory = "/home/kin";
       stateVersion = "25.11";
       packages = with pkgs; [
+        spotify
         swappy
         libreoffice
         fastfetch

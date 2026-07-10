@@ -1012,11 +1012,28 @@ The default hosts structure goes as follows
           pipewire = {
             "65-hires-audio.conf" = {
               "context.properties" = {
-                "default.clock.rate" = "192000";
-                "default.clock.allowed.rates" = [ "44100" "48000" "88200" "96000" "176400" "192000" ];
+                "default.clock.rate" = "44100";
+                "default.clock.allowed.rates" = [ "44100" ];
+                "default.clock.quantum" = "1024";
+                "default.clock.max-quantum" = "8192";
+                "default.clock.min-quantum" = "32";
               };
             };
           }; 
+          pipewire-pulse = {
+            "92-low-latency" = {
+              "pulse.properties" = {
+                "pulse.default.format" = "F32";
+              };
+              "stream.properties" = {
+                "resample.quality" = "15";
+                "channel.normalize" = "false";
+                "channel.upmix" = "false";
+                "channel.upmix-method" = "none";
+                "channel.mix-life" = "false";
+              };
+            };
+          };
         };
 
   #      extraConfig = {
@@ -1049,20 +1066,6 @@ The default hosts structure goes as follows
   #              "default.clock.quantum" = "1024";
   #              "default.clock.max-quantum" = "8192";
   #              "default.clock.min-quantum" = "32";
-  #            };
-  #          };
-  #        };
-  #        pipewire-pulse = {
-  #          "92-low-latency" = {
-  #            "pulse.properties" = {
-  #              "pulse.default.format" = "F32";
-  #            };
-  #            "stream.properties" = {
-  #              "resample.quality" = "15";
-  #              "channel.normalize" = "false";
-  #              "channel.upmix" = "false";
-  #              "channel.upmix-method" = "none";
-  #              "channel.mix-life" = "false";
   #            };
   #          };
   #        };
@@ -2790,7 +2793,6 @@ The main peers would be:
         self.homeModules.gtk-fonts
         self.homeModules.emacs
         self.homeModules.waybar
-        self.homeModules.spicetify
         self.homeModules.zen-browser
       ];
       home = {
@@ -2798,6 +2800,7 @@ The main peers would be:
         homeDirectory = "/home/kin";
         stateVersion = "25.11";
         packages = with pkgs; [
+          spotify
           swappy
           libreoffice
           fastfetch
@@ -3223,6 +3226,7 @@ The flake installs spotify automatically based on the given spicetify configurat
         };
       };
       home.pointerCursor = {
+        enable = true;
         gtk.enable = true;
         x11.enable = true;
         name = "Bibata-Modern-Ice";
