@@ -101,6 +101,7 @@
               };
             };
             treesitter = {
+              enable = true;
               indent.excludes = [ "nix" ];
             };
             telescope = {
@@ -136,6 +137,21 @@
             terminal = {
               toggleterm = {
                 enable = true;
+              };
+            };
+            extraPlugins = with pkgs.vimPlugins; {
+              orgmode = {
+                package = orgmode;
+                setup = ''
+                  require('orgmode').setup({
+                    mappings = {
+                      global = {
+                        org_babel_tangle = true,
+                      },
+                    }
+                  })   
+                  vim.lsp.enable('org')
+                '';
               };
             };
           };

@@ -69,9 +69,9 @@
 
     hardware.graphics.enable = true;
     hardware.graphics.enable32Bit = true;
-    services.xserver.videoDrivers = ["nvidia"];
-    hardware.nvidia.open = true;
-    hardware.nvidia.modesetting.enable = true;
+    #services.xserver.videoDrivers = ["nvidia"];
+    #hardware.nvidia.open = true;
+    #hardware.nvidia.modesetting.enable = true;
     # hardware.nvidia.prime = {
     #   sync.enable = true;
     #   amdgpuBusId = "PCI:06:0:0";
@@ -98,7 +98,6 @@
       enable = true;
       powerOnBoot = true;
     };
-
     networking.wireless.enable = false;
     networking.wireless.iwd.enable = true;
     networking.networkmanager.wifi.backend = "iwd";

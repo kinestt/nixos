@@ -1,7 +1,7 @@
 #+TITLE: My NixOS Configuration
 #+OPTIONS: toc:nil broken-links: t
 #+PROPERTY: header-args  :noweb tangle :results silent :mkdirp yes
-#+STARTUP: content
+#+Startup: content
 
 Hello! This is my [[https://nixos.org/][NixOS]] configuration that I use to maintain my machines. 
 
@@ -227,9 +227,9 @@ The default hosts structure goes as follows
 
       hardware.graphics.enable = true;
       hardware.graphics.enable32Bit = true;
-      services.xserver.videoDrivers = ["nvidia"];
-      hardware.nvidia.open = true;
-      hardware.nvidia.modesetting.enable = true;
+      #services.xserver.videoDrivers = ["nvidia"];
+      #hardware.nvidia.open = true;
+      #hardware.nvidia.modesetting.enable = true;
       # hardware.nvidia.prime = {
       #   sync.enable = true;
       #   amdgpuBusId = "PCI:06:0:0";
@@ -256,7 +256,6 @@ The default hosts structure goes as follows
         enable = true;
         powerOnBoot = true;
       };
-
       networking.wireless.enable = false;
       networking.wireless.iwd.enable = true;
       networking.networkmanager.wifi.backend = "iwd";
@@ -720,6 +719,7 @@ The default hosts structure goes as follows
                 };
               };
               treesitter = {
+                enable = true;
                 indent.excludes = [ "nix" ];
               };
               telescope = {
@@ -755,6 +755,21 @@ The default hosts structure goes as follows
               terminal = {
                 toggleterm = {
                   enable = true;
+                };
+              };
+              extraPlugins = with pkgs.vimPlugins; {
+                orgmode = {
+                  package = orgmode;
+                  setup = ''
+                    require('orgmode').setup({
+                      mappings = {
+                        global = {
+                          org_babel_tangle = true,
+                        },
+                      }
+                    })   
+                    vim.lsp.enable('org')
+                  '';
                 };
               };
             };
@@ -2550,7 +2565,7 @@ The main peers would be:
             "eDP-1" = {
               # off = _: {};
               mode = "1920x1080@165.002";
-              scale = 1.25;
+              scale = 1;
               position = _: {
                 props = {
                   x = 0;
@@ -2788,8 +2803,6 @@ The main peers would be:
           fastfetch
           qbittorrent-nox
           mpv
-          nautilus
-          _64gram
           helium
           btop
           lutris
@@ -2808,6 +2821,11 @@ The main peers would be:
 
           inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
         ];
+        sessionVariables = {
+          GTK_DEBUG = "portals";
+          GTK_USE_PORTAL = 1;
+          EDITOR = "vim";
+        };
       };
     };
   }
@@ -3006,6 +3024,7 @@ The main peers would be:
               "signon.privateBrowsingCapture.enabled" = false;
               "network.auth.subresource-http-auth-allow" = 1;
               "editor.truncate_user_pastes" = false;
+              "widget.use-xdg-desktop-portal.file-picker" = 1;
             };
           };
         };
@@ -3296,7 +3315,7 @@ The flake installs spotify automatically based on the given spicetify configurat
           mainBar = {
             layer = "top";
             position = "top";
-            height = 25;
+            height = 20;
             spacing = 10;
             modules-left = ["niri/workspaces" "mpris" ];
             modules-center = [];
@@ -3459,7 +3478,6 @@ The flake installs spotify automatically based on the given spicetify configurat
           pdf-tools
           emms
           base16-theme
-          eat
         ];
       };
 
@@ -3515,6 +3533,7 @@ The flake installs spotify automatically based on the given spicetify configurat
   (show-paren-mode 1)
   (setq make-backup-files nil)
   (setq auto-save-default nil)
+  (electric-indent-mode 1)
 
   ;; Custom Fonts for org mode
   (add-hook 'org-mode-hook 'variable-pitch-mode)
@@ -3556,9 +3575,6 @@ The flake installs spotify automatically based on the given spicetify configurat
   (use-package nerd-icons
   	:custom
   	(nerd-icons-color-icons nil))
-
-  ;; eat - terminal
-  (use-package eat)
 
   ;; Rainbow Mode
   (use-package rainbow-mode

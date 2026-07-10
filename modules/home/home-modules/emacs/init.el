@@ -16,6 +16,7 @@
 (show-paren-mode 1)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+(electric-indent-mode 1)
 
 ;; Custom Fonts for org mode
 (add-hook 'org-mode-hook 'variable-pitch-mode)
@@ -57,9 +58,6 @@
 (use-package nerd-icons
 	:custom
 	(nerd-icons-color-icons nil))
-
-;; eat - terminal
-(use-package eat)
 
 ;; Rainbow Mode
 (use-package rainbow-mode

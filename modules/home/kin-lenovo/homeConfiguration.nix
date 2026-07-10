@@ -31,8 +31,6 @@
         fastfetch
         qbittorrent-nox
         mpv
-        nautilus
-        _64gram
         helium
         btop
         lutris
@@ -51,6 +49,11 @@
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];
+      sessionVariables = {
+        GTK_DEBUG = "portals";
+        GTK_USE_PORTAL = 1;
+        EDITOR = "vim";
+      };
     };
   };
 }

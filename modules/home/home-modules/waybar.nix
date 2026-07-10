@@ -10,7 +10,7 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 25;
+          height = 20;
           spacing = 10;
           modules-left = ["niri/workspaces" "mpris" ];
           modules-center = [];
