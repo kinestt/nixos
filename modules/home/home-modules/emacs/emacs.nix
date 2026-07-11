@@ -2,9 +2,17 @@
   ...
 }: {
   flake.homeModules.emacs = {
+    config,
     pkgs,
     ...
   }: { 
+    services.emacs = {
+      enable = true;
+      package = config.programs.emacs.finalPackage;
+      client.enable = true;
+      defaultEditor = true;
+      startWithUserSession = true;
+    };
     programs.emacs = {
       enable = true;
       package = (pkgs.emacs-pgtk.override { withTreeSitter = true; });
@@ -19,6 +27,7 @@
         pdf-tools
         emms
         base16-theme
+        yaml-mode
       ];
     };
 

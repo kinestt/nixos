@@ -75,12 +75,11 @@
         log-driver = "journald";
         extraOptions = [
         "--network-alias=recyclarr"
-        "--network=services_default"
-        ];
+         "--network=services_default"
+         ];
     };
-    
-    virtualisation.oci-containers.containers."piped-backend" = {
-     image = "nieveve/piped-backend:latest";
+   virtualisation.oci-containers.containers."piped-backend" = {
+     image = "localhost/compose2nix/piped-backend";
      volumes = [
        "/home/kin/Piped-Docker/config/config.properties:/app/config.properties:ro"
      ];
@@ -399,6 +398,17 @@
       script = ''
         cd /home/kin/data/kittygram
         podman build -t kittygram:latest .
+      '';
+    };
+    systemd.services."podman-build-piped-backend" = {
+      path = [ pkgs.podman pkgs.git ];
+      serviceConfig = {
+        Type = "oneshot";
+        TimeoutSec = 300;
+      };
+      script = ''
+        cd /home/kin/data/Piped-Backend-LK
+        podman build -t compose2nix/piped-backend .
       '';
     };
     systemd.services."podman-build-services-omnisearch" = {

@@ -53,7 +53,6 @@
       sessionVariables = {
         GTK_DEBUG = "portals";
         GTK_USE_PORTAL = 1;
-        EDITOR = "vim";
       };
     };
   };

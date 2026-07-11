@@ -5,6 +5,7 @@
 (global-set-key (kbd "C-x c") #'org-capture)
 
 ;; Font 
+(set-face-attribute 'default nil :family "Iosevka Nerd Font Mono" :height 120)
 (set-frame-font "Iosevka Nerd Font Mono 12" nil t)
 
 ;; qol customizations
@@ -35,7 +36,6 @@
 
 ;; Base16 Theme
 (use-package base16-theme
-  :ensure t
   :config
   (load-theme 'base16-gruvbox-dark t))
 
@@ -53,6 +53,10 @@
 ;; Nix Mode for syntax highlighting
 (use-package nix-mode
 	:mode "\\.nix\\'")
+
+;; Yaml Major Mode
+(use-package yaml-mode
+  :mode "\\.yml\\'")
 
 ;; Nerd Icons
 (use-package nerd-icons
@@ -80,7 +84,6 @@
 
 ;; Emms
 (use-package emms
-  :ensure t
   :config
   (require 'emms-setup)
   (emms-all)
