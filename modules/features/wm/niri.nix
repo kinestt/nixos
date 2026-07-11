@@ -218,6 +218,7 @@
           "Mod+F5".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
 
           "Mod+T".spawn-sh = ''notify-send "Current Time" "$(date +"%I:%M %p")"'';
+          "Mod+Shift+P".spawn-sh = "niri msg action power-off-monitors";
         };
         spawn-sh-at-startup = [
           "${lib.getExe pkgs.swaybg} -i ${wallspath}/railway.jpg"

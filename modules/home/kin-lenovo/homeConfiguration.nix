@@ -8,6 +8,7 @@
     ...
   }: {
     imports = [
+      self.homeModules.lock
       self.homeModules.mako
       self.homeModules.alacritty
       self.homeModules.gtk
