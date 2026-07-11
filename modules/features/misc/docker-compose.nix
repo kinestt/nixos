@@ -79,7 +79,7 @@
          ];
     };
    virtualisation.oci-containers.containers."piped-backend" = {
-     image = "localhost/compose2nix/piped-backend";
+     image = "nieveve/piped-backend:latest";
      volumes = [
        "/home/kin/Piped-Docker/config/config.properties:/app/config.properties:ro"
      ];
