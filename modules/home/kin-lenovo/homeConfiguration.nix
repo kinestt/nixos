@@ -20,6 +20,8 @@
       self.homeModules.emacs
       self.homeModules.waybar
       self.homeModules.zen-browser
+      self.homeModules.rmpc
+      self.homeModules.mpd
     ];
     home = {
       username = "kin";

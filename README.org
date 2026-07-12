@@ -2730,6 +2730,8 @@ The main peers would be:
         self.homeModules.emacs
         self.homeModules.waybar
         self.homeModules.zen-browser
+        self.homeModules.rmpc
+        self.homeModules.mpd
       ];
       home = {
         username = "kin";
@@ -3391,6 +3393,68 @@ The flake installs spotify automatically based on the given spicetify configurat
           "lock" = (display "off") + "; " + lock;
           "unlock" = display "on";
         };
+      };
+    };
+  }
+#+end_src
+*** MPD
+#+begin_src nix :tangle modules/home/home-modules/mpd.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeModules.mpd = {
+      services = {
+        mpd = {
+          enable = true;
+          network.port = 6600;
+          musicDirectory = "/home/kin/audio";
+          extraConfig = ''
+            audio_output {
+              type "pulse"
+              name "Pipewire"
+              mixer_type "hardware"
+              mixer_device "default"
+              mixer_control "PCM"
+              mixer_index "0"
+            }
+          '';
+        };
+        mpdris2 = {
+          enable = true;
+          notifications = true;
+        };
+      };
+    };
+  }
+#+end_src
+*** RMPC
+#+begin_src nix :tangle modules/home/home-modules/rmpc.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.homeModules.rmpc = {
+      programs.rmpc = {
+        enable = true;
+        config = ''
+          (
+            address: "127.0.0.1:6600",
+            password: None,
+            theme: None,
+            cache_dir: None,
+            on_song_change: None,
+            volume_step: 5,
+            scrolloff: 0,
+            wrap_navigation: false,
+            enable_mouse: true,
+            enable_config_hot_reload: true,
+            select_current_song_on_change: false,
+            browser_song_sort: [Disc, Track, Artist, Title],
+          )
+        '';
       };
     };
   }
