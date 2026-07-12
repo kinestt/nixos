@@ -24,6 +24,18 @@
         enable = true;
         notifications = true;
       };
+      mpd-discord-rpc = {
+        enable = true;
+        settings = {
+          format = {
+            details = "$title";
+            state = "$artist";
+          };
+          hosts = [
+            "127.0.0.1:6600"
+          ];
+        };
+      };
     };
   };
 }

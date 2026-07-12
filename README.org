@@ -1755,6 +1755,15 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
               proxyWebsockets = true;
             };
           };
+          "scrobble.server.org" = {
+            forceSSL = true;
+            sslCertificate = "/etc/ssl/local/server.org.pem";
+            sslCertificateKey = "/etc/ssl/local/server.org-key.pem";
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:9078";
+              proxyWebsockets = true;
+            };
+          };
           "party.server.org" = {
             forceSSL = true;
             sslCertificate = "/etc/ssl/local/server.org.pem";
@@ -2759,6 +2768,10 @@ The main peers would be:
           streamrip
           tidal-hifi
           jellyfin-mpv-shim
+          (discord.override {
+            withOpenASAR = true;
+            withEquicord = true;
+          })
 
           inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
         ];
@@ -3256,7 +3269,7 @@ The flake installs spotify automatically based on the given spicetify configurat
           mainBar = {
             layer = "top";
             position = "top";
-            height = 20;
+            height = 30;
             spacing = 10;
             modules-left = ["niri/workspaces" "mpris" ];
             modules-center = [];
@@ -3424,6 +3437,18 @@ The flake installs spotify automatically based on the given spicetify configurat
         mpdris2 = {
           enable = true;
           notifications = true;
+        };
+        mpd-discord-rpc = {
+          enable = true;
+          settings = {
+            format = {
+              details = "$title";
+              state = "$artist";
+            };
+            hosts = [
+              "127.0.0.1:6600"
+            ];
+          };
         };
       };
     };

@@ -49,6 +49,10 @@
         streamrip
         tidal-hifi
         jellyfin-mpv-shim
+        (discord.override {
+          withOpenASAR = true;
+          withEquicord = true;
+        })
 
         inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
       ];
