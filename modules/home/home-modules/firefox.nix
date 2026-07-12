@@ -34,6 +34,12 @@
           Snippets = false;
           Locked = true;
         };
+        EnableTrackingProtection = {
+          Value = true;
+          Locked = true;
+          Cryptomining = true;
+          Fingerprinting = true;
+        };
         GenerativeAI = {
           Enabled = false;
         };

@@ -14,6 +14,7 @@
       ];
       fontconfig = {
         enable = true;
+        antialias = true;
         defaultFonts = {
           serif = ["SF Pro"];
           sansSerif = ["SF Pro"];

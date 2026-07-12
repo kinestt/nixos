@@ -75,6 +75,7 @@
             };
           };
           "HDMI-A-1" = {
+            off = _: {};
             mode = "3840x2160@143.988";
             scale = 2;
             position = _: {

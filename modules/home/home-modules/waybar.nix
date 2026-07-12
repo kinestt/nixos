@@ -39,15 +39,15 @@
           };
           "mpris" = {
             format = "{player_icon} {title}";
-            format-paused = "{status_icon} <i>{title}</i>";
+            format-paused = "{status_icon} {title}";
             player-icons =  {
-              default = "▶";
+              default = "";
               spotify = "";
               firefox = "󰈹";
               chromium = "";
             };
             status-icons = {
-              paused =  "⏸";
+              paused =  "";
             };
             interval = 1;
           };

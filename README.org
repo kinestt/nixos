@@ -1112,6 +1112,7 @@ The default hosts structure goes as follows
         ];
         fontconfig = {
           enable = true;
+          antialias = true;
           defaultFonts = {
             serif = ["SF Pro"];
             sansSerif = ["SF Pro"];
@@ -2531,6 +2532,7 @@ The main peers would be:
               };
             };
             "HDMI-A-1" = {
+              off = _: {};
               mode = "3840x2160@143.988";
               scale = 2;
               position = _: {
@@ -2922,6 +2924,12 @@ The main peers would be:
             Snippets = false;
             Locked = true;
           };
+          EnableTrackingProtection = {
+            Value = true;
+            Locked = true;
+            Cryptomining = true;
+            Fingerprinting = true;
+          };
           GenerativeAI = {
             Enabled = false;
           };
@@ -3298,15 +3306,15 @@ The flake installs spotify automatically based on the given spicetify configurat
             };
             "mpris" = {
               format = "{player_icon} {title}";
-              format-paused = "{status_icon} <i>{title}</i>";
+              format-paused = "{status_icon} {title}";
               player-icons =  {
-                default = "▶";
+                default = "";
                 spotify = "";
                 firefox = "󰈹";
                 chromium = "";
               };
               status-icons = {
-                paused =  "⏸";
+                paused =  "";
               };
               interval = 1;
             };
