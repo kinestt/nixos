@@ -162,9 +162,12 @@ The default hosts structure goes as follows
     ...
   }: {
     flake.nixosModules.lenovoConfiguration = {
+      config,
       pkgs,
       ...
-    }: {
+    }: let
+      secretspath = builtins.toString inputs.secrets;
+    in {
       imports = [
         self.nixosModules.lenovoHardware
         self.nixosModules.niri
@@ -180,6 +183,8 @@ The default hosts structure goes as follows
         self.nixosModules.bash
         self.nixosModules.localCA
         self.nixosModules.customFonts
+
+        inputs.sops-nix.nixosModules.sops
       ];
 
       #boot.loader.systemd-boot.enable = true;
@@ -212,8 +217,18 @@ The default hosts structure goes as follows
           bat
           unzip
           zip
+          sops
 
         ];
+      };
+
+      sops = {
+        defaultSopsFile = "${secretspath}/secrets/server.yaml";
+        age = {
+          sshKeyPaths = ["${config.users.users.kin.home}/.ssh/id_ed25519"];
+          keyFile = "/var/lib/sops-nix/key.txt";
+          generateKey = true;
+        };
       };
 
       services.gvfs.enable = true;
@@ -2725,9 +2740,12 @@ The main peers would be:
     ...
   }: {
     flake.homeModules.kinConfiguration = {
+      config,
       pkgs, 
       ...
-    }: {
+    }: let
+      secretspath = builtins.toString inputs.secrets;
+    in {
       imports = [
         self.homeModules.lock
         self.homeModules.mako
@@ -2743,6 +2761,8 @@ The main peers would be:
         self.homeModules.zen-browser
         self.homeModules.rmpc
         self.homeModules.mpd
+
+        inputs.sops-nix.homeManagerModules.sops
       ];
       home = {
         username = "kin";
@@ -2780,6 +2800,14 @@ The main peers would be:
         sessionVariables = {
           GTK_DEBUG = "portals";
           GTK_USE_PORTAL = 1;
+        };
+      };
+      sops = {
+        defaultSopsFile = "${secretspath}/secrets/server.yaml";
+        age = {
+          sshKeyPaths = ["/home/kin/.ssh/id_ed25519"];
+          keyFile = "/home/kin/.config/sops/age/keys.txt";
+          generateKey = true;
         };
       };
     };
@@ -3042,28 +3070,13 @@ The main peers would be:
             id = 0;
             search = {
               force = true;
-              default = "fourget";
+              default = "searxng";
               engines = {
-                fourget = {
-                  name = "4get";
-                  urls = [
-                    {
-                      template = "https://4get.peanutbutter.quest/web?s={searchTerms}&scraper=google_cse&nsfw=yes";
-                      params = [
-                        {
-                          name = "query";
-                          value = "searchTerms";
-                        }
-                      ];
-                    }
-                  ];
-                  definedAliases = ["@4g"];
-                };
                 searxng = {
                   name = "searxng";
                   urls = [
                     {
-                      template = "https://search.peanutbutter.quest/search?q={searchTerms}";
+                      template = "https://search.server.org/search?q={searchTerms}";
                       params = [
                         {
                           name = "query";
@@ -3426,6 +3439,15 @@ The flake installs spotify automatically based on the given spicetify configurat
     ...
   }: {
     flake.homeModules.mpd = {
+      config,
+      lib,
+      ...
+    }: {
+
+      sops.secrets = {
+        "last.fm/password" = {};
+      };
+      
       services = {
         mpd = {
           enable = true;
@@ -3456,6 +3478,15 @@ The flake installs spotify automatically based on the given spicetify configurat
             hosts = [
               "127.0.0.1:6600"
             ];
+          };
+        };
+        mpdscribble = {
+          enable = true;
+          endpoints = {
+            "last.fm" = {
+              username = "cementsediment";
+              passwordFile = config.sops.secrets."last.fm/password".path;
+            };
           };
         };
       };

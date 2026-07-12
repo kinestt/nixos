@@ -4,6 +4,15 @@
   ...
 }: {
   flake.homeModules.mpd = {
+    config,
+    lib,
+    ...
+  }: {
+
+    sops.secrets = {
+      "last.fm/password" = {};
+    };
+    
     services = {
       mpd = {
         enable = true;
@@ -34,6 +43,15 @@
           hosts = [
             "127.0.0.1:6600"
           ];
+        };
+      };
+      mpdscribble = {
+        enable = true;
+        endpoints = {
+          "last.fm" = {
+            username = "cementsediment";
+            passwordFile = config.sops.secrets."last.fm/password".path;
+          };
         };
       };
     };

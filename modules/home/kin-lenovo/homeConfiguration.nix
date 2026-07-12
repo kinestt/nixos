@@ -4,9 +4,12 @@
   ...
 }: {
   flake.homeModules.kinConfiguration = {
+    config,
     pkgs, 
     ...
-  }: {
+  }: let
+    secretspath = builtins.toString inputs.secrets;
+  in {
     imports = [
       self.homeModules.lock
       self.homeModules.mako
@@ -22,6 +25,8 @@
       self.homeModules.zen-browser
       self.homeModules.rmpc
       self.homeModules.mpd
+
+      inputs.sops-nix.homeManagerModules.sops
     ];
     home = {
       username = "kin";
@@ -59,6 +64,14 @@
       sessionVariables = {
         GTK_DEBUG = "portals";
         GTK_USE_PORTAL = 1;
+      };
+    };
+    sops = {
+      defaultSopsFile = "${secretspath}/secrets/server.yaml";
+      age = {
+        sshKeyPaths = ["/home/kin/.ssh/id_ed25519"];
+        keyFile = "/home/kin/.config/sops/age/keys.txt";
+        generateKey = true;
       };
     };
   };

@@ -4,9 +4,12 @@
   ...
 }: {
   flake.nixosModules.lenovoConfiguration = {
+    config,
     pkgs,
     ...
-  }: {
+  }: let
+    secretspath = builtins.toString inputs.secrets;
+  in {
     imports = [
       self.nixosModules.lenovoHardware
       self.nixosModules.niri
@@ -22,6 +25,8 @@
       self.nixosModules.bash
       self.nixosModules.localCA
       self.nixosModules.customFonts
+
+      inputs.sops-nix.nixosModules.sops
     ];
 
     #boot.loader.systemd-boot.enable = true;
@@ -54,8 +59,18 @@
         bat
         unzip
         zip
+        sops
 
       ];
+    };
+
+    sops = {
+      defaultSopsFile = "${secretspath}/secrets/server.yaml";
+      age = {
+        sshKeyPaths = ["${config.users.users.kin.home}/.ssh/id_ed25519"];
+        keyFile = "/var/lib/sops-nix/key.txt";
+        generateKey = true;
+      };
     };
 
     services.gvfs.enable = true;

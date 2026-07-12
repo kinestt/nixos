@@ -43,28 +43,13 @@
           id = 0;
           search = {
             force = true;
-            default = "fourget";
+            default = "searxng";
             engines = {
-              fourget = {
-                name = "4get";
-                urls = [
-                  {
-                    template = "https://4get.peanutbutter.quest/web?s={searchTerms}&scraper=google_cse&nsfw=yes";
-                    params = [
-                      {
-                        name = "query";
-                        value = "searchTerms";
-                      }
-                    ];
-                  }
-                ];
-                definedAliases = ["@4g"];
-              };
               searxng = {
                 name = "searxng";
                 urls = [
                   {
-                    template = "https://search.peanutbutter.quest/search?q={searchTerms}";
+                    template = "https://search.server.org/search?q={searchTerms}";
                     params = [
                       {
                         name = "query";
