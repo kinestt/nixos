@@ -183,6 +183,7 @@ The default hosts structure goes as follows
         self.nixosModules.bash
         self.nixosModules.localCA
         self.nixosModules.customFonts
+        self.nixosModules.virt-manager
 
         inputs.sops-nix.nixosModules.sops
       ];
@@ -844,25 +845,15 @@ The default hosts structure goes as follows
           bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
           unbind -T copy-mode-vi MouseDragEnd1Pane
 
-          bind -n M-h select-pane -L 
-          bind -n M-j select-pane -D 
-          bind -n M-k select-pane -U 
-          bind -n M-l select-pane -R 
-          bind -n M-x kill-pane
+          bind -n C-M-h select-pane -L 
+          bind -n C-M-j select-pane -D 
+          bind -n C-M-k select-pane -U 
+          bind -n C-M-l select-pane -R 
 
-          bind -n M-q display-panes
+          bind -n C-M-x kill-pane
+          bind -n C-M-q display-panes
 
-          bind -n M-1 select-window -t 1  
-          bind -n M-2 select-window -t 2        
-          bind -n M-3 select-window -t 3        
-          bind -n M-4 select-window -t 4        
-          bind -n M-5 select-window -t 5        
-          bind -n M-6 select-window -t 6        
-          bind -n M-7 select-window -t 7        
-          bind -n M-8 select-window -t 8        
-          bind -n M-9 select-window -t 9        
-          bind -n M-c new-window
-
+          bind -n C-M-c new-window
           bind -n S-Left previous-window
           bind -n S-Right next-window 
         '';
@@ -1571,7 +1562,7 @@ To use this program, after installing run this:
 | -w     | overwrite            |
 | -z     | zeropad tracknumbers |
 | -d     | dither to 16/44.1    |
-| -s     | Source              |
+| -s     | Source               |
 | --320  | Convert to mp3 320   |
 | --V0   | Convert to mp3 V0    |
 | --FLAC | Convert to flac      |
@@ -1642,6 +1633,66 @@ To use this program, after installing run this:
     };
   }
       
+#+end_src
+*** Virtualisation
+
+Installing Virt-manager and other qemu stuff.
+Usage will be with looking glass client.
+
+#+begin_src nix :tangle modules/features/misc/virt-manager.nix
+  {
+    self,
+    inputs,
+    ...
+  }: {
+    flake.nixosModules.virt-manager = {
+      config,
+      pkgs,
+      ...
+    }: let
+      user = "kin";
+      platform = "amd";
+      vfioIds = [ "10de:2560" "10de:228e" ];
+    in  {
+      boot = {
+        kernelModules = [ "kvm-${platform}"  "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+        kernelParams = [ "${platform}_iommu=on" "${platform}_iommu=pt" "kvm.ignore_msrs=1" ];
+        extraModprobeConfig = "options vfio-pci ids=${builtins.concatStringsSep "," vfioIds}"; 
+      };
+      systemd.tmpfiles.rules = [
+          "f /dev/shm/looking-glass 0660 ${user} qemu-libvirtd -"
+      ];
+      environment.systemPackages = with pkgs; [
+        dnsmasq
+        looking-glass-client
+      ];
+      networking.firewall.trustedInterfaces = [ "vibr0" ];
+
+      users.users.kin.extraGroups = [ "libvirtd" "qemu-libvirtd" "disk" "kvm" ];
+      virtualisation = {
+        libvirtd = {
+          enable = true;
+          extraConfig = ''
+            user="${user}"
+          '';
+          onBoot = "ignore";
+          onShutdown = "shutdown";
+          qemu = {
+            package = pkgs.qemu_kvm;
+            runAsRoot = true;
+            verbatimConfig = ''
+              namespaces = []
+            '';
+          };
+        };
+      };
+      programs = {
+        virt-manager = {
+          enable = true;
+        };
+      };
+    };
+  }
 #+end_src
 ** Web
 *** Komga
@@ -2599,99 +2650,99 @@ The main peers would be:
             }
           ];
           binds = {
-            "Mod+Return".spawn-sh = "foot";
-            "Mod+D".spawn-sh = "fuzzel";
-            "Mod+B".spawn-sh = "firefox";
-            "Mod+P".spawn-sh = "spotify";
-            "Mod+U".spawn-sh = "emacsclient -c";
+            "Alt+Return".spawn-sh = "foot";
+            "Alt+D".spawn-sh = "fuzzel";
+            "Alt+B".spawn-sh = "firefox";
+            "Alt+P".spawn-sh = "spotify";
+            "Alt+U".spawn-sh = "emacsclient -c";
 
-            "Mod+F".maximize-column = _: {};
-            "Mod+Shift+F".fullscreen-window = _: {};
+            "Alt+F".maximize-column = _: {};
+            "Alt+Shift+F".fullscreen-window = _: {};
 
-            "Mod+Space".toggle-overview = _: {};
-            "Mod+Q".close-window = _: {};
+            "Alt+Space".toggle-overview = _: {};
+            "Alt+Q".close-window = _: {};
 
-            "Mod+BracketLeft".consume-or-expel-window-left = _: {};
-            "Mod+BracketRight".consume-or-expel-window-right = _: {};
+            "Alt+BracketLeft".consume-or-expel-window-left = _: {};
+            "Alt+BracketRight".consume-or-expel-window-right = _: {};
 
-            "Mod+H".focus-column-left = _: {};
-            "Mod+J".focus-window-down = _: {};
-            "Mod+K".focus-window-up = _: {};
-            "Mod+L".focus-column-right = _: {};
+            "Alt+H".focus-column-left = _: {};
+            "Alt+J".focus-window-down = _: {};
+            "Alt+K".focus-window-up = _: {};
+            "Alt+L".focus-column-right = _: {};
 
-            "Mod+Ctrl+H".move-column-left = _: {};
-            "Mod+Ctrl+J".move-window-down = _: {};
-            "Mod+Ctrl+K".move-window-up = _: {};
-            "Mod+Ctrl+L".move-column-right = _: {};
+            "Alt+Ctrl+H".move-column-left = _: {};
+            "Alt+Ctrl+J".move-window-down = _: {};
+            "Alt+Ctrl+K".move-window-up = _: {};
+            "Alt+Ctrl+L".move-column-right = _: {};
 
-            "Mod+1".focus-workspace = 1;
-            "Mod+2".focus-workspace = 2;
-            "Mod+3".focus-workspace = 3;
-            "Mod+4".focus-workspace = 4;
-            "Mod+5".focus-workspace = 5;
-            "Mod+6".focus-workspace = 6;
-            "Mod+7".focus-workspace = 7;
-            "Mod+8".focus-workspace = 8;
-            "Mod+9".focus-workspace = 9;
+            "Alt+1".focus-workspace = 1;
+            "Alt+2".focus-workspace = 2;
+            "Alt+3".focus-workspace = 3;
+            "Alt+4".focus-workspace = 4;
+            "Alt+5".focus-workspace = 5;
+            "Alt+6".focus-workspace = 6;
+            "Alt+7".focus-workspace = 7;
+            "Alt+8".focus-workspace = 8;
+            "Alt+9".focus-workspace = 9;
 
-            "Mod+Ctrl+1".move-column-to-workspace = 1;
-            "Mod+Ctrl+2".move-column-to-workspace = 2;
-            "Mod+Ctrl+3".move-column-to-workspace = 3;
-            "Mod+Ctrl+4".move-column-to-workspace = 4;
-            "Mod+Ctrl+5".move-column-to-workspace = 5;
-            "Mod+Ctrl+6".move-column-to-workspace = 6;
-            "Mod+Ctrl+7".move-column-to-workspace = 7;
-            "Mod+Ctrl+8".move-column-to-workspace = 8;
-            "Mod+Ctrl+9".move-column-to-workspace = 9;
+            "Alt+Ctrl+1".move-column-to-workspace = 1;
+            "Alt+Ctrl+2".move-column-to-workspace = 2;
+            "Alt+Ctrl+3".move-column-to-workspace = 3;
+            "Alt+Ctrl+4".move-column-to-workspace = 4;
+            "Alt+Ctrl+5".move-column-to-workspace = 5;
+            "Alt+Ctrl+6".move-column-to-workspace = 6;
+            "Alt+Ctrl+7".move-column-to-workspace = 7;
+            "Alt+Ctrl+8".move-column-to-workspace = 8;
+            "Alt+Ctrl+9".move-column-to-workspace = 9;
 
-            "Mod+Shift+H".focus-monitor-left = _: {};
-            "Mod+Shift+J".focus-monitor-down = _: {};
-            "Mod+Shift+K".focus-monitor-up = _: {};
-            "Mod+Shift+L".focus-monitor-right = _: {};
+            "Alt+Shift+H".focus-monitor-left = _: {};
+            "Alt+Shift+J".focus-monitor-down = _: {};
+            "Alt+Shift+K".focus-monitor-up = _: {};
+            "Alt+Shift+L".focus-monitor-right = _: {};
 
-            "Mod+Shift+Ctrl+H".move-column-to-monitor-left = _: {};
-            "Mod+Shift+Ctrl+J".move-column-to-monitor-down = _: {};
-            "Mod+Shift+Ctrl+K".move-column-to-monitor-up = _: {};
-            "Mod+Shift+Ctrl+L".move-column-to-monitor-right = _: {};
+            "Alt+Shift+Ctrl+H".move-column-to-monitor-left = _: {};
+            "Alt+Shift+Ctrl+J".move-column-to-monitor-down = _: {};
+            "Alt+Shift+Ctrl+K".move-column-to-monitor-up = _: {};
+            "Alt+Shift+Ctrl+L".move-column-to-monitor-right = _: {};
 
-            "Mod+WheelScrollDown".focus-workspace-down = _: {};
-            "Mod+WheelScrollUp".focus-workspace-up = _: {};
-            "Mod+Ctrl+WheelScrollDown".move-column-to-workspace-down = _: {};
-            "Mod+Ctrl+WheelScrollUp".move-column-to-workspace-up = _: {};
-            "Mod+Shift+WheelScrollDown".focus-column-left = _: {};
-            "Mod+Shift+WheelScrollUp".focus-column-right = _: {};
+            "Alt+WheelScrollDown".focus-workspace-down = _: {};
+            "Alt+WheelScrollUp".focus-workspace-up = _: {};
+            "Alt+Ctrl+WheelScrollDown".move-column-to-workspace-down = _: {};
+            "Alt+Ctrl+WheelScrollUp".move-column-to-workspace-up = _: {};
+            "Alt+Shift+WheelScrollDown".focus-column-left = _: {};
+            "Alt+Shift+WheelScrollUp".focus-column-right = _: {};
 
-            "Mod+C".center-column = _: {};
-            "Mod+V".toggle-window-floating = _: {};
-            "Mod+Shift+V".switch-focus-between-floating-and-tiling = _: {};
-            "Mod+W".toggle-column-tabbed-display = _: {};
+            "Alt+C".center-column = _: {};
+            "Alt+V".toggle-window-floating = _: {};
+            "Alt+Shift+V".switch-focus-between-floating-and-tiling = _: {};
+            "Alt+W".toggle-column-tabbed-display = _: {};
             "Print".screenshot = _: {};
             "Ctrl+Print".screenshot-screen = _: {};
             "Alt+Print".screenshot-window = _: {};
 
-            "Mod+Shift+E".quit = _: {};
+            "Alt+Shift+E".quit = _: {};
 
-            "Mod+Minus".set-column-width = "-10%";
-            "Mod+Equal".set-column-width = "+10%";
-            "Mod+Shift+Minus".set-window-height = "-10%";
-            "Mod+Shift+Equal".set-window-height = "+10%";
+            "Alt+Minus".set-column-width = "-10%";
+            "Alt+Equal".set-column-width = "+10%";
+            "Alt+Shift+Minus".set-window-height = "-10%";
+            "Alt+Shift+Equal".set-window-height = "+10%";
 
             "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0";
             "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
             "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-            "Mod+M".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+            "Alt+M".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
             "XF86MonBrightnessUp".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
             "XF86MonBrightnessDown".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
 
 
-            "Mod+F2".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-            "Mod+F3".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
-            "Mod+F4".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0";
-            "Mod+F6".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
-            "Mod+F5".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
+            "Alt+F2".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+            "Alt+F3".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-";
+            "Alt+F4".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0";
+            "Alt+F6".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%+";
+            "Alt+F5".spawn-sh = "${lib.getExe pkgs.brightnessctl} -c backlight s 10%-";
 
-            "Mod+T".spawn-sh = ''notify-send "Current Time" "$(date +"%I:%M %p")"'';
-            "Mod+Shift+P".spawn-sh = "niri msg action power-off-monitors";
+            "Alt+T".spawn-sh = ''notify-send "Current Time" "$(date +"%I:%M %p")"'';
+            "Alt+Shift+P".spawn-sh = "niri msg action power-off-monitors";
           };
           spawn-sh-at-startup = [
             "${lib.getExe pkgs.swaybg} -i ${wallspath}/railway.jpg"
@@ -3416,10 +3467,10 @@ The flake installs spotify automatically based on the given spicetify configurat
             command = display "off";
             resumeCommand = display "on";
           }
-          {
-            timeout = 110;
-            command = "${pkgs.systemd}/bin/systemctl suspend";
-          }
+          #{
+          #  timeout = 110;
+          #  command = "${pkgs.systemd}/bin/systemctl suspend";
+          #}
         ];
         events = {
           "before-sleep" = (display "off") + "; " + lock;

@@ -25,6 +25,7 @@
       self.nixosModules.bash
       self.nixosModules.localCA
       self.nixosModules.customFonts
+      self.nixosModules.virt-manager
 
       inputs.sops-nix.nixosModules.sops
     ];
