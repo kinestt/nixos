@@ -11,6 +11,8 @@
 
     sops.secrets = {
       "last.fm/password" = {};
+      "listenbrainz/token" = {};
+      "libre.fm/password" = {};
     };
     
     services = {
@@ -39,6 +41,7 @@
           format = {
             details = "$title";
             state = "$artist";
+            small_image = "";
           };
           hosts = [
             "127.0.0.1:6600"
@@ -51,6 +54,14 @@
           "last.fm" = {
             username = "cementsediment";
             passwordFile = config.sops.secrets."last.fm/password".path;
+          };
+          "listenbrainz" = {
+            username = "cementsediment";
+            passwordFile = config.sops.secrets."listenbrainz/token".path;
+          };
+          "libre.fm" = {
+            username = "cementsediment";
+            passwordFile = config.sops.secrets."libre.fm/password".path;
           };
         };
       };
