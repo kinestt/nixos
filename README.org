@@ -1659,8 +1659,10 @@ To find the iommu group and id run the following bash script with the below comm
   }
 #+end_src
 Example output of the above:
+#+begin_quote
 ~IOMMU Group 12 01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] *[10de:2560]* (rev a1)
 IOMMU Group 12 01:00.1 Audio device [0403]: NVIDIA Corporation GA106 High Definition Audio Controller *[10de:228e]* (rev a1)~
+#+end_quote
 The highlighted text is of importance.
 Use those in the ~vfioIds~ attribute in ~virt-manager.nix~ file. 
 
