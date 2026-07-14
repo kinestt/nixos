@@ -28,6 +28,7 @@
         emms
         base16-theme
         yaml-mode
+        powershell
       ];
     };
 

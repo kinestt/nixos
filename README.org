@@ -105,9 +105,7 @@ I also use flakes as a way to import my non-flake files and use it to import fil
     config = {
       systems = [
         "x86_64-linux"
-        "x86_64-darwin"
         "aarch64-linux"
-        "aarch64-darwin"
       ];
     };
   }
@@ -1628,8 +1626,86 @@ To use this program, after installing run this:
 *** Virtualisation
 
 Installing Virt-manager and other qemu stuff.
-Usage will be with looking glass client.
+Usage will be with looking glass client, a dual gpu system is assumed, and a dummy hdmi plug will be used. 
 
+To find the iommu group and id run the following bash script with the below command. 
+#+begin_src bash 
+  nix run .#iommu-groups
+#+end_src
+
+#+begin_src nix :tangle modules/features/misc/iommu-groups.nix
+  {
+    perSystem = {
+      pkgs,
+      ...
+    }: {
+      packages.iommu-groups = pkgs.writeShellApplication {
+        name = "iommu-groups";
+        runtimeInputs = with pkgs; [
+          pciutils
+        ];
+        text = ''
+          shopt -s nullglob
+          for d in /sys/kernel/iommu_groups/*/devices/*; do
+            n=''${d#*/iommu_groups/*}
+            n=''${n%%/*}
+
+            printf 'IOMMU Group %s ' "$n"
+            lspci -nns "''${d##*/}"
+          done
+        '';
+      };
+    };
+  }
+#+end_src
+Example output of the above:
+~IOMMU Group 12 01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] *[10de:2560]* (rev a1)
+IOMMU Group 12 01:00.1 Audio device [0403]: NVIDIA Corporation GA106 High Definition Audio Controller *[10de:228e]* (rev a1)~
+The highlighted text is of importance.
+Use those in the ~vfioIds~ attribute in ~virt-manager.nix~ file. 
+
+During VM Creation, do the following steps:
+- Create 2 new disks
+  - A VirtIO disk with ~Cache mode~ set to ~none~ and ~Discard mode~ set to ~unmap~.
+- Add the gpu pci ids, usb hosts etc to be passed through with ~Add hardware~.
+- Edit the xml file of the vm to have the following
+  #+begin_src xml
+    <memballon model="none"/>
+  #+end_src
+  
+Note: Virtio drivers never worked well for me so I just install ~spice-guest-tools~ on the windows vm.
+
+Make sure looking glass client on the host machine matches the version that we install on the windows vm.
+To check:
+#+begin_src bash
+  nix-instantiate --eval -E "(import <nixpkgs> {}).looking-glass-client.version"
+#+end_src
+After installing the virtual machine and installing the matching looking glass host, run this in an admin powershell.
+#+begin_src powershell
+  SCHTASKS /Create /TN "Looking Glass" /SC  ONLOGON /RL HIGHEST /TR 'C:\Program Files\Looking Glass (host)\looking-glass-host.exe'
+#+end_src
+After that run this in a admin cmd:
+#+begin_src bat
+  C:\Program Files\Looking Glass (host)\looking-glass-host.exe InstallService
+#+end_src
+Note: If the looking glass host running on vm doesn't run as admin, then any applications invoking admin requests or just running as admin won't be visible to us on screen. So make sure to run the above command in an admin cmd prompt window.
+
+Back on the vm xml file add the following snippet for looking glass to work.
+#+begin_src xml
+  <shmem name="looking-glass">
+    <model type="ivshmem-plain"/>
+    <size unit="M">32</size>
+    <address type="pci" domain="0x0000" bus="0x0b" slot="0x01" function="0x0"/>
+  </shmem>
+#+end_src
+Change video mode to none under devices.
+#+begin_src xml
+  <video>
+    <model type="none"/>
+  </video>
+#+end_src
+Remove tablet input under devices.
+That would conclude the steps needed for windows vm with GPU passthrough to work. 
 #+begin_src nix :tangle modules/features/misc/virt-manager.nix
   {
     self,
@@ -2643,7 +2719,7 @@ The main peers would be:
           binds = {
             "Alt+Return".spawn-sh = "foot";
             "Alt+D".spawn-sh = "fuzzel";
-            "Alt+B".spawn-sh = "firefox";
+            "Alt+B".spawn-sh = "zen-beta";
             "Alt+P".spawn-sh = "spotify";
             "Alt+U".spawn-sh = "emacsclient -c";
 
@@ -3649,6 +3725,7 @@ The flake installs spotify automatically based on the given spicetify configurat
           emms
           base16-theme
           yaml-mode
+          powershell
         ];
       };
 
@@ -3703,6 +3780,7 @@ The flake installs spotify automatically based on the given spicetify configurat
   (global-visual-line-mode 1)
   (column-number-mode 1)
   (show-paren-mode 1)
+  (setq create-lockfiles nil)
   (setq make-backup-files nil)
   (setq auto-save-default nil)
   (electric-indent-mode 1)

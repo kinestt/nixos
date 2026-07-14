@@ -15,6 +15,7 @@
 (global-visual-line-mode 1)
 (column-number-mode 1)
 (show-paren-mode 1)
+(setq create-lockfiles nil)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (electric-indent-mode 1)
