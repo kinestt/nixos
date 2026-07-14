@@ -188,7 +188,6 @@ The default hosts structure goes as follows
         inputs.sops-nix.nixosModules.sops
       ];
 
-      #boot.loader.systemd-boot.enable = true;
       boot.loader.grub = {
         enable = true;
         device = "nodev";
@@ -243,14 +242,6 @@ The default hosts structure goes as follows
 
       hardware.graphics.enable = true;
       hardware.graphics.enable32Bit = true;
-      #services.xserver.videoDrivers = ["nvidia"];
-      #hardware.nvidia.open = true;
-      #hardware.nvidia.modesetting.enable = true;
-      # hardware.nvidia.prime = {
-      #   sync.enable = true;
-      #   amdgpuBusId = "PCI:06:0:0";
-      #   nvidiaBusId = "PCI:01:0:0";
-      # };
 
       environment = { 
         systemPackages = with pkgs; [
