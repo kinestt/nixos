@@ -1686,7 +1686,7 @@ After installing the virtual machine and installing the matching looking glass h
 #+begin_src powershell
   SCHTASKS /Create /TN "Looking Glass" /SC  ONLOGON /RL HIGHEST /TR 'C:\Program Files\Looking Glass (host)\looking-glass-host.exe'
 #+end_src
-After that run this in a admin cmd:
+After that run this in an admin cmd:
 #+begin_src bat
   C:\Program Files\Looking Glass (host)\looking-glass-host.exe InstallService
 #+end_src
