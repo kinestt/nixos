@@ -128,12 +128,6 @@
                 };
               };
             };
-            theme = {
-              enable = true;
-              name = "gruvbox";
-              style = "dark";
-              transparent = true;
-            };
             terminal = {
               toggleterm = {
                 enable = true;
@@ -151,6 +145,12 @@
                     }
                   })   
                   vim.lsp.enable('org')
+                '';
+              };
+              kanagawa = {
+                package = kanagawa-nvim;
+                setup = ''
+                  vim.cmd("colorscheme kanagawa")
                 '';
               };
             };

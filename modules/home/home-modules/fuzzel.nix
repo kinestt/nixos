@@ -23,13 +23,13 @@
           #font = "Futura:size=12";
         };
         colors = {
-          background = "282828ff";
-          text = "ebdbb2ff";
-          match = "fe8019ff";
-          selection = "3c3836ff";
-          selection-match = "fabd2fff";
-          selection-text = "ebdbb2ff";
-          border = "504945ff";
+          background = "1f1f28ff";
+          text = "dcd7baff";
+          match = "ffa066ff";
+          selection = "2a2a37ff";
+          selection-match = "e6c384ff";
+          selection-text = "dcd7baff";
+          border = "54546dff";
         };
       };
     };

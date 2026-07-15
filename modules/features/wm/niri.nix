@@ -46,8 +46,8 @@
           gaps = 6;
           center-focused-column = "never";
           focus-ring = {
-            active-color = "#a89984";
-            inactive-color = "#a89984";
+            active-color = "#7e9cd8";
+            inactive-color = "#54546d";
             width = 2;
           };
         };
