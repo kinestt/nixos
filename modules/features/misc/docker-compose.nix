@@ -322,7 +322,7 @@
     virtualisation.oci-containers.containers."services-yt-dlp-telegram" = {
       image = "localhost/compose2nix/services-yt-dlp-telegram";
       volumes = [
-        "/home/kin/yt-dlp-telegram/config.py:/app/config.py:ro"
+        "/home/kin/data/yt-dlp-telegram/config.py:/app/config.py:ro"
       ];
       log-driver = "journald";
       extraOptions = [
