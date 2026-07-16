@@ -129,7 +129,7 @@
         binds = {
           "Alt+Return".spawn-sh = "foot";
           "Alt+D".spawn-sh = "fuzzel";
-          "Alt+B".spawn-sh = "zen-beta";
+          "Alt+B".spawn-sh = "firefox";
           "Alt+P".spawn-sh = "spotify";
           "Alt+U".spawn-sh = "emacsclient -c";
 
@@ -222,7 +222,7 @@
           "Alt+Shift+P".spawn-sh = "niri msg action power-off-monitors";
         };
         spawn-sh-at-startup = [
-          "${lib.getExe pkgs.swaybg} -i ${wallspath}/1861279.jpg"
+          "${lib.getExe pkgs.swaybg} -i ${wallspath}/dune.jpg"
           "waybar"
         ];
       };

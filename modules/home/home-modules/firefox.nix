@@ -88,6 +88,7 @@
               sponsorblock
               violentmonkey
               floccus
+              stylus
             ];
           };
           settings = {

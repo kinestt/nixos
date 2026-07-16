@@ -103,6 +103,9 @@
             treesitter = {
               enable = true;
               indent.excludes = [ "nix" ];
+              grammars = with pkgs; [
+                tree-sitter-grammars.tree-sitter-elisp
+              ];
             };
             telescope = {
               enable = true;
