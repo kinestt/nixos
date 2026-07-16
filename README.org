@@ -1735,6 +1735,34 @@ The default hosts structure goes as follows
           "podman-compose-services-root.target"
         ];
       };
+      virtualisation.oci-containers.containers."services-yt-dlp-telegram" = {
+        image = "localhost/compose2nix/services-yt-dlp-telegram";
+        volumes = [
+          "/home/kin/yt-dlp-telegram/config.py:/app/config.py:ro"
+        ];
+        log-driver = "journald";
+        extraOptions = [
+          "--network-alias=yt-dlp-telegram"
+          "--network=services_default"
+        ];
+      };
+      systemd.services."podman-services-yt-dlp-telegram" = {
+        serviceConfig = {
+          Restart = lib.mkOverride 90 "always";
+        };
+        after = [
+          "podman-network-services_default.service"
+        ];
+        requires = [
+          "podman-network-services_default.service"
+        ];
+        partOf = [
+          "podman-compose-services-root.target"
+        ];
+        wantedBy = [
+          "podman-compose-services-root.target"
+        ];
+      };
 
       # Networks
       systemd.services."podman-network-services_default" = {
@@ -1760,6 +1788,17 @@ The default hosts structure goes as follows
         script = ''
           cd /home/kin/data/omnisearch
           podman build -t compose2nix/services-omnisearch .
+        '';
+      };
+      systemd.services."podman-build-services-yt-dlp-telegram" = {
+        path = [ pkgs.podman pkgs.git ];
+        serviceConfig = {
+          Type = "oneshot";
+          TimeoutSec = 300;
+        };
+        script = ''
+          cd /home/kin/data/yt-dlp-telegram
+          podman build -t compose2nix/services-yt-dlp-telegram .
         '';
       };
       # Root service
