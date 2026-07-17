@@ -347,6 +347,47 @@
         "podman-compose-services-root.target"
       ];
     };
+    virtualisation.oci-containers.containers."deluge" = {
+      image = "lscr.io/linuxserver/deluge:latest";
+      environment = {
+        "DELUGE_LOGLEVEL" = "error";
+        "PGID" = "100";
+        "PUID" = "1000";
+        "TZ" = "Asia/Kolkata";
+      };
+      volumes = [
+        "/home/kin/data/deluge/config:/config:rw"
+        "/mnt/external-hdd/downloads:/downloads:rw"
+      ];
+      ports = [
+        "8112:8112/tcp"
+        "6881:6881/tcp"
+        "6881:6881/udp"
+        "58846:58846/tcp"
+      ];
+      log-driver = "journald";
+      extraOptions = [
+        "--network-alias=deluge"
+        "--network=services_default"
+      ];
+    };
+    systemd.services."podman-deluge" = {
+      serviceConfig = {
+        Restart = lib.mkOverride 90 "always";
+      };
+      after = [
+        "podman-network-services_default.service"
+      ];
+      requires = [
+        "podman-network-services_default.service"
+      ];
+      partOf = [
+        "podman-compose-services-root.target"
+      ];
+      wantedBy = [
+        "podman-compose-services-root.target"
+      ];
+    };
 
     # Networks
     systemd.services."podman-network-services_default" = {
