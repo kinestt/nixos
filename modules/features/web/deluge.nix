@@ -15,11 +15,14 @@
     };
     services.deluge = {
       enable = true;
+      user = kin;
+      group = users;
       web = {
         enable = true;
         port = 8112;
       };
       declarative = true;
+      dataDir = "/home/kin/data/deluge";
       authFile = config.sops.secrets."deluge/authFile".path;
       config = {
         download_location = "/mnt/external-hdd/downloads";
