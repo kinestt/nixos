@@ -8,7 +8,10 @@
     ...
   }: {
     sops.secrets = {
-      "deluge/authFile" = {};
+      "deluge/authFile" = {
+        owner = config.services.deluge.user;
+        group = config.services.deluge.group;
+      };
     };
     services.deluge = {
       enable = true;

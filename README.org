@@ -2560,7 +2560,10 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
       ...
     }: {
       sops.secrets = {
-        "deluge/authFile" = {};
+        "deluge/authFile" = {
+          owner = config.services.deluge.user;
+          group = config.services.deluge.group;
+        };
       };
       services.deluge = {
         enable = true;
