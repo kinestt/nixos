@@ -34,7 +34,6 @@
       self.nixosModules.arr
       self.nixosModules.jellyfin
       self.nixosModules.copyparty
-      self.nixosModules.deluge
 
       inputs.sops-nix.nixosModules.sops
     ];
