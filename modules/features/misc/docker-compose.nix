@@ -351,8 +351,8 @@
       image = "lscr.io/linuxserver/deluge:latest";
       environment = {
         "DELUGE_LOGLEVEL" = "error";
-        "PGID" = "100";
-        "PUID" = "1000";
+        "PGID" = "0";
+        "PUID" = "0";
         "TZ" = "Asia/Kolkata";
       };
       volumes = [
