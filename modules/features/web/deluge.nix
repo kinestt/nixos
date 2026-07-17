@@ -15,8 +15,8 @@
     };
     services.deluge = {
       enable = true;
-      user = kin;
-      group = users;
+      user = "kin";
+      group = "users";
       web = {
         enable = true;
         port = 8112;

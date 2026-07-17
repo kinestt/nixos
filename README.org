@@ -2567,8 +2567,8 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
       };
       services.deluge = {
         enable = true;
-        user = kin;
-        group = users;
+        user = "kin";
+        group = "users";
         web = {
           enable = true;
           port = 8112;
