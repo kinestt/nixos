@@ -129,7 +129,7 @@
         binds = {
           "Alt+Return".spawn-sh = "foot";
           "Alt+D".spawn-sh = "fuzzel";
-          "Alt+B".spawn-sh = "firefox";
+          "Alt+B".spawn-sh = "helium";
           "Alt+P".spawn-sh = "spotify";
           "Alt+U".spawn-sh = "emacsclient -c";
 

@@ -54,6 +54,8 @@
         streamrip
         tidal-hifi
         jellyfin-mpv-shim
+        bitwarden-cli
+        bitwarden-desktop
         (discord.override {
           withOpenASAR = true;
           withEquicord = true;

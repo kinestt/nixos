@@ -624,7 +624,7 @@ The default hosts structure goes as follows
           binds = {
             "Alt+Return".spawn-sh = "foot";
             "Alt+D".spawn-sh = "fuzzel";
-            "Alt+B".spawn-sh = "firefox";
+            "Alt+B".spawn-sh = "helium";
             "Alt+P".spawn-sh = "spotify";
             "Alt+U".spawn-sh = "emacsclient -c";
 
@@ -2978,7 +2978,12 @@ The main peers would be:
       modules = [
         self.homeModules.kinConfiguration
         ({pkgs, ...}: {
-          nixpkgs.config.allowUnfree = true;
+          nixpkgs.config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [
+              "electron-39.8.10"
+            ];
+          };
         })
       ];
     };
@@ -3042,6 +3047,8 @@ The main peers would be:
           streamrip
           tidal-hifi
           jellyfin-mpv-shim
+          bitwarden-cli
+          bitwarden-desktop
           (discord.override {
             withOpenASAR = true;
             withEquicord = true;
