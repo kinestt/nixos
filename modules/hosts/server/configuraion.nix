@@ -42,12 +42,21 @@
     boot.loader.efi.canTouchEfiVariables = true;
     #boot.kernelPackages = pkgs.linuxPackages_latest;
     nix.settings.experimental-features = ["nix-command" "flakes"];
-    users.users.kin = {
-      isNormalUser = true;
-      description = "kin";
-      extraGroups = ["wheel" "docker"];
-      shell = pkgs.bash;
-      home = "/home/kin";
+    users = {
+      users.kin = {
+        isNormalUser = true;
+        description = "kin";
+        extraGroups = ["wheel" "docker"];
+        shell = pkgs.bash;
+        home = "/home/kin";
+      };
+      groups.media = {};
+      users.media = {
+        isSystemUser = true;
+        group = "media";
+        home = "/var/lib/media";
+        createHome = true;
+      };
     };
 
     virtualisation.docker = {
