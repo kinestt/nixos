@@ -27,8 +27,6 @@
       };
       prowlarr = {
         enable = true;
-        user = "media";
-        group = "media";
         settings = {
           server = {
             port = 9696;

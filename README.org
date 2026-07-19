@@ -2688,8 +2688,6 @@ By not doing the above nginx will fail which can be parsed using the ~journalctl
         };
         prowlarr = {
           enable = true;
-          user = "media";
-          group = "media";
           settings = {
             server = {
               port = 9696;
