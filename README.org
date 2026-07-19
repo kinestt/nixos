@@ -2113,6 +2113,8 @@ That would conclude the steps needed for windows vm with GPU passthrough to work
     flake.nixosModules.komga = {
       services.komga = {
         enable = true;
+        user = "media";
+        group = "media";
         settings = {
           server = {
             port = 10060;
