@@ -15,7 +15,9 @@
   perSystem = {
     pkgs,
     ...
-  }: {
+  }: let
+    myFish = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
+  in {
     packages.myTmux = inputs.wrapper-modules.wrappers.tmux.wrap {
       inherit pkgs;
       configAfter = ''
@@ -23,6 +25,8 @@
         set -ga terminal-overrides ",*:RGB"
         set -g mouse on
         set -g set-clipboard on
+        set -g default-shell ${myFish}/bin/fish
+        set -g default-command ${myFish}/bin/fish
 
         unbind C-b 
         set -g prefix C-a 

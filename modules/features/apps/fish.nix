@@ -15,6 +15,7 @@
   perSystem = {
     pkgs,
     config,
+    lib,
     ...
   }: let 
     nixosDir = "/home/$USER/nixos/";
@@ -24,6 +25,11 @@
       shellAliases = {
         nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$hostname";
         hms = "home-manager switch --flake ${nixosDir}#$USER-$hostname";
+        y = "yazi";
+        l = "${lib.getExe pkgs.lsd} -l";
+        la = "${lib.getExe pkgs.lsd} -a";
+        lla = "${lib.getExe pkgs.lsd} -la";
+        lt = "${lib.getExe pkgs.lsd} --tree";
       };
       plugins = with pkgs.fishPlugins; [
         pure

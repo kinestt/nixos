@@ -748,7 +748,7 @@ The default hosts structure goes as follows
           y = "yazi";
           l = "${lib.getExe pkgs.lsd} -l";
           la = "${lib.getExe pkgs.lsd} -a";
-          lla = "${lib.getExe pkgs.lsd}-la";
+          lla = "${lib.getExe pkgs.lsd} -la";
           lt = "${lib.getExe pkgs.lsd} --tree";
         };
         enableLsColors = true;
@@ -775,6 +775,7 @@ The default hosts structure goes as follows
     perSystem = {
       pkgs,
       config,
+      lib,
       ...
     }: let 
       nixosDir = "/home/$USER/nixos/";
@@ -784,6 +785,11 @@ The default hosts structure goes as follows
         shellAliases = {
           nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$hostname";
           hms = "home-manager switch --flake ${nixosDir}#$USER-$hostname";
+          y = "yazi";
+          l = "${lib.getExe pkgs.lsd} -l";
+          la = "${lib.getExe pkgs.lsd} -a";
+          lla = "${lib.getExe pkgs.lsd} -la";
+          lt = "${lib.getExe pkgs.lsd} --tree";
         };
         plugins = with pkgs.fishPlugins; [
           pure
@@ -819,6 +825,7 @@ The default hosts structure goes as follows
         settings = {
           main = {
             font = "Iosevka Nerd Font Mono:size=14";
+            shell = "${self.packages.${pkgs.stdenv.hostPlatform.system}.myFish}/bin/fish";
           };
           colors-dark = {
             alpha = "1";
@@ -1042,7 +1049,9 @@ The default hosts structure goes as follows
     perSystem = {
       pkgs,
       ...
-    }: {
+    }: let
+      myFish = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
+    in {
       packages.myTmux = inputs.wrapper-modules.wrappers.tmux.wrap {
         inherit pkgs;
         configAfter = ''
@@ -1050,6 +1059,8 @@ The default hosts structure goes as follows
           set -ga terminal-overrides ",*:RGB"
           set -g mouse on
           set -g set-clipboard on
+          set -g default-shell ${myFish}/bin/fish
+          set -g default-command ${myFish}/bin/fish
 
           unbind C-b 
           set -g prefix C-a 

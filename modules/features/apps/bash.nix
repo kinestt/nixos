@@ -18,7 +18,7 @@
         y = "yazi";
         l = "${lib.getExe pkgs.lsd} -l";
         la = "${lib.getExe pkgs.lsd} -a";
-        lla = "${lib.getExe pkgs.lsd}-la";
+        lla = "${lib.getExe pkgs.lsd} -la";
         lt = "${lib.getExe pkgs.lsd} --tree";
       };
       enableLsColors = true;
