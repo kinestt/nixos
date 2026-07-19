@@ -46,7 +46,7 @@
       users.kin = {
         isNormalUser = true;
         description = "kin";
-        extraGroups = ["wheel" "docker"];
+        extraGroups = [ "wheel" "docker" "media" ];
         shell = pkgs.bash;
         home = "/home/kin";
       };
