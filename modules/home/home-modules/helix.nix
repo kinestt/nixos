@@ -9,7 +9,7 @@
       enable = true;
       package = pkgs.evil-helix;
       settings = {
-        theme =  "gruvbox_transparent";
+        theme =  "kanagawa";
       };
       themes."gruvbox_transparent" = {
         inherits = "gruvbox";

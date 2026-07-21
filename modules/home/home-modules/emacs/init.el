@@ -5,8 +5,8 @@
 (global-set-key (kbd "C-x c") #'org-capture)
 
 ;; Font 
-(set-face-attribute 'default nil :family "Iosevka Nerd Font Mono" :height 140)
-(set-frame-font "Iosevka Nerd Font Mono 14" nil t)
+(set-face-attribute 'default nil :family "Iosevka Nerd Font Mono" :height 120)
+(set-frame-font "Iosevka Nerd Font Mono 12" nil t)
 
 ;; qol customizations
 (global-display-line-numbers-mode 1)
@@ -24,8 +24,8 @@
 (add-hook 'org-mode-hook 'variable-pitch-mode)
 (custom-theme-set-faces
  'user
- '(variable-pitch ((t (:family "SF Pro" :height 140))))
- '(fixed-pitch ((t (:family "Iosevka Nerd Font Mono" :height 140))))
+ '(variable-pitch ((t (:family "SF Pro" :height 120))))
+ '(fixed-pitch ((t (:family "Iosevka Nerd Font Mono" :height 120))))
  '(org-table ((t (:inherit fixed-pitch))))
  '(org-code ((t (:inherit fixed-pitch))))
  '(org-block ((t (:inherit fixed-pitch)))))

@@ -561,7 +561,7 @@ The default hosts structure goes as follows
             "eDP-1" = {
               # off = _: {};
               mode = "1920x1080@165.002";
-              scale = 1;
+              scale = 1.25;
               position = _: {
                 props = {
                   x = 0;
@@ -793,7 +793,7 @@ The default hosts structure goes as follows
         inherit pkgs;
         settings = {
           main = {
-            font = "Iosevka Nerd Font Mono:size=14";
+            font = "Iosevka Nerd Font Mono:size=12";
           };
           colors-dark = {
             alpha = "1";
@@ -3464,7 +3464,7 @@ The flake installs spotify automatically based on the given spicetify configurat
         enable = true;
         package = pkgs.evil-helix;
         settings = {
-          theme =  "gruvbox_transparent";
+          theme =  "kanagawa";
         };
         themes."gruvbox_transparent" = {
           inherits = "gruvbox";
@@ -3535,30 +3535,30 @@ The flake installs spotify automatically based on the given spicetify configurat
             layer = "top";
             position = "top";
             height = 30;
-            spacing = 10;
+            spacing = 5;
             modules-left = ["niri/workspaces" "mpris" ];
             modules-center = [];
-            modules-right = ["tray" "cpu" "memory" "battery" "clock#date" "clock#time"];
+            modules-right = ["tray" "custom/seperator" "cpu" "custom/seperator" "memory" "custom/seperator" "battery" "custom/seperator" "clock#date" "custom/seperator" "clock#time"];
             "cpu" = {
               interval = 10;
-              format = "Cpu:{usage}%";
+              format = "󰻠 {usage}%";
             };
             "memory" = {
               interval = 30;
-              format = "Ram:{}%";
+              format = "󰍛 {}%";
             };
             "battery" = {
-              format = "Battery:{capacity}%";
+              format = "󰁹 {capacity}%";
             };
             "clock#date" = {
-              format = "Date:{:%d/%m(%a)}";
+              format = "󰃭 {:%d/%m(%a)}";
             };
             "clock#time" = {
-              format = "Time:{:%I:%M %p} ";
+              format = "󰅐 {:%I:%M %p} ";
               interval = 1;
             };
             "custom/seperator" = {
-              format = " | ";
+              format = "|";
               tooltip = false;
             };
             "mpris" = {
@@ -3579,7 +3579,7 @@ The flake installs spotify automatically based on the given spicetify configurat
         };
         style = "
           #waybar {
-              font-family: 'SF Pro', 'Iosevka Nerd Font Propo';
+              font-family: 'Iosevka Nerd Font Propo';
               font-size: 16px;
               font-weight: normal;
               background-color: rgba(31, 31, 40, 1);
@@ -3896,8 +3896,8 @@ The flake installs spotify automatically based on the given spicetify configurat
   (global-set-key (kbd "C-x c") #'org-capture)
 
   ;; Font 
-  (set-face-attribute 'default nil :family "Iosevka Nerd Font Mono" :height 140)
-  (set-frame-font "Iosevka Nerd Font Mono 14" nil t)
+  (set-face-attribute 'default nil :family "Iosevka Nerd Font Mono" :height 120)
+  (set-frame-font "Iosevka Nerd Font Mono 12" nil t)
 
   ;; qol customizations
   (global-display-line-numbers-mode 1)
@@ -3915,8 +3915,8 @@ The flake installs spotify automatically based on the given spicetify configurat
   (add-hook 'org-mode-hook 'variable-pitch-mode)
   (custom-theme-set-faces
    'user
-   '(variable-pitch ((t (:family "SF Pro" :height 140))))
-   '(fixed-pitch ((t (:family "Iosevka Nerd Font Mono" :height 140))))
+   '(variable-pitch ((t (:family "SF Pro" :height 120))))
+   '(fixed-pitch ((t (:family "Iosevka Nerd Font Mono" :height 120))))
    '(org-table ((t (:inherit fixed-pitch))))
    '(org-code ((t (:inherit fixed-pitch))))
    '(org-block ((t (:inherit fixed-pitch)))))
