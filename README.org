@@ -182,8 +182,6 @@ The default hosts structure goes as follows
         self.nixosModules.tmux
         self.nixosModules.foot
         self.nixosModules.bash
-        self.nixosModules.fish
-        self.nixosModules.bash
         self.nixosModules.localCA
         self.nixosModules.customFonts
         self.nixosModules.virt-manager
@@ -312,7 +310,6 @@ The default hosts structure goes as follows
         self.nixosModules.miniflux
         self.nixosModules.redlib
         self.nixosModules.docker
-        self.nixosModules.fish
         self.nixosModules.bash
         self.nixosModules.yazi
         self.nixosModules.stirlingpdf
@@ -770,48 +767,6 @@ The default hosts structure goes as follows
     };
   }
 #+end_src
-*** Fish
-#+begin_src nix :tangle modules/features/apps/fish.nix 
-  {
-    self,
-    inputs,
-    ...
-  }: {
-    flake.nixosModules.fish = {
-      pkgs,
-      ...
-    }: {
-      programs.fish = {
-        enable = true;
-        package = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
-      };
-    };
-    perSystem = {
-      pkgs,
-      config,
-      lib,
-      ...
-    }: let 
-      nixosDir = "/home/$USER/nixos/";
-    in { 
-      packages.myFish = inputs.wrapper-modules.wrappers.fish.wrap {
-        inherit pkgs;
-        shellAliases = {
-          nrs = "sudo nixos-rebuild switch --flake ${nixosDir}#$hostname";
-          hms = "home-manager switch --flake ${nixosDir}#$USER-$hostname";
-          y = "yazi";
-          l = "${lib.getExe pkgs.lsd} -l";
-          la = "${lib.getExe pkgs.lsd} -a";
-          lla = "${lib.getExe pkgs.lsd} -la";
-          lt = "${lib.getExe pkgs.lsd} --tree";
-        };
-        plugins = with pkgs.fishPlugins; [
-          pure
-        ];
-      };
-    };
-  }
-#+end_src
 *** Foot
 #+begin_src nix :tangle modules/features/apps/foot.nix 
   {
@@ -839,7 +794,6 @@ The default hosts structure goes as follows
         settings = {
           main = {
             font = "Iosevka Nerd Font Mono:size=14";
-            shell = "${self.packages.${pkgs.stdenv.hostPlatform.system}.myFish}/bin/fish";
           };
           colors-dark = {
             alpha = "1";
@@ -1063,9 +1017,7 @@ The default hosts structure goes as follows
     perSystem = {
       pkgs,
       ...
-    }: let
-      myFish = self.packages.${pkgs.stdenv.hostPlatform.system}.myFish;
-    in {
+    }: {
       packages.myTmux = inputs.wrapper-modules.wrappers.tmux.wrap {
         inherit pkgs;
         configAfter = ''
@@ -1073,8 +1025,6 @@ The default hosts structure goes as follows
           set -ga terminal-overrides ",*:RGB"
           set -g mouse on
           set -g set-clipboard on
-          set -g default-shell ${myFish}/bin/fish
-          set -g default-command ${myFish}/bin/fish
 
           unbind C-b 
           set -g prefix C-a 

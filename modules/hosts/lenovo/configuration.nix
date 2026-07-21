@@ -21,8 +21,6 @@
       self.nixosModules.tmux
       self.nixosModules.foot
       self.nixosModules.bash
-      self.nixosModules.fish
-      self.nixosModules.bash
       self.nixosModules.localCA
       self.nixosModules.customFonts
       self.nixosModules.virt-manager

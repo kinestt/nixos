@@ -23,7 +23,6 @@
       settings = {
         main = {
           font = "Iosevka Nerd Font Mono:size=14";
-          shell = "${self.packages.${pkgs.stdenv.hostPlatform.system}.myFish}/bin/fish";
         };
         colors-dark = {
           alpha = "1";
