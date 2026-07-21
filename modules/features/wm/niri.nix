@@ -91,6 +91,7 @@
             matches = [
               {app-id = "firefox";}
               {app-id = "helium";}
+              {app-id = "brave-origin";}
               {app-id = "spotify";}
               {app-id = "Spotify";}
               {app-id = "equibop";}
@@ -129,7 +130,7 @@
         binds = {
           "Alt+Return".spawn-sh = "foot";
           "Alt+D".spawn-sh = "fuzzel";
-          "Alt+B".spawn-sh = "helium";
+          "Alt+B".spawn-sh = "brave-origin";
           "Alt+P".spawn-sh = "spotify";
           "Alt+U".spawn-sh = "emacsclient -c";
 

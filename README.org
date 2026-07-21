@@ -46,7 +46,7 @@ I also use flakes as a way to import my non-flake files and use it to import fil
       redlib-fork.url = "github:taglia/redlib?ref=dockerhub-redlib-0.36.0";
       spicetify-nix.url = "github:Gerg-L/spicetify-nix";
       copyparty.url = "github:9001/copyparty";
-
+  
       secrets = {
         url = "git+ssh://git@codeberg.org/kinest/secrets?ref=main&shallow=1";
         flake = false;
@@ -597,6 +597,7 @@ The default hosts structure goes as follows
               matches = [
                 {app-id = "firefox";}
                 {app-id = "helium";}
+                {app-id = "brave-origin";}
                 {app-id = "spotify";}
                 {app-id = "Spotify";}
                 {app-id = "equibop";}
@@ -635,7 +636,7 @@ The default hosts structure goes as follows
           binds = {
             "Alt+Return".spawn-sh = "foot";
             "Alt+D".spawn-sh = "fuzzel";
-            "Alt+B".spawn-sh = "helium";
+            "Alt+B".spawn-sh = "brave-origin";
             "Alt+P".spawn-sh = "spotify";
             "Alt+U".spawn-sh = "emacsclient -c";
 
@@ -3039,6 +3040,8 @@ The main peers would be:
 
           inputs.sidra.packages.${pkgs.system}.default
           inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
+
+          nur.repos.tnmt.brave-origin
         ];
         sessionVariables = {
           GTK_DEBUG = "portals";
