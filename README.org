@@ -86,6 +86,10 @@ I also use flakes as a way to import my non-flake files and use it to import fil
         url = "github:nix-community/NUR";
         inputs.nixpkgs.follows = "nixpkgs";
       };
+      sidra = {
+        url = "github:wimpysworld/sidra";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
       zen-browser = {
         url = "github:0xc000022070/zen-browser-flake";
         inputs = {
@@ -3082,6 +3086,7 @@ The main peers would be:
             withEquicord = true;
           })
 
+          inputs.sidra.packages.${pkgs.system}.default
           inputs.prismlauncher.packages.${pkgs.system}.prismlauncher
         ];
         sessionVariables = {
