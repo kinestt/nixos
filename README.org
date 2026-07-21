@@ -37,6 +37,7 @@ I also use flakes as a way to import my non-flake files and use it to import fil
   {
     inputs = {
       nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+      nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
       flake-parts.url = "github:hercules-ci/flake-parts";
       import-tree.url = "github:vic/import-tree";
       wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
@@ -148,7 +149,7 @@ The default hosts structure goes as follows
     inputs,
     ...
   }: {
-    flake.nixosConfigurations.server = inputs.nixpkgs.lib.nixosSystem {
+    flake.nixosConfigurations.server = inputs.nixpkgs-stable.lib.nixosSystem {
       modules = [
         self.nixosModules.serverConfiguration
       ];
